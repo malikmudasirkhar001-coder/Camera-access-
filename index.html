@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Collection Portal</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+  body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    color: #fff;
+    padding: 30px 20px;
+  }
+  .container { max-width: 950px; margin: auto; }
+
+  header { text-align:center; margin-bottom: 30px; }
+  header h1 { font-size: 2rem; margin-bottom: 8px; }
+  header p { opacity: 0.75; }
+
+  .card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  }
+  .card h2 { margin-bottom: 18px; font-size: 1.3rem; color:#00d4ff; }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.2s;
+    font-family: inherit;
+  }
+  textarea { min-height:80px; resize:vertical; }
+  input:focus, select:focus, textarea:focus { border-color: #00d4ff; background: rgba(255,255,255,0.12); }
+  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.5); }
+  select option { background:#203a43; }
+
+  button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #00d4ff, #00ffb3);
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.25s;
+  }
+  button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,212,255,0.4); }
+  button.danger { background: #ff4d4d; color:#fff; width:auto; padding:8px 14px; font-size:0.85rem; }
+  button.small { width:auto; padding:8px 16px; font-size:0.9rem; }
+  button.success { background: linear-gradient(90deg,#00ffb3,#00d4ff); }
+
+  .hidden { display: none !important; }
+
+  .link-box { display: flex; gap: 10px; margin-top: 12px; }
+  .link-box input { margin-bottom: 0; font-size: 0.85rem; }
+
+  .user-row {
+    background: rgba(255,255,255,0.06);
+    border-left: 4px solid #00d4ff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .user-info { line-height: 1.6; font-size: 0.95rem; flex:1; min-width:250px; }
+  .user-info b { color:#00ffb3; }
+
+  .stats { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px; }
+  .stat-box {
+    flex: 1; min-width: 130px;
+    background: rgba(0,212,255,0.12);
+    border: 1px solid rgba(0,212,255,0.3);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+  }
+  .stat-box h3 { font-size: 1.8rem; color: #00d4ff; }
+  .stat-box p { font-size: 0.8rem; opacity: 0.8; }
+
+  .toast {
+    position: fixed; top: 20px; right: 20px;
+    background: #00ffb3; color: #000;
+    padding: 14px 22px; border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 6px 25px rgba(0,255,179,0.5);
+    opacity: 0; transform: translateX(120%);
+    transition: 0.4s; z-index: 999;
+  }
+  .toast.show { opacity: 1; transform: translateX(0); }
+  .toast.error { background:#ff4d4d; color:#fff; box-shadow:0 6px 25px rgba(255,77,77,0.5); }
+  .toast.info { background:#00d4ff; color:#000; }
+
+  .backup-info {
+    background: rgba(0,255,179,0.1);
+    border: 1px solid rgba(0,255,179,0.3);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .backup-info b { color:#00ffb3; }
+
+  .btn-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+  }
+  .btn-group button { flex: 1; min-width: 140px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🔐 Data Collection Portal</h1>
+    <p>Permanent Storage System</p>
+  </header>
+
+  <!-- ========== VIEW 1: USER FORM ========== -->
+  <div id="userFormView" class="hidden">
+    <div class="card">
+      <h2>📝 Please Fill Your Details</h2>
+      <form id="userForm">
+        <input type="text" id="uName" placeholder="Full Name *" required>
+        <input type="email" id="uEmail" placeholder="Email Address *" required>
+        <input type="tel" id="uPhone" placeholder="Phone Number *" required>
+        <input type="text" id="uCity" placeholder="City">
+        <select id="uGender">
+          <option value="">Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+        <input type="text" id="uAddress" placeholder="Full Address">
+        <textarea id="uNotes" placeholder="Additional Notes"></textarea>
+        <button type="submit">Submit Information ✅</button>
+      </form>
+      <div id="thankYou" class="hidden" style="text-align:center; padding:30px 0;">
+        <h2 style="color:#00ffb3; font-size:2rem;">✅ Thank You!</h2>
+        <p style="margin-top:10px; opacity:0.8;">Your information has been saved permanently.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== VIEW 2: ADMIN LOGIN ========== -->
+  <div id="adminLoginView" class="hidden">
+    <div class="card" style="max-width:450px; margin:auto;">
+      <h2>🔑 Admin Login</h2>
+      <input type="password" id="adminPass" placeholder="Enter Admin Password">
+      <button onclick="adminLogin()">Login to Admin Panel</button>
+      <p style="font-size:0.8rem; opacity:0.6; margin-top:12px; text-align:center;">Default: <b>admin123</b></p>
+    </div>
+  </div>
+
+  <!-- ========== VIEW 3: ADMIN PANEL ========== -->
+  <div id="adminPanelView" class="hidden">
+    <div class="card">
+      <h2>📊 Admin Panel</h2>
+      <div class="stats">
+        <div class="stat-box"><h3 id="totalCount">0</h3><p>Total Submissions</p></div>
+        <div class="stat-box"><h3 id="todayCount">0</h3><p>Today</p></div>
+        <div class="stat-box"><h3 id="storageSize">0 KB</h3><p>Storage Used</p></div>
+      </div>
+
+      <div class="link-box">
+        <input type="text" id="shareLink" readonly>
+        <button class="small" onclick="copyLink()">Copy Link</button>
+      </div>
+      <p style="font-size:0.8rem; opacity:0.6; margin-top:8px;">☝️ Ye link users ko bhejo — jo form bharega wo yahan save hoga.</p>
+
+      <div class="backup-info">
+        💾 <b>Backup Status:</b> Aapka data browser me <b>permanently saved</b> hai.<br>
+        🛡️ Extra safety ke liye neeche se <b>Backup Download</b> karo (recommended weekly).
+      </div>
+
+      <div class="btn-group">
+        <button class="success" onclick="downloadBackup()">⬇️ Download Backup (JSON)</button>
+        <button class="success" onclick="document.getElementById('importFile').click()">⬆️ Restore Backup</button>
+        <button class="danger" onclick="exportCSV()">📄 Export CSV</button>
+      </div>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(event)">
+    </div>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
+        <h2 style="margin:0;">👥 All Submissions</h2>
+        <div>
+          <button class="small danger" onclick="clearAll()">🗑️ Clear All</button>
+          <button class="small" style="background:#555;color:#fff;" onclick="adminLogout()">Logout</button>
+        </div>
+      </div>
+      <input type="text" id="searchBox" placeholder="🔍 Search by name, email, phone..." oninput="renderUsers()">
+      <div id="userList" style="margin-top:15px;"></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* ============================================================
+   CONFIG
+============================================================ */
+const ADMIN_PASSWORD = "admin123";
+const STORAGE_KEY = "user_submissions_v1";
+const BACKUP_KEY = "last_backup_date";
+
+/* ============================================================
+   STORAGE HELPERS - Permanent Storage
+============================================================ */
+function getUsers() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  } catch (e) {
+    console.error("Storage read error:", e);
+    return [];
+  }
+}
+
+function saveUsers(users) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+    // Har save pe current time bhi note karo
+    localStorage.setItem("last_save", new Date().toISOString());
+    return true;
+  } catch (e) {
+    if (e.name === "QuotaExceededError") {
+      showToast("Storage full! Please backup & clear old data.", true);
+    } else {
+      showToast("Save error: " + e.message, true);
+    }
+    return false;
+  }
+}
+
+/* ============================================================
+   TOAST
+============================================================ */
+function showToast(msg, isError = false) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast show" + (isError ? " error" : "");
+  setTimeout(() => t.className = "toast", 3000);
+}
+
+/* ============================================================
+   ROUTER
+============================================================ */
+function route() {
+  const params = new URLSearchParams(location.search);
+  const hash = location.hash;
+
+  document.getElementById("userFormView").classList.add("hidden");
+  document.getElementById("adminLoginView").classList.add("hidden");
+  document.getElementById("adminPanelView").classList.add("hidden");
+
+  if (params.get("user") === "1") {
+    document.getElementById("userFormView").classList.remove("hidden");
+  } else if (hash === "#admin") {
+    if (sessionStorage.getItem("adminLogged") === "1") {
+      document.getElementById("adminPanelView").classList.remove("hidden");
+      renderUsers();
+      updateShareLink();
+      checkAutoBackupReminder();
+    } else {
+      document.getElementById("adminLoginView").classList.remove("hidden");
+    }
+  } else {
+    document.body.innerHTML = `
+      <div class="container" style="text-align:center; padding-top:80px;">
+        <h1 style="font-size:2.5rem; margin-bottom:20px;">🔐 Data Collection Portal</h1>
+        <p style="opacity:0.8; margin-bottom:40px;">Choose your access type</p>
+        <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+          <button style="width:auto; padding:18px 40px;" onclick="location.href='?user=1'">👤 User Form</button>
+          <button style="width:auto; padding:18px 40px; background:linear-gradient(90deg,#ff6b6b,#ee5a6f); color:#fff;" onclick="location.hash='#admin'">🔑 Admin Panel</button>
+        </div>
+      </div>`;
+  }
+}
+window.addEventListener("hashchange", route);
+window.addEventListener("load", route);
+
+/* ============================================================
+   USER FORM SUBMIT
+============================================================ */
+document.addEventListener("submit", function(e) {
+  if (e.target.id === "userForm") {
+    e.preventDefault();
+
+    const user = {
+      id: Date.now(),
+      name: document.getElementById("uName").value.trim(),
+      email: document.getElementById("uEmail").value.trim(),
+      phone: document.getElementById("uPhone").value.trim(),
+      city: document.getElementById("uCity").value.trim(),
+      gender: document.getElementById("uGender").value,
+      address: document.getElementById("uAddress").value.trim(),
+      notes: document.getElementById("uNotes").value.trim(),
+      time: new Date().toLocaleString(),
+      iso: new Date().toISOString()
+    };
+
+    const users = getUsers();
+    users.unshift(user);
+
+    if (saveUsers(users)) {
+      e.target.classList.add("hidden");
+      document.getElementById("thankYou").classList.remove("hidden");
+      showToast("Data saved permanently! ✅");
+    }
+  }
+});
+
+/* ============================================================
+   ADMIN LOGIN / LOGOUT
+============================================================ */
+function adminLogin() {
+  const pass = document.getElementById("adminPass").value;
+  if (pass === ADMIN_PASSWORD) {
+    sessionStorage.setItem("adminLogged", "1");
+    document.getElementById("adminLoginView").classList.add("hidden");
+    document.getElementById("adminPanelView").classList.remove("hidden");
+    renderUsers();
+    updateShareLink();
+    checkAutoBackupReminder();
+    showToast("Welcome Admin! 👋");
+  } else {
+    showToast("Wrong password! ❌", true);
+  }
+}
+function adminLogout() {
+  sessionStorage.removeItem("adminLogged");
+  location.hash = "";
+  location.reload();
+}
+
+/* ============================================================
+   SHARE LINK
+============================================================ */
+function updateShareLink() {
+  const base = location.origin + location.pathname;
+  document.getElementById("shareLink").value = base + "?user=1";
+}
+function copyLink() {
+  const inp = document.getElementById("shareLink");
+  inp.select();
+  document.execCommand("copy");
+  showToast("Link copied! Share it 📋");
+}
+
+/* ============================================================
+   RENDER USERS
+============================================================ */
+function renderUsers() {
+  const users = getUsers();
+  const query = (document.getElementById("searchBox")?.value || "").toLowerCase();
+
+  const filtered = users.filter(u =>
+    (u.name||"").toLowerCase().includes(query) ||
+    (u.email||"").toLowerCase().includes(query) ||
+    (u.phone||"").toLowerCase().includes(query) ||
+    (u.city||"").toLowerCase().includes(query)
+  );
+
+  document.getElementById("totalCount").textContent = users.length;
+  const today = new Date().toLocaleDateString();
+  document.getElementById("todayCount").textContent =
+    users.filter(u => new Date(u.id).toLocaleDateString() === today).length;
+
+  // Storage size calculate
+  const sizeKB = ((localStorage.getItem(STORAGE_KEY) || "").length / 1024).toFixed(2);
+  document.getElementById("storageSize").textContent = sizeKB + " KB";
+
+  const list = document.getElementById("userList");
+  if (filtered.length === 0) {
+    list.innerHTML = `<p style="text-align:center; opacity:0.5; padding:30px;">No submissions yet.</p>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(u => `
+    <div class="user-row">
+      <div class="user-info">
+        <div><b>${escapeHtml(u.name)}</b> &nbsp;•&nbsp; ${escapeHtml(u.email)}</div>
+        <div>📞 ${escapeHtml(u.phone)} &nbsp;|&nbsp; 📍 ${escapeHtml(u.city || "-")} &nbsp;|&nbsp; ⚧ ${escapeHtml(u.gender || "-")}</div>
+        ${u.address ? `<div>🏠 ${escapeHtml(u.address)}</div>` : ""}
+        ${u.notes ? `<div>📝 ${escapeHtml(u.notes)}</div>` : ""}
+        <div style="opacity:0.55; font-size:0.8rem; margin-top:5px;">🕒 ${u.time}</div>
+      </div>
+      <button class="danger" onclick="deleteUser(${u.id})">Delete</button>
+    </div>
+  `).join("");
+}
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str).replace(/[&<>"']/g, m => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[m]));
+}
+
+/* ============================================================
+   DELETE / CLEAR
+============================================================ */
+function deleteUser(id) {
+  if (!confirm("Delete this user? (Ye permanently delete ho jayega)")) return;
+  saveUsers(getUsers().filter(u => u.id !== id));
+  renderUsers();
+  showToast("User deleted 🗑️");
+}
+
+function clearAll() {
+  const users = getUsers();
+  if (users.length === 0) { showToast("No data to clear"); return; }
+  
+  // Safety: pehle backup le lo
+  if (confirm(`⚠️ ${users.length} submissions delete honge!\n\nPehle backup download karna chahte ho?`)) {
+    downloadBackup();
+    setTimeout(() => {
+      if (confirm("Backup download ho gaya?\n\nAb confirm karo delete karne ke liye:")) {
+        localStorage.removeItem(STORAGE_KEY);
+        renderUsers();
+        showToast("All data cleared 🗑️");
+      }
+    }, 800);
+  } else {
+    if (confirm("Pakka delete karna hai? Ye undo nahi hoga!")) {
+      localStorage.removeItem(STORAGE_KEY);
+      renderUsers();
+      showToast("All data cleared 🗑️");
+    }
+  }
+}
+
+/* ============================================================
+   BACKUP SYSTEM
+============================================================ */
+function downloadBackup() {
+  const users = getUsers();
+  if (users.length === 0) { showToast("No data to backup", true); return; }
+
+  const backup = {
+    exported: new Date().toISOString(),
+    total: users.length,
+    version: "1.0",
+    users: users
+  };
+
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  const date = new Date().toISOString().slice(0,10);
+  a.download = `backup_${date}_${users.length}users.json`;
+  a.click();
+
+  localStorage.setItem(BACKUP_KEY, new Date().toISOString());
+  showToast(`Backup downloaded: ${users.length} users ✅`);
+}
+
+function importBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      const users = data.users || data;  // support both formats
+      
+      if (!Array.isArray(users)) throw new Error("Invalid backup file");
+
+      const currentUsers = getUsers();
+      const mergeMode = currentUsers.length > 0 
+        ? confirm(`Current: ${currentUsers.length} users\nBackup: ${users.length} users\n\nOK = MERGE (add karo)\nCancel = REPLACE (purana hatao)`)
+        : false;
+
+      let finalUsers;
+      if (mergeMode) {
+        // Merge: duplicate IDs skip karo
+        const existingIds = new Set(currentUsers.map(u => u.id));
+        const newUsers = users.filter(u => !existingIds.has(u.id));
+        finalUsers = [...currentUsers, ...newUsers];
+      } else {
+        finalUsers = users;
+      }
+
+      saveUsers(finalUsers);
+      renderUsers();
+      showToast(`Restored! Total: ${finalUsers.length} users ✅`);
+    } catch (err) {
+      showToast("Invalid backup file! ❌", true);
+      console.error(err);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = ""; // reset
+}
+
+function checkAutoBackupReminder() {
+  const lastBackup = localStorage.getItem(BACKUP_KEY);
+  const users = getUsers();
+  
+  if (users.length === 0) return;
+
+  if (!lastBackup) {
+    setTimeout(() => showToast("💡 Tip: Backup download karo safety ke liye!", false), 2000);
+    return;
+  }
+
+  const daysSince = (Date.now() - new Date(lastBackup).getTime()) / (1000*60*60*24);
+  if (daysSince >= 7) {
+    setTimeout(() => showToast(`⚠️ ${Math.floor(daysSince)} din se backup nahi liya!`, true), 2000);
+  }
+}
+
+/* ============================================================
+   CSV EXPORT
+============================================================ */
+function exportCSV() {
+  const users = getUsers();
+  if (users.length === 0) { showToast("No data to export", true); return; }
+
+  const headers = ["Name","Email","Phone","City","Gender","Address","Notes","Time"];
+  const rows = users.map(u => [u.name, u.email, u.phone, u.city, u.gender, u.address, u.notes, u.time]
+    .map(v => `"${String(v||"").replace(/"/g,'""')}"`).join(","));
+
+  const csv = headers.join(",") + "\n" + rows.join("\n");
+  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "submissions_" + new Date().toISOString().slice(0,10) + ".csv";
+  a.click();
+  showToast("CSV downloaded 📥");
+}
+
+/* ============================================================
+   AUTO-BACKUP ON PAGE CLOSE (browser band karne se pehle)
+============================================================ */
+window.addEventListener("beforeunload", function() {
+  // Sirf save karo, download nahi (browser allow nahi karta)
+  const users = getUsers();
+  if (users.length > 0) {
+    localStorage.setItem("last_session_end", new Date().toISOString());
+  }
+});
+</script>
+</body>
+</html>
