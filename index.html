@@ -3,183 +3,356 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Modsir Tools</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<title>Modsir Abbas - Portfolio & Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{--bg-0:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--gold:#fbbf24;--danger:#ef4444;--text:#fff;--text-dim:rgba(255,255,255,0.6);--glass:rgba(255,255,255,0.04);--glass-2:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.08);--border-2:rgba(255,255,255,0.15);}
+  :root{--bg:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--gold:#fbbf24;--danger:#ef4444;--text:#fff;--text-dim:rgba(255,255,255,0.6);--glass:rgba(255,255,255,0.04);--glass-2:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.08);--border-2:rgba(255,255,255,0.15);}
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  html,body{height:100%;overflow-x:hidden;}
-  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg-0);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;}
-  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.4) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.35) 0%,transparent 50%);z-index:-2;animation:bgFloat 25s ease-in-out infinite;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.35) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.3) 0%,transparent 50%);z-index:-2;animation:bgFloat 25s ease-in-out infinite;}
   @keyframes bgFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-  .container{max-width:960px;margin:0 auto;padding:20px 18px 40px;}
+  body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:40px 40px;z-index:-1;mask-image:radial-gradient(ellipse at center,#000 40%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at center,#000 40%,transparent 80%);}
   .hidden{display:none !important;}
-  .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;}
-  .brand{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;}
-  .brand-logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.15rem;box-shadow:0 8px 24px rgba(34,211,238,0.35);}
+  .container{max-width:1100px;margin:0 auto;padding:20px 18px 40px;}
+
+  /* ===== NAVBAR ===== */
+  .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;}
+  .brand-logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 8px 24px rgba(34,211,238,0.35);font-weight:800;color:#000;}
   .brand-text{display:flex;flex-direction:column;line-height:1.1;}
-  .brand-text small{font-size:0.6rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);opacity:0.9;}
-  .nav-user{display:flex;align-items:center;gap:10px;font-size:0.85rem;}
-  .nav-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;object-fit:cover;}
-  .plan-badge{padding:4px 10px;border-radius:20px;font-size:0.65rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
-  .plan-badge.trial{background:rgba(148,163,184,0.15);color:#cbd5e1;border:1px solid rgba(148,163,184,0.3);}
-  .plan-badge.pro{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
-  .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:24px;margin-bottom:18px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
-  .card h2{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-  button{padding:13px 22px;border-radius:12px;font-weight:600;font-size:0.92rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
+  .brand-text small{font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);opacity:0.9;}
+  .nav-menu{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .nav-link{padding:9px 16px;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--text-dim);font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.25s;font-family:inherit;text-decoration:none;}
+  .nav-link:hover{background:var(--glass);border-color:var(--border);color:#fff;}
+  .nav-link.cta{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;border:none;box-shadow:0 4px 16px rgba(34,211,238,0.35);}
+  .nav-link.cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,211,238,0.5);}
+
+  /* ===== HERO ===== */
+  .hero{padding:60px 20px 40px;text-align:center;position:relative;}
+  .hero-avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:4rem;font-weight:800;color:#000;font-family:'Space Grotesk',sans-serif;margin:0 auto 24px;box-shadow:0 24px 70px rgba(34,211,238,0.5),inset 0 2px 0 rgba(255,255,255,0.3);position:relative;animation:avatarFloat 4s ease-in-out infinite;}
+  @keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+  .hero-avatar::after{content:'';position:absolute;inset:-12px;border-radius:50%;border:2px dashed rgba(34,211,238,0.4);animation:spin 20s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .hero-greeting{display:inline-block;padding:6px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.82rem;color:var(--accent);font-weight:600;letter-spacing:0.05em;margin-bottom:16px;}
+  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:800;line-height:1.1;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#22d3ee 50%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.02em;}
+  @media (max-width:640px){.hero h1{font-size:2rem;}.hero-avatar{width:110px;height:110px;font-size:3rem;}}
+  .hero-subtitle{font-size:1.1rem;color:var(--text-dim);max-width:600px;margin:0 auto 30px;line-height:1.6;}
+  .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  button{padding:14px 26px;border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
   button:active:not(:disabled){transform:scale(0.97);}
-  button:disabled{opacity:0.4;cursor:not-allowed;}
   button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4);}
+  button.primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(34,211,238,0.55);}
   button.secondary{background:var(--glass-2);color:#fff;border:1px solid var(--border-2);}
-  button.danger{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.35);}
-  button.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;box-shadow:0 8px 24px rgba(37,211,102,0.4);font-weight:700;}
-  button.google-btn{background:#fff;color:#000;font-weight:600;border:1px solid rgba(0,0,0,0.1);}
-  button.google-btn:hover{background:#f5f5f5;}
-  button.small{padding:9px 14px;font-size:0.8rem;}
+  button.secondary:hover{background:rgba(255,255,255,0.12);}
+  button.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;box-shadow:0 8px 24px rgba(37,211,102,0.4);}
   button.block{width:100%;}
+
+  /* ===== SECTIONS ===== */
+  section{padding:50px 0;}
+  .section-title{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:800;margin-bottom:12px;text-align:center;letter-spacing:-0.02em;}
+  .section-subtitle{text-align:center;color:var(--text-dim);font-size:1rem;margin-bottom:36px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;}
+
+  /* ===== TOOLS CARDS ===== */
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:900px;margin:0 auto;}
+  .tool-card{background:var(--glass);border:1px solid var(--border);border-radius:22px;padding:28px 24px;text-align:center;cursor:pointer;transition:0.3s;font-family:inherit;color:#fff;}
+  .tool-card:hover{background:var(--glass-2);border-color:var(--accent);transform:translateY(-6px);box-shadow:0 20px 40px rgba(34,211,238,0.15);}
+  .tool-icon{width:70px;height:70px;margin:0 auto 18px;border-radius:20px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:2rem;}
+  .tool-card h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;margin-bottom:8px;font-weight:700;}
+  .tool-card p{font-size:0.85rem;color:var(--text-dim);line-height:1.5;}
+
+  /* ===== PORTFOLIO / ABOUT ===== */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  @media (max-width:768px){.about-grid{grid-template-columns:1fr;}}
+  .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+  .card h3{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:var(--accent);}
+
+  /* ===== TIMELINE ===== */
+  .timeline{position:relative;padding-left:30px;}
+  .timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent-2));}
+  .timeline-item{position:relative;padding-bottom:24px;}
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-item::before{content:'';position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 12px var(--accent);}
+  .timeline-item h4{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin-bottom:4px;font-weight:700;}
+  .timeline-item .year{font-size:0.75rem;color:var(--accent);font-weight:700;letter-spacing:0.05em;margin-bottom:4px;text-transform:uppercase;}
+  .timeline-item p{font-size:0.88rem;color:var(--text-dim);line-height:1.5;}
+
+  /* ===== SKILLS ===== */
+  .skills-list{display:flex;flex-wrap:wrap;gap:10px;}
+  .skill-tag{padding:8px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.85rem;font-weight:600;color:var(--accent);transition:0.25s;}
+  .skill-tag:hover{background:rgba(34,211,238,0.2);transform:translateY(-2px);}
+
+  /* ===== STATS ===== */
+  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-top:24px;}
+  .stat-box{background:linear-gradient(160deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.2);border-radius:16px;padding:20px 16px;text-align:center;}
+  .stat-box h4{font-family:'Space Grotesk',sans-serif;font-size:2rem;color:var(--accent);margin-bottom:4px;font-weight:800;}
+  .stat-box p{font-size:0.78rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;}
+
+  /* ===== CONTACT ===== */
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:700px;margin:0 auto;}
+  .contact-card{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px;text-align:center;text-decoration:none;color:#fff;transition:0.25s;display:block;}
+  .contact-card:hover{background:var(--glass-2);border-color:var(--accent);transform:translateY(-4px);}
+  .contact-card .cc-icon{font-size:2rem;margin-bottom:10px;}
+  .contact-card h4{font-family:'Space Grotesk',sans-serif;font-size:1rem;margin-bottom:4px;}
+  .contact-card p{font-size:0.8rem;color:var(--text-dim);}
+
+  /* ===== MODAL (Login) ===== */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;overflow-y:auto;}
+  .modal-overlay.active{display:flex;}
+  .modal-box{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.3);border-radius:24px;padding:32px 26px;max-width:440px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;}
+  @keyframes popIn{0%{transform:scale(0.85);opacity:0}100%{transform:scale(1);opacity:1}}
+  .modal-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;border:1px solid rgba(255,255,255,0.15);cursor:pointer;}
+  .modal-box h2{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;margin-bottom:6px;text-align:center;}
+  .modal-box p.subtitle{text-align:center;color:var(--text-dim);font-size:0.85rem;margin-bottom:24px;}
   input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--border-2);background:rgba(0,0,0,0.3);color:#fff;font-size:0.95rem;outline:none;margin-bottom:14px;font-family:inherit;transition:0.2s;}
   input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,211,238,0.15);}
   input::placeholder{color:rgba(255,255,255,0.4);}
   label{display:block;font-size:0.8rem;margin-bottom:6px;opacity:0.75;font-weight:600;}
-  .hero{text-align:center;padding:36px 20px 26px;}
-  .hero-icon{width:92px;height:92px;border-radius:26px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:2.8rem;margin:0 auto 22px;box-shadow:0 24px 60px rgba(34,211,238,0.4);animation:heroFloat 3.5s ease-in-out infinite;}
-  @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:2rem;margin-bottom:10px;background:linear-gradient(135deg,#fff 0%,#22d3ee 60%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .hero p{opacity:0.7;font-size:0.92rem;line-height:1.55;max-width:380px;margin:0 auto;}
-  .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
-  @media (max-width:640px){.pricing-grid{grid-template-columns:1fr;}}
-  .price-card{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:24px 20px;position:relative;overflow:hidden;}
-  .price-card.pro-card{background:linear-gradient(160deg,rgba(251,191,36,0.1),rgba(168,85,247,0.1));border:1.5px solid rgba(251,191,36,0.5);}
-  .price-card.pro-card::before{content:'POPULAR';position:absolute;top:14px;right:-32px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-size:0.6rem;font-weight:800;letter-spacing:0.1em;padding:4px 40px;transform:rotate(45deg);}
-  .price-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:14px;}
-  .price-icon.free{background:rgba(148,163,184,0.15);}
-  .price-icon.pro{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
-  .price-title{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:4px;}
-  .price-amount{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:4px;}
-  .price-amount span{font-size:0.85rem;opacity:0.6;font-weight:500;}
-  .price-desc{font-size:0.8rem;opacity:0.65;margin-bottom:16px;}
-  .price-features{list-style:none;margin-bottom:18px;}
-  .price-features li{font-size:0.82rem;padding:6px 0;display:flex;align-items:center;gap:8px;opacity:0.85;}
-  .price-features li::before{content:'✓';color:var(--accent-3);font-weight:700;}
-  .price-features li.off{opacity:0.35;}
-  .price-features li.off::before{content:'✕';color:var(--danger);}
-  .usage-bar{background:rgba(0,0,0,0.35);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid var(--border);}
-  .usage-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:0.82rem;}
-  .usage-header .count{font-weight:700;font-family:'Space Grotesk',sans-serif;}
-  .usage-header .count.warn{color:var(--gold);}
-  .usage-header .count.danger{color:var(--danger);}
-  .usage-track{height:8px;border-radius:10px;background:rgba(255,255,255,0.08);overflow:hidden;}
-  .usage-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--accent-3),var(--accent));transition:width 0.5s;}
-  .usage-fill.warn{background:linear-gradient(90deg,var(--gold),#f97316);}
-  .usage-fill.danger{background:linear-gradient(90deg,var(--danger),#dc2626);}
-  .feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
-  .feature-btn{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px 14px;cursor:pointer;transition:0.25s;text-align:center;color:#fff;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:inherit;position:relative;}
-  .feature-btn:hover:not(:disabled){background:var(--glass-2);border-color:var(--accent);transform:translateY(-5px);}
-  .feature-btn:disabled{opacity:0.5;cursor:not-allowed;}
-  .feature-btn .fb-icon{width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
-  .feature-btn .fb-title{font-weight:700;font-size:0.92rem;font-family:'Space Grotesk',sans-serif;}
-  .feature-btn .fb-desc{font-size:0.7rem;opacity:0.55;}
-  .feature-btn .fb-spinner{position:absolute;top:12px;right:12px;width:18px;height:18px;border:2px solid rgba(34,211,238,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
-  @keyframes spin{to{transform:rotate(360deg);}}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;}
-  .stat-box{background:linear-gradient(160deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.2);border-radius:16px;padding:16px 12px;text-align:center;}
-  .stat-box h3{font-family:'Space Grotesk',sans-serif;font-size:1.65rem;color:var(--accent);}
-  .stat-box p{font-size:0.68rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.06em;}
-  .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
-  .media-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:0.25s;}
-  .media-card:hover{border-color:var(--accent);transform:translateY(-4px);}
-  .media-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#000;cursor:pointer;}
-  .media-info{padding:10px 12px;font-size:0.72rem;line-height:1.5;}
-  .media-info .row{display:flex;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0.85;}
-  .media-info .time{opacity:0.5;font-size:0.66rem;margin-top:4px;}
-  .media-actions{padding:0 10px 10px;}
-  .media-actions button{width:100%;padding:8px;font-size:0.72rem;}
-  .profile-header{display:flex;align-items:center;gap:16px;padding:16px 0;margin-bottom:8px;}
-  .profile-avatar{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.5rem;color:#000;font-family:'Space Grotesk',sans-serif;overflow:hidden;}
-  .profile-avatar img{width:100%;height:100%;object-fit:cover;}
-  .profile-info h2{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:3px;}
-  .profile-info p{font-size:0.8rem;opacity:0.6;}
-  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.88rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);z-index:1000;pointer-events:none;line-height:1.4;}
-  .toast.show{opacity:1;transform:translateY(0);}
-  .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);box-shadow:0 16px 40px rgba(239,68,68,0.5);}
-  .toast.info{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,0.96);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;}
-  .modal.active{display:flex;}
-  .modal-content{max-width:100%;max-height:90vh;border-radius:16px;overflow:hidden;}
-  .modal-content img{max-width:100%;max-height:90vh;display:block;border-radius:16px;}
-  .modal-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.15);color:#fff;font-size:1.3rem;border:1px solid rgba(255,255,255,0.25);cursor:pointer;}
-  .spinner{width:44px;height:44px;border:4px solid rgba(34,211,238,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 16px;}
-  .tabs{display:flex;gap:6px;background:rgba(0,0,0,0.4);border-radius:14px;padding:6px;margin-bottom:20px;border:1px solid var(--border);}
-  .tab{flex:1;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.88rem;cursor:pointer;transition:0.25s;font-family:inherit;}
-  .tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
+  .modal-tabs{display:flex;gap:6px;background:rgba(0,0,0,0.4);border-radius:14px;padding:6px;margin-bottom:20px;border:1px solid var(--border);}
+  .modal-tab{flex:1;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.88rem;cursor:pointer;transition:0.25s;font-family:inherit;}
+  .modal-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
+  .google-btn{background:#fff;color:#000;font-weight:600;border:1px solid rgba(0,0,0,0.1);width:100%;padding:13px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:0.95rem;transition:0.2s;}
+  .google-btn:hover{background:#f5f5f5;}
   .divider{display:flex;align-items:center;gap:10px;margin:18px 0;}
   .divider .line{flex:1;height:1px;background:rgba(255,255,255,0.1);}
   .divider .text{font-size:0.72rem;opacity:0.5;font-weight:500;}
-  .info-box{background:linear-gradient(135deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.25);border-radius:14px;padding:16px;font-size:0.82rem;line-height:1.55;margin-bottom:14px;}
-  .info-box b{color:var(--accent);}
-  .how-to-use{background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(34,211,238,0.08));border:1px solid rgba(16,185,129,0.3);border-radius:16px;padding:18px;margin-bottom:18px;font-size:0.85rem;line-height:1.7;}
-  .how-to-use h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;margin-bottom:10px;color:var(--accent-3);display:flex;align-items:center;gap:8px;}
-  .how-to-use ol{padding-left:20px;}
-  .how-to-use li{margin-bottom:6px;opacity:0.85;}
-  .link-popup{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:600;padding:20px;}
-  .link-popup.active{display:flex;}
-  .link-popup-inner{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.4);border-radius:24px;padding:28px 22px;max-width:440px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;}
-  @keyframes popIn{0%{transform:scale(0.8);opacity:0}100%{transform:scale(1);opacity:1}}
-  .link-popup-icon{width:70px;height:70px;border-radius:20px;background:linear-gradient(135deg,var(--accent-3),var(--accent));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;box-shadow:0 16px 40px rgba(34,211,238,0.4);}
-  .link-popup h3{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;text-align:center;margin-bottom:6px;}
-  .link-popup p{text-align:center;font-size:0.82rem;opacity:0.7;margin-bottom:20px;line-height:1.5;}
-  .link-name-box{background:rgba(0,0,0,0.4);border:1px solid rgba(34,211,238,0.3);border-radius:14px;padding:14px 16px;margin-bottom:14px;}
-  .link-name-box .ln-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.6;font-weight:700;margin-bottom:4px;}
-  .link-name-box .ln-value{font-family:'Space Grotesk',monospace;font-size:1.05rem;color:var(--accent);font-weight:700;letter-spacing:0.05em;word-break:break-all;}
-  .link-timer{background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(251,191,36,0.05));border:1px solid rgba(251,191,36,0.35);border-radius:12px;padding:12px;margin-bottom:14px;text-align:center;}
-  .link-timer .lt-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.75;font-weight:700;color:var(--gold);}
-  .link-timer .lt-time{font-family:'Space Grotesk',monospace;font-size:1.3rem;color:var(--gold);font-weight:700;margin-top:2px;}
-  .link-url-box{background:rgba(0,0,0,0.5);border:1px solid rgba(34,211,238,0.25);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-family:'Space Grotesk',monospace;font-size:0.75rem;color:var(--accent);word-break:break-all;max-height:100px;overflow-y:auto;line-height:1.4;}
-  .link-popup-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;border:1px solid rgba(255,255,255,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;}
-  .link-popup-close:hover{background:rgba(239,68,68,0.3);}
-  @media (max-width:480px){.hero h1{font-size:1.55rem;}.card{padding:18px;border-radius:18px;}.feature-grid{grid-template-columns:repeat(2,1fr);gap:10px;}.media-grid{grid-template-columns:repeat(2,1fr);}.feature-btn{padding:18px 10px;}.feature-btn .fb-icon{width:46px;height:46px;font-size:1.35rem;}}
+
+  /* ===== TOAST ===== */
+  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.88rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);z-index:2000;pointer-events:none;}
+  .toast.show{opacity:1;transform:translateY(0);}
+  .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);}
+
+  /* ===== FOOTER ===== */
+  footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.85rem;margin-top:40px;}
+  footer a{color:var(--accent);text-decoration:none;}
+
+  /* ===== TOOLS DETAIL PAGE ===== */
+  .tools-detail{padding:30px 0;}
+  .back-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--glass);border:1px solid var(--border);border-radius:10px;color:#fff;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:24px;font-family:inherit;transition:0.25s;}
+  .back-btn:hover{background:var(--glass-2);}
+  .detail-title{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;margin-bottom:12px;font-weight:800;}
+  .detail-desc{color:var(--text-dim);font-size:0.95rem;line-height:1.6;margin-bottom:30px;max-width:700px;}
+  .detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+
+  /* ===== ANIMATIONS ===== */
+  .fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
 </style>
 </head>
 <body>
 
-<div class="toast" id="toast"></div>
-
+<!-- NAVBAR -->
 <div class="navbar">
   <div class="brand">
-    <div class="brand-logo">⚡</div>
-    <div class="brand-text"><span>Modsir Tools</span><small>Pro Portal</small></div>
-  </div>
-  <div class="nav-user" id="navUser"></div>
-</div>
-
-<div id="loadingView" class="container" style="text-align:center;padding-top:100px;">
-  <div class="spinner"></div>
-  <p style="opacity:0.6;font-size:0.9rem;">Loading...</p>
-</div>
-
-<div id="authView" class="container hidden">
-  <div class="hero">
-    <div class="hero-icon">⚡</div>
-    <h1>Modsir Tools</h1>
-    <p>Professional tools portal. Register karo, links banao, aur data securely collect karo.</p>
-  </div>
-  <div class="card">
-    <div class="tabs">
-      <button class="tab active" id="tabLogin" onclick="switchAuth('login')">Login</button>
-      <button class="tab" id="tabRegister" onclick="switchAuth('register')">Register</button>
+    <div class="brand-logo">M</div>
+    <div class="brand-text">
+      <span>Modsir Abbas</span>
+      <small>Developer & Tools</small>
     </div>
+  </div>
+  <div class="nav-menu">
+    <a href="#home" class="nav-link">Home</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#tools" class="nav-link">Tools</a>
+    <a href="#contact" class="nav-link">Contact</a>
+    <button class="nav-link cta" onclick="openLogin()">Login / Sign Up</button>
+  </div>
+</div>
+
+<!-- HOME VIEW -->
+<div id="homeView">
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-avatar">MA</div>
+    <div class="hero-greeting">👋 Welcome to my portfolio</div>
+    <h1>Modsir Abbas</h1>
+    <p class="hero-subtitle">Full-Stack Developer • Building modern web applications & professional data tools</p>
+    <div class="hero-actions">
+      <button class="primary" onclick="document.getElementById('tools').scrollIntoView()">🚀 Explore Tools</button>
+      <button class="secondary" onclick="document.getElementById('about').scrollIntoView()">📄 About Me</button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">My journey in tech — from Matric to becoming a full-stack developer</p>
+
+      <div class="about-grid">
+        <div class="card">
+          <h3>🎓 Education</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="year">Matric</div>
+              <h4>Science Stream</h4>
+              <p>Completed secondary education with focus on Science</p>
+            </div>
+            <div class="timeline-item">
+              <div class="year">FA IT</div>
+              <h4>Intermediate in IT</h4>
+              <p>Studied Information Technology fundamentals</p>
+            </div>
+            <div class="timeline-item">
+              <div class="year">BS IT</div>
+              <h4>Bachelor of Science in IT</h4>
+              <p>Specialized in programming, web development & databases</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>💼 Skills & Expertise</h3>
+          <p style="opacity:0.75;font-size:0.88rem;margin-bottom:16px;line-height:1.6;">
+            Building modern, secure & scalable web applications
+          </p>
+          <div class="skills-list">
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Firebase</span>
+            <span class="skill-tag">Firestore</span>
+            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">Responsive Design</span>
+            <span class="skill-tag">React Basics</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">Authentication</span>
+            <span class="skill-tag">Git & GitHub</span>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-box">
+              <h4>15+</h4>
+              <p>Projects</p>
+            </div>
+            <div class="stat-box">
+              <h4>2+</h4>
+              <p>Years</p>
+            </div>
+            <div class="stat-box">
+              <h4>100%</h4>
+              <p>Dedication</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <div class="container">
+      <h2 class="section-title">My Tools & Services</h2>
+      <p class="section-subtitle">Click on any tool to explore</p>
+
+      <div class="tools-grid">
+        <button class="tool-card" onclick="openToolDetail('webdev')">
+          <div class="tool-icon">💻</div>
+          <h3>Web Development</h3>
+          <p>Custom websites, landing pages & web apps</p>
+        </button>
+        <button class="tool-card" onclick="openToolDetail('camera')">
+          <div class="tool-icon">📷</div>
+          <h3>Camera Access</h3>
+          <p>Photo capture tools with live dashboard</p>
+        </button>
+        <button class="tool-card" onclick="openToolDetail('location')">
+          <div class="tool-icon">📍</div>
+          <h3>Location Tracking</h3>
+          <p>GPS capture & real-time tracking</p>
+        </button>
+        <button class="tool-card" onclick="openToolDetail('device')">
+          <div class="tool-icon">📱</div>
+          <h3>Device Info</h3>
+          <p>Comprehensive device information capture</p>
+        </button>
+        <button class="tool-card" onclick="openToolDetail('video')">
+          <div class="tool-icon">🎥</div>
+          <h3>Video Recording</h3>
+          <p>Browser-based video recording tools</p>
+        </button>
+        <button class="tool-card" onclick="openToolDetail('full')">
+          <div class="tool-icon">⚡</div>
+          <h3>Full Access Pro</h3>
+          <p>All features unlocked in one package</p>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="section-subtitle">Let's build something amazing together</p>
+
+      <div class="contact-grid">
+        <a href="https://wa.me/923084191378" target="_blank" class="contact-card">
+          <div class="cc-icon">💬</div>
+          <h4>WhatsApp</h4>
+          <p>0308 419 1378</p>
+        </a>
+        <a href="mailto:malikmudasirkhar001@gmail.com" class="contact-card">
+          <div class="cc-icon">✉️</div>
+          <h4>Email</h4>
+          <p>malikmudasirkhar001</p>
+        </a>
+        <a href="#home" class="contact-card">
+          <div class="cc-icon">🌐</div>
+          <h4>Portfolio</h4>
+          <p>camera-access-xi</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- TOOL DETAIL VIEW -->
+<div id="toolDetailView" class="hidden">
+  <div class="container tools-detail">
+    <button class="back-btn" onclick="closeToolDetail()">← Back to Home</button>
+    <h1 class="detail-title" id="detailTitle">Tool</h1>
+    <p class="detail-desc" id="detailDesc">Description</p>
+
+    <div class="card" style="text-align:center;padding:40px 20px;">
+      <div style="font-size:3rem;margin-bottom:16px;">🔐</div>
+      <h3 style="justify-content:center;margin-bottom:12px;">Login Required</h3>
+      <p style="opacity:0.7;font-size:0.9rem;margin-bottom:20px;line-height:1.6;">
+        Is tool ko use karne ke liye login karna zaroori hai.<br>
+        Free account me 3 links, Pro me unlimited.
+      </p>
+      <button class="primary" onclick="openLogin()">🔓 Login / Sign Up</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeLogin()">✕</button>
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Login karo ya naya account banao</p>
+
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tabLogin" onclick="switchAuth('login')">Login</button>
+      <button class="modal-tab" id="tabRegister" onclick="switchAuth('register')">Register</button>
+    </div>
+
     <div id="loginForm">
       <label>Email</label>
       <input type="email" id="loginEmail" placeholder="your@email.com">
       <label>Password</label>
       <input type="password" id="loginPass" placeholder="••••••••">
       <button class="primary block" onclick="doLogin()" id="loginBtn">🔓 Login</button>
+
       <div class="divider"><div class="line"></div><div class="text">OR</div><div class="line"></div></div>
-      <button class="google-btn block" onclick="doGoogleLogin()">
+      <button class="google-btn" onclick="doGoogleLogin()">
         <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.1-11.3-7.5l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.1 5.6l6.2 5.2c-.4.4 6.6-4.8 6.6-14.8 0-1.2-.1-2.4-.4-3.5z"/></svg>
         Continue with Google
       </button>
     </div>
+
     <div id="registerForm" class="hidden">
       <label>Full Name</label>
       <input type="text" id="regName" placeholder="Aapka naam">
@@ -187,145 +360,30 @@
       <input type="email" id="regEmail" placeholder="your@email.com">
       <label>Password (min 6 chars)</label>
       <input type="password" id="regPass" placeholder="••••••••">
-      <button class="primary block" onclick="doRegister()" id="regBtn">✨ Create Free Account</button>
+      <button class="primary block" onclick="doRegister()" id="regBtn">✨ Create Account</button>
+
       <div class="divider"><div class="line"></div><div class="text">OR</div><div class="line"></div></div>
-      <button class="google-btn block" onclick="doGoogleLogin()">
+      <button class="google-btn" onclick="doGoogleLogin()">
         <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.1-11.3-7.5l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.1 5.6l6.2 5.2c-.4.4 6.6-4.8 6.6-14.8 0-1.2-.1-2.4-.4-3.5z"/></svg>
         Sign up with Google
       </button>
-      <p style="font-size:0.72rem;opacity:0.55;margin-top:12px;text-align:center;line-height:1.5;">Free account me <b>3 links</b> bana sakte ho. Unlimited ke liye Pro me upgrade karo.</p>
     </div>
   </div>
 </div>
 
-<div id="dashboardView" class="container hidden">
-  <div class="profile-header">
-    <div class="profile-avatar" id="dashAvatar">U</div>
-    <div class="profile-info" style="flex:1;">
-      <h2 id="dashName">User</h2>
-      <p id="dashEmail">user@email.com</p>
-    </div>
-    <div id="planIndicator"></div>
-    <button class="secondary small" style="margin-left:12px;" onclick="doLogout()">Exit</button>
-  </div>
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <a href="#home">Modsir Abbas</a> — Full Stack Developer</p>
+  <p style="margin-top:6px;font-size:0.78rem;">Built with ❤️ using Firebase & Modern Web Tech</p>
+</footer>
 
-  <div class="how-to-use">
-    <h3>📖 Kaise Use Karein</h3>
-    <ol>
-      <li>Neeche se koi feature select karo (Camera, Location, etc.)</li>
-      <li>Link popup me khulega — 30 minute tak valid</li>
-      <li>Link copy karke client ko bhejo (WhatsApp/Email)</li>
-      <li>Client link kholega → permission dega → data aapke paas aayega</li>
-      <li>30 min baad link automatic expire ho jayega (safety ke liye)</li>
-      <li>Naya link banane ke liye phir button dabao</li>
-    </ol>
-  </div>
-
-  <div class="card">
-    <h2>📊 Your Plan</h2>
-    <div id="usageContent"></div>
-  </div>
-
-  <div class="card">
-    <h2>🎯 Create Link</h2>
-    <p style="opacity:0.65;font-size:0.82rem;margin-bottom:16px;line-height:1.5;">Feature select karo → link generate hoga → client ko bhejo.</p>
-    <div class="feature-grid" id="featureGrid">
-      <button class="feature-btn" onclick="generateLink('camera', this)"><div class="fb-icon">📷</div><div class="fb-title">Camera</div><div class="fb-desc">Photo capture</div></button>
-      <button class="feature-btn" onclick="generateLink('video', this)"><div class="fb-icon">🎥</div><div class="fb-title">Video</div><div class="fb-desc">Video recording</div></button>
-      <button class="feature-btn" onclick="generateLink('location', this)"><div class="fb-icon">📍</div><div class="fb-title">Location</div><div class="fb-desc">GPS tracking</div></button>
-      <button class="feature-btn" onclick="generateLink('device', this)"><div class="fb-icon">📱</div><div class="fb-title">Device Info</div><div class="fb-desc">Phone details</div></button>
-      <button class="feature-btn" onclick="generateLink('all', this)"><div class="fb-icon">⚡</div><div class="fb-title">Full Access</div><div class="fb-desc">Sab kuch</div></button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>📈 Stats</h2>
-    <div class="stats">
-      <div class="stat-box"><h3 id="sTotal">0</h3><p>Total</p></div>
-      <div class="stat-box"><h3 id="sToday">0</h3><p>Today</p></div>
-      <div class="stat-box"><h3 id="sPhoto">0</h3><p>Photos</p></div>
-      <div class="stat-box"><h3 id="sVideo">0</h3><p>Videos</p></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>🖼️ Captured Data <span style="font-size:0.7rem;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;padding:3px 10px;border-radius:20px;font-weight:700;margin-left:auto;" id="liveIndicator">🔴 LIVE</span></h2>
-    <input type="search" id="searchBox" placeholder="🔍 Search..." oninput="renderMedia()">
-    <div id="mediaGrid" class="media-grid"></div>
-  </div>
-</div>
-
-<div id="upgradeView" class="container hidden">
-  <div class="hero" style="padding:20px 0;">
-    <div class="hero-icon" style="background:linear-gradient(135deg,var(--gold),#f59e0b);">👑</div>
-    <h1>Upgrade to Pro</h1>
-    <p>Unlimited links. Unlimited data. Unlimited reach.</p>
-  </div>
-  <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-icon free">🆓</div>
-      <div class="price-title">Free Trial</div>
-      <div class="price-amount">0 <span>PKR</span></div>
-      <div class="price-desc">Try karo, 3 links banao</div>
-      <ul class="price-features">
-        <li>3 Links only</li><li>All features</li><li>Basic stats</li>
-        <li class="off">Unlimited links</li><li class="off">Priority support</li>
-      </ul>
-      <button class="secondary block" onclick="closeUpgrade()">Current Plan</button>
-    </div>
-    <div class="price-card pro-card">
-      <div class="price-icon pro">👑</div>
-      <div class="price-title">Pro</div>
-      <div class="price-amount">1500 <span>PKR/mo</span></div>
-      <div class="price-desc">Unlimited sab kuch</div>
-      <ul class="price-features">
-        <li>Unlimited links</li><li>All features unlocked</li><li>Advanced stats</li>
-        <li>Priority support</li><li>WhatsApp direct contact</li>
-      </ul>
-      <button class="whatsapp block" onclick="openWhatsApp()">💬 WhatsApp par Contact</button>
-    </div>
-  </div>
-  <div class="card" style="text-align:center;">
-    <button class="secondary small" onclick="closeUpgrade()">← Back to Dashboard</button>
-  </div>
-</div>
-
-<div class="link-popup" id="linkPopup">
-  <div class="link-popup-inner">
-    <button class="link-popup-close" onclick="closeLinkPopup()">✕</button>
-    <div class="link-popup-icon">✅</div>
-    <h3 id="popupTitle">Link Ready!</h3>
-    <p>Ye link client ko bhejo — 30 minute tak valid hai</p>
-
-    <div class="link-name-box">
-      <div class="ln-label">Link Name</div>
-      <div class="ln-value" id="popupLinkName">abc123xy</div>
-    </div>
-
-    <div class="link-timer">
-      <div class="lt-label">⏱️ Expires In</div>
-      <div class="lt-time" id="popupTimer">30:00</div>
-    </div>
-
-    <div class="link-url-box" id="popupUrl"></div>
-
-    <button class="primary block" onclick="copyPopupLink()" style="margin-bottom:10px;font-size:1rem;padding:15px;">📋 Copy Link</button>
-    <button class="secondary block" onclick="shareWhatsApp()" style="margin-bottom:10px;">💬 WhatsApp par Share</button>
-    <button class="secondary block" onclick="closeLinkPopup()">Band Karo</button>
-  </div>
-</div>
-
-<div class="modal" id="modal" onclick="closeModal(event)">
-  <button class="modal-close" onclick="closeModal()">✕</button>
-  <div class="modal-content" id="modalContent"></div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where, serverTimestamp, getDoc, setDoc, updateDoc, increment, onSnapshot, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-/* ========== FIREBASE CONFIG ========== */
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
   authDomain: "decision-b42a6.firebaseapp.com",
@@ -335,40 +393,27 @@ const firebaseConfig = {
   appId: "1:108149086619:web:63f17a58695f1d7a1e293e"
 };
 
-/* ========== SETTINGS ========== */
-const WHATSAPP_NUMBER = "923084191378";
-const PRO_PRICE = "1500";
-const FREE_TRIAL_LIMIT = 3;
-const CAPTURE_PAGE = "capture.html";
-const LINK_EXPIRY_MINUTES = 30;
+const ADMIN_EMAIL = "malikmudasirkhar001@gmail.com";
 
-/* ========== INIT ========== */
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-let currentUser = null;
-let userData = null;
-let liveUnsubscribe = null;
-let currentPopupLink = null;
-let popupTimerInterval = null;
-
-/* ========== HELPERS ========== */
-window.showToast = function(msg, isError = false, isInfo = false) {
+window.showToast = function(msg, isError = false) {
   const t = document.getElementById("toast");
   t.textContent = msg;
-  t.className = "toast show" + (isError ? " error" : isInfo ? " info" : "");
+  t.className = "toast show" + (isError ? " error" : "");
   clearTimeout(t._to);
   t._to = setTimeout(() => t.className = "toast", 3500);
 }
 
-const ALL_VIEWS = ["loadingView","authView","dashboardView","upgradeView"];
-window.showView = function(id) {
-  ALL_VIEWS.forEach(v => document.getElementById(v).classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+/* ===== LOGIN MODAL ===== */
+window.openLogin = function() {
+  document.getElementById("loginModal").classList.add("active");
 }
-
+window.closeLogin = function() {
+  document.getElementById("loginModal").classList.remove("active");
+}
 window.switchAuth = function(mode) {
   document.getElementById("tabLogin").classList.toggle("active", mode === "login");
   document.getElementById("tabRegister").classList.toggle("active", mode === "register");
@@ -376,19 +421,33 @@ window.switchAuth = function(mode) {
   document.getElementById("registerForm").classList.toggle("hidden", mode !== "register");
 }
 
-/* ========== RANDOM NAME ========== */
-function generateRandomName() {
-  const adjectives = ["swift","smart","bold","cool","rapid","sharp","prime","flash","neon","cyber","epic","nova","pulse","magic","bright"];
-  const nouns = ["tiger","hawk","wolf","lion","fox","panther","falcon","viper","dragon","phoenix","storm","blaze","spark","bolt","comet"];
-  const adj = adjectives[Math.floor(Math.random()*adjectives.length)];
-  const noun = nouns[Math.floor(Math.random()*nouns.length)];
-  const num = Math.floor(Math.random()*9000)+1000;
-  const rand1 = Math.random().toString(36).slice(2,5);
-  const rand2 = Math.random().toString(36).slice(2,5);
-  return `${adj}-${noun}-${num}-${rand1}${rand2}`;
+/* ===== TOOL DETAIL ===== */
+const toolData = {
+  webdev: { title: "💻 Web Development", desc: "Custom-built modern websites, landing pages and full-stack web applications. Built with the latest technologies including HTML5, CSS3, JavaScript, Firebase & more." },
+  camera: { title: "📷 Camera Access Tool", desc: "Professional photo capture tool with real-time dashboard. Perfect for consent-based data collection, event photobooths, and security audits." },
+  location: { title: "📍 Location Tracking", desc: "GPS-based location capture with high accuracy. Ideal for field surveys, delivery tracking, and consent-based location monitoring." },
+  device: { title: "📱 Device Info Tool", desc: "Comprehensive device information capture including screen resolution, browser, OS, hardware details, network info and more." },
+  video: { title: "🎥 Video Recording", desc: "Browser-based video recording tool with audio. Save recordings directly to your dashboard securely." },
+  full: { title: "⚡ Full Access Pro", desc: "Unlimited access to all tools. Camera, location, video, device info — everything unlocked. Perfect for professional use." }
+};
+
+window.openToolDetail = function(key) {
+  const tool = toolData[key];
+  if (!tool) return;
+  document.getElementById("detailTitle").textContent = tool.title;
+  document.getElementById("detailDesc").textContent = tool.desc;
+  document.getElementById("homeView").classList.add("hidden");
+  document.getElementById("toolDetailView").classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* ========== REGISTER ========== */
+window.closeToolDetail = function() {
+  document.getElementById("toolDetailView").classList.add("hidden");
+  document.getElementById("homeView").classList.remove("hidden");
+  document.getElementById("tools").scrollIntoView();
+}
+
+/* ===== REGISTER ===== */
 window.doRegister = async function() {
   const name = document.getElementById("regName").value.trim();
   const email = document.getElementById("regEmail").value.trim().toLowerCase();
@@ -406,33 +465,41 @@ window.doRegister = async function() {
     await setDoc(doc(db, "users", cred.user.uid), {
       name, email, plan: "trial", linksUsed: 0, provider: "email", createdAt: serverTimestamp()
     });
-    showToast("Account bana! Free trial started 🎉");
+    showToast("Account bana! Redirecting...");
+    setTimeout(() => location.href = "dashboard.html", 1200);
   } catch (e) {
     let msg = e.message;
     if (e.code === "auth/email-already-in-use") msg = "Ye email already registered hai";
     else if (e.code === "auth/invalid-email") msg = "Email valid nahi hai";
     else if (e.code === "auth/weak-password") msg = "Password weak hai";
-    else if (e.code === "auth/operation-not-allowed") msg = "⚠️ Firebase me Email/Password enable karo";
     showToast(msg, true);
   } finally {
     document.getElementById("regBtn").disabled = false;
-    document.getElementById("regBtn").textContent = "✨ Create Free Account";
+    document.getElementById("regBtn").textContent = "✨ Create Account";
   }
 }
 
-/* ========== LOGIN ========== */
+/* ===== LOGIN ===== */
 window.doLogin = async function() {
   const email = document.getElementById("loginEmail").value.trim().toLowerCase();
   const pass = document.getElementById("loginPass").value;
   if (!email || !pass) return showToast("Email & password daalo", true);
+
   document.getElementById("loginBtn").disabled = true;
   document.getElementById("loginBtn").textContent = "Logging in...";
+
   try {
-    await signInWithEmailAndPassword(auth, email, pass);
+    const cred = await signInWithEmailAndPassword(auth, email, pass);
     showToast("Welcome back! 👋");
+
+    // Admin check — redirect to admin panel
+    if (cred.user.email === ADMIN_EMAIL) {
+      setTimeout(() => location.href = "admin.html", 1200);
+    } else {
+      setTimeout(() => location.href = "dashboard.html", 1200);
+    }
   } catch (e) {
     let msg = "Galat email ya password";
-    if (e.code === "auth/operation-not-allowed") msg = "⚠️ Firebase me Email/Password enable karo";
     if (e.code === "auth/too-many-requests") msg = "Bohat zyada attempts. Thodi der baad try karo";
     showToast(msg, true);
   } finally {
@@ -441,7 +508,7 @@ window.doLogin = async function() {
   }
 }
 
-/* ========== GOOGLE ========== */
+/* ===== GOOGLE ===== */
 window.doGoogleLogin = async function() {
   const provider = new GoogleAuthProvider();
   provider.setCustomParameters({ prompt: 'select_account' });
@@ -455,338 +522,30 @@ window.doGoogleLogin = async function() {
         plan: "trial", linksUsed: 0, provider: "google",
         photoURL: user.photoURL || null, createdAt: serverTimestamp()
       });
-      showToast(`Welcome ${user.displayName || ""}! 🎉`);
+    }
+    showToast(`Welcome ${user.displayName || ""}! 🎉`);
+
+    if (user.email === ADMIN_EMAIL) {
+      setTimeout(() => location.href = "admin.html", 1200);
     } else {
-      showToast(`Welcome back ${user.displayName || ""}! 👋`);
+      setTimeout(() => location.href = "dashboard.html", 1200);
     }
   } catch (e) {
     if (e.code === "auth/popup-closed-by-user") return;
-    if (e.code === "auth/popup-blocked") { showToast("Browser ne popup block kiya. Allow karo.", true); return; }
-    if (e.code === "auth/unauthorized-domain") { showToast("⚠️ Firebase me is domain ko authorize karo", true); return; }
     showToast("Google login fail: " + e.message, true);
   }
 }
 
-window.doLogout = async function() {
-  if (liveUnsubscribe) liveUnsubscribe();
-  await signOut(auth);
-  showToast("Logged out");
-}
-
-/* ========== AUTH STATE ========== */
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    currentUser = user;
-    try {
-      const userSnap = await getDoc(doc(db, "users", user.uid));
-      if (userSnap.exists()) userData = userSnap.data();
-      else {
-        userData = { name: user.displayName || "User", email: user.email, plan: "trial", linksUsed: 0 };
-        await setDoc(doc(db, "users", user.uid), { ...userData, provider: user.providerData?.[0]?.providerId || "email", createdAt: serverTimestamp() });
-      }
-    } catch (e) {
-      userData = { name: user.displayName || "User", email: user.email, plan: "trial", linksUsed: 0 };
-    }
-    updateNavUser(user, userData);
-    showView("dashboardView");
-    await loadUserStats();
-    await renderMedia();
-    renderPlanCard();
-    updateFeatureButtons();
-    startLiveListener();
-  } else {
-    currentUser = null;
-    userData = null;
-    document.getElementById("navUser").innerHTML = "";
-    if (liveUnsubscribe) { liveUnsubscribe(); liveUnsubscribe = null; }
-    showView("authView");
-  }
+/* ===== FADE IN ANIMATIONS ===== */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("visible");
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll("section .card, .tool-card, .contact-card").forEach(el => {
+  el.classList.add("fade-in");
+  observer.observe(el);
 });
-
-function updateNavUser(user, data) {
-  const initials = (user.displayName || user.email)[0].toUpperCase();
-  const photoURL = user.photoURL;
-  document.getElementById("navUser").innerHTML = `
-    <span style="opacity:0.7;">${user.displayName?.split(" ")[0] || user.email.split("@")[0]}</span>
-    ${photoURL ? `<img src="${photoURL}" class="nav-avatar" style="object-fit:cover;">` : `<div class="nav-avatar">${initials}</div>`}
-  `;
-  document.getElementById("dashName").textContent = user.displayName || "User";
-  document.getElementById("dashEmail").textContent = user.email;
-  document.getElementById("dashAvatar").innerHTML = photoURL ? `<img src="${photoURL}">` : initials;
-  const plan = data?.plan || "trial";
-  const planClass = plan === "pro" ? "pro" : "trial";
-  const planLabel = plan === "pro" ? "👑 PRO" : "FREE TRIAL";
-  document.getElementById("planIndicator").innerHTML = `<span class="plan-badge ${planClass}">${planLabel}</span>`;
-}
-
-function renderPlanCard() {
-  const card = document.getElementById("usageContent");
-  if (!userData) return;
-  if (userData.plan === "pro") {
-    card.innerHTML = `
-      <div class="info-box" style="text-align:center;">
-        <div style="font-size:1.6rem;margin-bottom:8px;">👑</div>
-        <b style="font-size:1rem;">Pro Plan Active</b><br>
-        <span style="opacity:0.7;font-size:0.82rem;">Unlimited links aur features use kar rahe ho.</span>
-      </div>`;
-    return;
-  }
-  const used = userData.linksUsed || 0;
-  const left = Math.max(0, FREE_TRIAL_LIMIT - used);
-  const pct = Math.min(100, (used / FREE_TRIAL_LIMIT) * 100);
-  const level = pct >= 100 ? "danger" : pct >= 66 ? "warn" : "";
-  card.innerHTML = `
-    <div class="usage-bar">
-      <div class="usage-header">
-        <span style="opacity:0.75;">Free Trial Links</span>
-        <span class="count ${level}">${used} / ${FREE_TRIAL_LIMIT}</span>
-      </div>
-      <div class="usage-track"><div class="usage-fill ${level}" style="width:${pct}%"></div></div>
-      <p style="font-size:0.78rem;opacity:0.65;margin-top:10px;">
-        ${left > 0 ? `<b>${left}</b> links remaining.` : "Trial khatam! Pro me upgrade karo."}
-      </p>
-    </div>
-    <button class="whatsapp block" onclick="openWhatsApp()">💬 Upgrade to Pro — ${PRO_PRICE} PKR/month</button>
-  `;
-}
-
-function updateFeatureButtons() {
-  const isTrialExhausted = userData?.plan === "trial" && (userData?.linksUsed || 0) >= FREE_TRIAL_LIMIT;
-  document.querySelectorAll("#featureGrid .feature-btn").forEach(btn => { btn.disabled = isTrialExhausted; });
-}
-
-/* ========== GENERATE LINK ========== */
-window.generateLink = async function(feature, btnEl) {
-  if (!currentUser || !userData) return showToast("Login karo pehle", true);
-  if (userData.plan === "trial" && (userData.linksUsed || 0) >= FREE_TRIAL_LIMIT) {
-    showToast("Trial khatam! Pro me upgrade karo.", true);
-    openUpgrade();
-    return;
-  }
-
-  if (btnEl) {
-    btnEl.disabled = true;
-    const sp = document.createElement("div");
-    sp.className = "fb-spinner";
-    btnEl.appendChild(sp);
-  }
-
-  const linkId = generateRandomName();
-  const expiresAt = new Date(Date.now() + LINK_EXPIRY_MINUTES * 60 * 1000);
-
-  try {
-    await setDoc(doc(db, "links", linkId), {
-      ownerId: currentUser.uid,
-      ownerEmail: currentUser.email,
-      ownerName: userData.name,
-      feature,
-      createdAt: serverTimestamp(),
-      expiresAt: Timestamp.fromDate(expiresAt),
-      used: false,
-      expired: false
-    });
-
-    await updateDoc(doc(db, "users", currentUser.uid), { linksUsed: increment(1) });
-    userData.linksUsed = (userData.linksUsed || 0) + 1;
-
-    const base = location.origin + location.pathname.replace(/[^/]*$/, "");
-    const url = `${base}${CAPTURE_PAGE}#v=${linkId}`;
-
-    currentPopupLink = { url, linkId, feature, expiresAt };
-
-    openLinkPopup(linkId, feature, url, expiresAt);
-
-    renderPlanCard();
-    updateFeatureButtons();
-  } catch (e) {
-    showToast("Link create nahi hua: " + e.message, true);
-    console.error(e);
-  } finally {
-    if (btnEl) {
-      btnEl.disabled = false;
-      const sp = btnEl.querySelector(".fb-spinner");
-      if (sp) sp.remove();
-    }
-  }
-}
-
-function openLinkPopup(linkId, feature, url, expiresAt) {
-  document.getElementById("popupTitle").textContent = `${feature.toUpperCase()} Link Ready!`;
-  document.getElementById("popupLinkName").textContent = linkId;
-  document.getElementById("popupUrl").textContent = url;
-  document.getElementById("linkPopup").classList.add("active");
-
-  if (popupTimerInterval) clearInterval(popupTimerInterval);
-  updatePopupTimer(expiresAt);
-  popupTimerInterval = setInterval(() => updatePopupTimer(expiresAt), 1000);
-}
-
-function updatePopupTimer(expiresAt) {
-  const el = document.getElementById("popupTimer");
-  if (!el) return;
-  const diff = expiresAt.getTime() - Date.now();
-  if (diff <= 0) {
-    el.textContent = "EXPIRED";
-    el.style.color = "#ef4444";
-    clearInterval(popupTimerInterval);
-    return;
-  }
-  const mins = Math.floor(diff / 60000);
-  const secs = Math.floor((diff % 60000) / 1000);
-  el.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
-}
-
-window.closeLinkPopup = function() {
-  document.getElementById("linkPopup").classList.remove("active");
-  if (popupTimerInterval) clearInterval(popupTimerInterval);
-}
-
-window.copyPopupLink = function() {
-  if (!currentPopupLink) return;
-  const url = currentPopupLink.url;
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(url).then(() => {
-      showToast("✅ Link copy ho gaya!");
-    }).catch(() => fallbackCopy(url));
-  } else {
-    fallbackCopy(url);
-  }
-}
-
-function fallbackCopy(text) {
-  const ta = document.createElement("textarea");
-  ta.value = text;
-  ta.style.position = "fixed";
-  ta.style.left = "-9999px";
-  document.body.appendChild(ta);
-  ta.select();
-  try {
-    document.execCommand("copy");
-    showToast("✅ Link copy ho gaya!");
-  } catch (e) {
-    showToast("Copy fail — manually select karo", true);
-  }
-  document.body.removeChild(ta);
-}
-
-window.shareWhatsApp = function() {
-  if (!currentPopupLink) return;
-  const msg = `Assalam o Alaikum!\n\nYe link open karein:\n${currentPopupLink.url}\n\nShukriya!`;
-  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
-}
-
-window.openUpgrade = function() { showView("upgradeView"); }
-window.closeUpgrade = function() { showView("dashboardView"); }
-window.openWhatsApp = function() {
-  const name = userData?.name || currentUser?.displayName || "User";
-  const email = currentUser?.email || "";
-  const msg = `Assalam o Alaikum!\n\nMain Pro plan lena chahta hoon.\n\n👤 Naam: ${name}\n📧 Email: ${email}\n💎 Plan: Pro\n💰 Price: ${PRO_PRICE} PKR / month\n\nPlease payment details bhejein.`;
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
-}
-
-/* ========== LIVE LISTENER ========== */
-function startLiveListener() {
-  if (liveUnsubscribe) liveUnsubscribe();
-  const q = query(collection(db, "captures"), where("ownerId", "==", currentUser.uid));
-  liveUnsubscribe = onSnapshot(q, (snap) => {
-    loadUserStats();
-    renderMediaFromSnap(snap);
-  }, (err) => console.error("Live error:", err));
-}
-
-async function loadUserStats() {
-  if (!currentUser) return;
-  try {
-    const q = query(collection(db, "captures"), where("ownerId", "==", currentUser.uid));
-    const snap = await getDocs(q);
-    const items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    document.getElementById("sTotal").textContent = items.length;
-    const today = new Date().toDateString();
-    document.getElementById("sToday").textContent = items.filter(i => i.timestamp && new Date(i.timestamp.seconds*1000).toDateString() === today).length;
-    document.getElementById("sPhoto").textContent = items.filter(i => i.type === "photo").length;
-    document.getElementById("sVideo").textContent = items.filter(i => i.type === "video").length;
-  } catch (e) { console.error(e); }
-}
-
-window.renderMedia = async function() {
-  if (!currentUser) return;
-  const grid = document.getElementById("mediaGrid");
-  grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:20px;"><div class="spinner"></div></div>`;
-  try {
-    const q = query(collection(db, "captures"), where("ownerId", "==", currentUser.uid));
-    const snap = await getDocs(q);
-    renderMediaFromSnap(snap);
-  } catch (e) {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#ff4d4d;">Error loading data</p>`;
-  }
-}
-
-function renderMediaFromSnap(snap) {
-  const grid = document.getElementById("mediaGrid");
-  let items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  items.sort((a,b) => (b.timestamp?.seconds||0) - (a.timestamp?.seconds||0));
-  const search = (document.getElementById("searchBox")?.value || "").toLowerCase();
-  if (search) items = items.filter(i => JSON.stringify(i).toLowerCase().includes(search));
-  if (items.length === 0) {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;opacity:0.5;padding:30px;">Abhi koi data nahi aaya.<br><span style="font-size:0.8rem;opacity:0.7;">Link client ko bhejo aur wait karo.</span></p>`;
-    return;
-  }
-  grid.innerHTML = items.map(i => {
-    let thumb = "";
-    if (i.photo) thumb = `<img src="${i.photo}" onclick="viewMedia('${i.id}')" loading="lazy">`;
-    else if (i.type === "location") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(34,211,238,0.1);">📍</div>`;
-    else if (i.type === "device") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(168,85,247,0.1);">📱</div>`;
-    else if (i.type === "video") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(239,68,68,0.1);">🎥</div>`;
-    else thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">📎</div>`;
-    const time = i.timestamp ? new Date(i.timestamp.seconds*1000).toLocaleString() : "";
-    const loc = i.location ? `${i.location.lat?.toFixed(3)}, ${i.location.lon?.toFixed(3)}` : "";
-    return `
-      <div class="media-card">
-        ${thumb}
-        <div class="media-info">
-          <div class="row">🏷️ ${i.type || i.feature}</div>
-          ${loc ? `<div class="row">📍 ${loc}</div>` : ""}
-          ${i.device ? `<div class="row">📱 ${i.device.type}</div>` : ""}
-          <div class="time">🕒 ${time}</div>
-        </div>
-        <div class="media-actions">
-          <button class="danger small" onclick="deleteCapture('${i.id}')">Delete</button>
-        </div>
-      </div>
-    `;
-  }).join("");
-}
-
-window.viewMedia = async function(id) {
-  try {
-    const snap = await getDoc(doc(db, "captures", id));
-    if (!snap.exists()) return;
-    const data = snap.data();
-    const content = document.getElementById("modalContent");
-    if (data.photo) {
-      content.innerHTML = `<img src="${data.photo}">`;
-    } else if (data.video) {
-      content.innerHTML = `<video src="${data.video}" controls autoplay playsinline style="max-width:100%;max-height:90vh;border-radius:16px;"></video>`;
-    } else {
-      content.innerHTML = `<pre style="color:#fff;padding:20px;max-width:90vw;overflow:auto;font-size:0.8rem;">${JSON.stringify(data, null, 2)}</pre>`;
-    }
-    document.getElementById("modal").classList.add("active");
-  } catch (e) { console.error(e); }
-}
-
-window.closeModal = function(e) {
-  if (e && e.target !== e.currentTarget && e.type === "click") return;
-  document.getElementById("modal").classList.remove("active");
-  document.getElementById("modalContent").innerHTML = "";
-}
-
-window.deleteCapture = async function(id) {
-  if (!confirm("Delete this item?")) return;
-  try {
-    await deleteDoc(doc(db, "captures", id));
-    showToast("Deleted 🗑️");
-  } catch (e) { showToast("Delete fail", true); }
-}
 </script>
 </body>
 </html>
