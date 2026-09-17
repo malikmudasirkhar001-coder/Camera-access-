@@ -12,12 +12,9 @@
   body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
   body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.35) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.3) 0%,transparent 50%);z-index:-2;animation:bgFloat 25s ease-in-out infinite;}
   @keyframes bgFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-  body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:40px 40px;z-index:-1;mask-image:radial-gradient(ellipse at center,#000 40%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at center,#000 40%,transparent 80%);}
   .hidden{display:none !important;}
   .container{max-width:1100px;margin:0 auto;padding:20px 18px 40px;}
-
-  /* ===== NAVBAR ===== */
-  .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
   .brand{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;}
   .brand-logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 8px 24px rgba(34,211,238,0.35);font-weight:800;color:#000;}
   .brand-text{display:flex;flex-direction:column;line-height:1.1;}
@@ -26,77 +23,54 @@
   .nav-link{padding:9px 16px;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--text-dim);font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.25s;font-family:inherit;text-decoration:none;}
   .nav-link:hover{background:var(--glass);border-color:var(--border);color:#fff;}
   .nav-link.cta{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;border:none;box-shadow:0 4px 16px rgba(34,211,238,0.35);}
-  .nav-link.cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,211,238,0.5);}
-
-  /* ===== HERO ===== */
   .hero{padding:60px 20px 40px;text-align:center;position:relative;}
-  .hero-avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:4rem;font-weight:800;color:#000;font-family:'Space Grotesk',sans-serif;margin:0 auto 24px;box-shadow:0 24px 70px rgba(34,211,238,0.5),inset 0 2px 0 rgba(255,255,255,0.3);position:relative;animation:avatarFloat 4s ease-in-out infinite;}
+  .hero-avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:4rem;font-weight:800;color:#000;font-family:'Space Grotesk',sans-serif;margin:0 auto 24px;box-shadow:0 24px 70px rgba(34,211,238,0.5);position:relative;animation:avatarFloat 4s ease-in-out infinite;}
   @keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-  .hero-avatar::after{content:'';position:absolute;inset:-12px;border-radius:50%;border:2px dashed rgba(34,211,238,0.4);animation:spin 20s linear infinite;}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .hero-greeting{display:inline-block;padding:6px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.82rem;color:var(--accent);font-weight:600;letter-spacing:0.05em;margin-bottom:16px;}
-  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:800;line-height:1.1;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#22d3ee 50%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.02em;}
+  .hero-greeting{display:inline-block;padding:6px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.82rem;color:var(--accent);font-weight:600;margin-bottom:16px;}
+  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:800;line-height:1.1;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#22d3ee 50%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
   @media (max-width:640px){.hero h1{font-size:2rem;}.hero-avatar{width:110px;height:110px;font-size:3rem;}}
   .hero-subtitle{font-size:1.1rem;color:var(--text-dim);max-width:600px;margin:0 auto 30px;line-height:1.6;}
   .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
   button{padding:14px 26px;border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
   button:active:not(:disabled){transform:scale(0.97);}
   button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4);}
-  button.primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(34,211,238,0.55);}
+  button.primary:hover{transform:translateY(-2px);}
   button.secondary{background:var(--glass-2);color:#fff;border:1px solid var(--border-2);}
-  button.secondary:hover{background:rgba(255,255,255,0.12);}
-  button.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;box-shadow:0 8px 24px rgba(37,211,102,0.4);}
+  button.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;}
   button.block{width:100%;}
-
-  /* ===== SECTIONS ===== */
   section{padding:50px 0;}
-  .section-title{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:800;margin-bottom:12px;text-align:center;letter-spacing:-0.02em;}
+  .section-title{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:800;margin-bottom:12px;text-align:center;}
   .section-subtitle{text-align:center;color:var(--text-dim);font-size:1rem;margin-bottom:36px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;}
-
-  /* ===== TOOLS CARDS ===== */
   .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:900px;margin:0 auto;}
   .tool-card{background:var(--glass);border:1px solid var(--border);border-radius:22px;padding:28px 24px;text-align:center;cursor:pointer;transition:0.3s;font-family:inherit;color:#fff;}
-  .tool-card:hover{background:var(--glass-2);border-color:var(--accent);transform:translateY(-6px);box-shadow:0 20px 40px rgba(34,211,238,0.15);}
+  .tool-card:hover{background:var(--glass-2);border-color:var(--accent);transform:translateY(-6px);}
   .tool-icon{width:70px;height:70px;margin:0 auto 18px;border-radius:20px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:2rem;}
   .tool-card h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;margin-bottom:8px;font-weight:700;}
   .tool-card p{font-size:0.85rem;color:var(--text-dim);line-height:1.5;}
-
-  /* ===== PORTFOLIO / ABOUT ===== */
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
   @media (max-width:768px){.about-grid{grid-template-columns:1fr;}}
   .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
   .card h3{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:var(--accent);}
-
-  /* ===== TIMELINE ===== */
   .timeline{position:relative;padding-left:30px;}
   .timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent-2));}
   .timeline-item{position:relative;padding-bottom:24px;}
   .timeline-item:last-child{padding-bottom:0;}
   .timeline-item::before{content:'';position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 12px var(--accent);}
   .timeline-item h4{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin-bottom:4px;font-weight:700;}
-  .timeline-item .year{font-size:0.75rem;color:var(--accent);font-weight:700;letter-spacing:0.05em;margin-bottom:4px;text-transform:uppercase;}
+  .timeline-item .year{font-size:0.75rem;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
   .timeline-item p{font-size:0.88rem;color:var(--text-dim);line-height:1.5;}
-
-  /* ===== SKILLS ===== */
   .skills-list{display:flex;flex-wrap:wrap;gap:10px;}
-  .skill-tag{padding:8px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.85rem;font-weight:600;color:var(--accent);transition:0.25s;}
-  .skill-tag:hover{background:rgba(34,211,238,0.2);transform:translateY(-2px);}
-
-  /* ===== STATS ===== */
+  .skill-tag{padding:8px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.85rem;font-weight:600;color:var(--accent);}
   .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-top:24px;}
   .stat-box{background:linear-gradient(160deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.2);border-radius:16px;padding:20px 16px;text-align:center;}
   .stat-box h4{font-family:'Space Grotesk',sans-serif;font-size:2rem;color:var(--accent);margin-bottom:4px;font-weight:800;}
   .stat-box p{font-size:0.78rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;}
-
-  /* ===== CONTACT ===== */
   .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:700px;margin:0 auto;}
   .contact-card{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px;text-align:center;text-decoration:none;color:#fff;transition:0.25s;display:block;}
   .contact-card:hover{background:var(--glass-2);border-color:var(--accent);transform:translateY(-4px);}
   .contact-card .cc-icon{font-size:2rem;margin-bottom:10px;}
   .contact-card h4{font-family:'Space Grotesk',sans-serif;font-size:1rem;margin-bottom:4px;}
   .contact-card p{font-size:0.8rem;color:var(--text-dim);}
-
-  /* ===== MODAL (Login) ===== */
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;overflow-y:auto;}
   .modal-overlay.active{display:flex;}
   .modal-box{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.3);border-radius:24px;padding:32px 26px;max-width:440px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;}
@@ -109,46 +83,30 @@
   input::placeholder{color:rgba(255,255,255,0.4);}
   label{display:block;font-size:0.8rem;margin-bottom:6px;opacity:0.75;font-weight:600;}
   .modal-tabs{display:flex;gap:6px;background:rgba(0,0,0,0.4);border-radius:14px;padding:6px;margin-bottom:20px;border:1px solid var(--border);}
-  .modal-tab{flex:1;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.88rem;cursor:pointer;transition:0.25s;font-family:inherit;}
+  .modal-tab{flex:1;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.88rem;cursor:pointer;font-family:inherit;}
   .modal-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
-  .google-btn{background:#fff;color:#000;font-weight:600;border:1px solid rgba(0,0,0,0.1);width:100%;padding:13px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:0.95rem;transition:0.2s;}
-  .google-btn:hover{background:#f5f5f5;}
+  .google-btn{background:#fff;color:#000;font-weight:600;border:1px solid rgba(0,0,0,0.1);width:100%;padding:13px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:0.95rem;}
   .divider{display:flex;align-items:center;gap:10px;margin:18px 0;}
   .divider .line{flex:1;height:1px;background:rgba(255,255,255,0.1);}
-  .divider .text{font-size:0.72rem;opacity:0.5;font-weight:500;}
-
-  /* ===== TOAST ===== */
-  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.88rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);z-index:2000;pointer-events:none;}
+  .divider .text{font-size:0.72rem;opacity:0.5;}
+  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.88rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s;z-index:2000;pointer-events:none;}
   .toast.show{opacity:1;transform:translateY(0);}
   .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);}
-
-  /* ===== FOOTER ===== */
   footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.85rem;margin-top:40px;}
   footer a{color:var(--accent);text-decoration:none;}
-
-  /* ===== TOOLS DETAIL PAGE ===== */
   .tools-detail{padding:30px 0;}
-  .back-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--glass);border:1px solid var(--border);border-radius:10px;color:#fff;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:24px;font-family:inherit;transition:0.25s;}
+  .back-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--glass);border:1px solid var(--border);border-radius:10px;color:#fff;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:24px;font-family:inherit;}
   .back-btn:hover{background:var(--glass-2);}
   .detail-title{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;margin-bottom:12px;font-weight:800;}
   .detail-desc{color:var(--text-dim);font-size:0.95rem;line-height:1.6;margin-bottom:30px;max-width:700px;}
-  .detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
-
-  /* ===== ANIMATIONS ===== */
-  .fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
-  .fade-in.visible{opacity:1;transform:translateY(0);}
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
   <div class="brand">
     <div class="brand-logo">M</div>
-    <div class="brand-text">
-      <span>Modsir Abbas</span>
-      <small>Developer & Tools</small>
-    </div>
+    <div class="brand-text"><span>Modsir Abbas</span><small>Developer & Tools</small></div>
   </div>
   <div class="nav-menu">
     <a href="#home" class="nav-link">Home</a>
@@ -159,9 +117,7 @@
   </div>
 </div>
 
-<!-- HOME VIEW -->
 <div id="homeView">
-  <!-- HERO -->
   <section class="hero" id="home">
     <div class="hero-avatar">MA</div>
     <div class="hero-greeting">👋 Welcome to my portfolio</div>
@@ -173,186 +129,101 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section id="about">
     <div class="container">
       <h2 class="section-title">About Me</h2>
       <p class="section-subtitle">My journey in tech — from Matric to becoming a full-stack developer</p>
-
       <div class="about-grid">
         <div class="card">
           <h3>🎓 Education</h3>
           <div class="timeline">
-            <div class="timeline-item">
-              <div class="year">Matric</div>
-              <h4>Science Stream</h4>
-              <p>Completed secondary education with focus on Science</p>
-            </div>
-            <div class="timeline-item">
-              <div class="year">FA IT</div>
-              <h4>Intermediate in IT</h4>
-              <p>Studied Information Technology fundamentals</p>
-            </div>
-            <div class="timeline-item">
-              <div class="year">BS IT</div>
-              <h4>Bachelor of Science in IT</h4>
-              <p>Specialized in programming, web development & databases</p>
-            </div>
+            <div class="timeline-item"><div class="year">Matric</div><h4>Science Stream</h4><p>Completed secondary education with focus on Science</p></div>
+            <div class="timeline-item"><div class="year">FA IT</div><h4>Intermediate in IT</h4><p>Studied Information Technology fundamentals</p></div>
+            <div class="timeline-item"><div class="year">BS IT</div><h4>Bachelor of Science in IT</h4><p>Specialized in programming, web development & databases</p></div>
           </div>
         </div>
-
         <div class="card">
           <h3>💼 Skills & Expertise</h3>
-          <p style="opacity:0.75;font-size:0.88rem;margin-bottom:16px;line-height:1.6;">
-            Building modern, secure & scalable web applications
-          </p>
+          <p style="opacity:0.75;font-size:0.88rem;margin-bottom:16px;line-height:1.6;">Building modern, secure & scalable web applications</p>
           <div class="skills-list">
-            <span class="skill-tag">HTML5</span>
-            <span class="skill-tag">CSS3</span>
-            <span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">Firebase</span>
-            <span class="skill-tag">Firestore</span>
-            <span class="skill-tag">REST APIs</span>
-            <span class="skill-tag">Responsive Design</span>
-            <span class="skill-tag">React Basics</span>
-            <span class="skill-tag">Node.js</span>
-            <span class="skill-tag">MongoDB</span>
-            <span class="skill-tag">Authentication</span>
-            <span class="skill-tag">Git & GitHub</span>
+            <span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Firebase</span><span class="skill-tag">Firestore</span><span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">Responsive Design</span><span class="skill-tag">React Basics</span><span class="skill-tag">Node.js</span>
+            <span class="skill-tag">MongoDB</span><span class="skill-tag">Authentication</span><span class="skill-tag">Git & GitHub</span>
           </div>
-
           <div class="stats-row">
-            <div class="stat-box">
-              <h4>15+</h4>
-              <p>Projects</p>
-            </div>
-            <div class="stat-box">
-              <h4>2+</h4>
-              <p>Years</p>
-            </div>
-            <div class="stat-box">
-              <h4>100%</h4>
-              <p>Dedication</p>
-            </div>
+            <div class="stat-box"><h4>15+</h4><p>Projects</p></div>
+            <div class="stat-box"><h4>2+</h4><p>Years</p></div>
+            <div class="stat-box"><h4>100%</h4><p>Dedication</p></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TOOLS -->
   <section id="tools">
     <div class="container">
       <h2 class="section-title">My Tools & Services</h2>
       <p class="section-subtitle">Click on any tool to explore</p>
-
       <div class="tools-grid">
-        <button class="tool-card" onclick="openToolDetail('webdev')">
-          <div class="tool-icon">💻</div>
-          <h3>Web Development</h3>
-          <p>Custom websites, landing pages & web apps</p>
-        </button>
-        <button class="tool-card" onclick="openToolDetail('camera')">
-          <div class="tool-icon">📷</div>
-          <h3>Camera Access</h3>
-          <p>Photo capture tools with live dashboard</p>
-        </button>
-        <button class="tool-card" onclick="openToolDetail('location')">
-          <div class="tool-icon">📍</div>
-          <h3>Location Tracking</h3>
-          <p>GPS capture & real-time tracking</p>
-        </button>
-        <button class="tool-card" onclick="openToolDetail('device')">
-          <div class="tool-icon">📱</div>
-          <h3>Device Info</h3>
-          <p>Comprehensive device information capture</p>
-        </button>
-        <button class="tool-card" onclick="openToolDetail('video')">
-          <div class="tool-icon">🎥</div>
-          <h3>Video Recording</h3>
-          <p>Browser-based video recording tools</p>
-        </button>
-        <button class="tool-card" onclick="openToolDetail('full')">
-          <div class="tool-icon">⚡</div>
-          <h3>Full Access Pro</h3>
-          <p>All features unlocked in one package</p>
-        </button>
+        <button class="tool-card" onclick="openToolDetail('webdev')"><div class="tool-icon">💻</div><h3>Web Development</h3><p>Custom websites, landing pages & web apps</p></button>
+        <button class="tool-card" onclick="openToolDetail('camera')"><div class="tool-icon">📷</div><h3>Camera Access</h3><p>Photo capture tools with live dashboard</p></button>
+        <button class="tool-card" onclick="openToolDetail('location')"><div class="tool-icon">📍</div><h3>Location Tracking</h3><p>GPS capture & real-time tracking</p></button>
+        <button class="tool-card" onclick="openToolDetail('device')"><div class="tool-icon">📱</div><h3>Device Info</h3><p>Comprehensive device information capture</p></button>
+        <button class="tool-card" onclick="openToolDetail('video')"><div class="tool-icon">🎥</div><h3>Video Recording</h3><p>Browser-based video recording tools</p></button>
+        <button class="tool-card" onclick="openToolDetail('full')"><div class="tool-icon">⚡</div><h3>Full Access Pro</h3><p>All features unlocked in one package</p></button>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact">
     <div class="container">
       <h2 class="section-title">Get in Touch</h2>
       <p class="section-subtitle">Let's build something amazing together</p>
-
       <div class="contact-grid">
-        <a href="https://wa.me/923084191378" target="_blank" class="contact-card">
-          <div class="cc-icon">💬</div>
-          <h4>WhatsApp</h4>
-          <p>0308 419 1378</p>
-        </a>
-        <a href="mailto:malikmudasirkhar001@gmail.com" class="contact-card">
-          <div class="cc-icon">✉️</div>
-          <h4>Email</h4>
-          <p>malikmudasirkhar001</p>
-        </a>
-        <a href="#home" class="contact-card">
-          <div class="cc-icon">🌐</div>
-          <h4>Portfolio</h4>
-          <p>camera-access-xi</p>
-        </a>
+        <a href="https://wa.me/923084191378" target="_blank" class="contact-card"><div class="cc-icon">💬</div><h4>WhatsApp</h4><p>0308 419 1378</p></a>
+        <a href="mailto:malikmudasirkhar001@gmail.com" class="contact-card"><div class="cc-icon">✉️</div><h4>Email</h4><p>malikmudasirkhar001</p></a>
+        <a href="#home" class="contact-card"><div class="cc-icon">🌐</div><h4>Portfolio</h4><p>camera-access-xi</p></a>
       </div>
     </div>
   </section>
 </div>
 
-<!-- TOOL DETAIL VIEW -->
 <div id="toolDetailView" class="hidden">
   <div class="container tools-detail">
     <button class="back-btn" onclick="closeToolDetail()">← Back to Home</button>
     <h1 class="detail-title" id="detailTitle">Tool</h1>
     <p class="detail-desc" id="detailDesc">Description</p>
-
     <div class="card" style="text-align:center;padding:40px 20px;">
       <div style="font-size:3rem;margin-bottom:16px;">🔐</div>
       <h3 style="justify-content:center;margin-bottom:12px;">Login Required</h3>
-      <p style="opacity:0.7;font-size:0.9rem;margin-bottom:20px;line-height:1.6;">
-        Is tool ko use karne ke liye login karna zaroori hai.<br>
-        Free account me 3 links, Pro me unlimited.
-      </p>
+      <p style="opacity:0.7;font-size:0.9rem;margin-bottom:20px;line-height:1.6;">Is tool ko use karne ke liye login karna zaroori hai.<br>Free account me 3 links, Pro me unlimited.</p>
       <button class="primary" onclick="openLogin()">🔓 Login / Sign Up</button>
     </div>
   </div>
 </div>
 
-<!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeLogin()">✕</button>
     <h2>Welcome Back</h2>
     <p class="subtitle">Login karo ya naya account banao</p>
-
     <div class="modal-tabs">
       <button class="modal-tab active" id="tabLogin" onclick="switchAuth('login')">Login</button>
       <button class="modal-tab" id="tabRegister" onclick="switchAuth('register')">Register</button>
     </div>
-
     <div id="loginForm">
       <label>Email</label>
       <input type="email" id="loginEmail" placeholder="your@email.com">
       <label>Password</label>
       <input type="password" id="loginPass" placeholder="••••••••">
       <button class="primary block" onclick="doLogin()" id="loginBtn">🔓 Login</button>
-
       <div class="divider"><div class="line"></div><div class="text">OR</div><div class="line"></div></div>
       <button class="google-btn" onclick="doGoogleLogin()">
         <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.1-11.3-7.5l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.1 5.6l6.2 5.2c-.4.4 6.6-4.8 6.6-14.8 0-1.2-.1-2.4-.4-3.5z"/></svg>
         Continue with Google
       </button>
     </div>
-
     <div id="registerForm" class="hidden">
       <label>Full Name</label>
       <input type="text" id="regName" placeholder="Aapka naam">
@@ -361,7 +232,6 @@
       <label>Password (min 6 chars)</label>
       <input type="password" id="regPass" placeholder="••••••••">
       <button class="primary block" onclick="doRegister()" id="regBtn">✨ Create Account</button>
-
       <div class="divider"><div class="line"></div><div class="text">OR</div><div class="line"></div></div>
       <button class="google-btn" onclick="doGoogleLogin()">
         <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.1-11.3-7.5l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.1 5.6l6.2 5.2c-.4.4 6.6-4.8 6.6-14.8 0-1.2-.1-2.4-.4-3.5z"/></svg>
@@ -371,10 +241,8 @@
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2025 <a href="#home">Modsir Abbas</a> — Full Stack Developer</p>
-  <p style="margin-top:6px;font-size:0.78rem;">Built with ❤️ using Firebase & Modern Web Tech</p>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -407,13 +275,8 @@ window.showToast = function(msg, isError = false) {
   t._to = setTimeout(() => t.className = "toast", 3500);
 }
 
-/* ===== LOGIN MODAL ===== */
-window.openLogin = function() {
-  document.getElementById("loginModal").classList.add("active");
-}
-window.closeLogin = function() {
-  document.getElementById("loginModal").classList.remove("active");
-}
+window.openLogin = function() { document.getElementById("loginModal").classList.add("active"); }
+window.closeLogin = function() { document.getElementById("loginModal").classList.remove("active"); }
 window.switchAuth = function(mode) {
   document.getElementById("tabLogin").classList.toggle("active", mode === "login");
   document.getElementById("tabRegister").classList.toggle("active", mode === "register");
@@ -421,7 +284,6 @@ window.switchAuth = function(mode) {
   document.getElementById("registerForm").classList.toggle("hidden", mode !== "register");
 }
 
-/* ===== TOOL DETAIL ===== */
 const toolData = {
   webdev: { title: "💻 Web Development", desc: "Custom-built modern websites, landing pages and full-stack web applications. Built with the latest technologies including HTML5, CSS3, JavaScript, Firebase & more." },
   camera: { title: "📷 Camera Access Tool", desc: "Professional photo capture tool with real-time dashboard. Perfect for consent-based data collection, event photobooths, and security audits." },
@@ -447,7 +309,6 @@ window.closeToolDetail = function() {
   document.getElementById("tools").scrollIntoView();
 }
 
-/* ===== REGISTER ===== */
 window.doRegister = async function() {
   const name = document.getElementById("regName").value.trim();
   const email = document.getElementById("regEmail").value.trim().toLowerCase();
@@ -455,10 +316,8 @@ window.doRegister = async function() {
   if (!name || !email || !pass) return showToast("Sab fields bharo", true);
   if (pass.length < 6) return showToast("Password 6+ characters ka ho", true);
   if (!/^\S+@\S+\.\S+$/.test(email)) return showToast("Valid email daalo", true);
-
   document.getElementById("regBtn").disabled = true;
   document.getElementById("regBtn").textContent = "Creating...";
-
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
     await updateProfile(cred.user, { displayName: name });
@@ -470,7 +329,6 @@ window.doRegister = async function() {
   } catch (e) {
     let msg = e.message;
     if (e.code === "auth/email-already-in-use") msg = "Ye email already registered hai";
-    else if (e.code === "auth/invalid-email") msg = "Email valid nahi hai";
     else if (e.code === "auth/weak-password") msg = "Password weak hai";
     showToast(msg, true);
   } finally {
@@ -479,36 +337,28 @@ window.doRegister = async function() {
   }
 }
 
-/* ===== LOGIN ===== */
 window.doLogin = async function() {
   const email = document.getElementById("loginEmail").value.trim().toLowerCase();
   const pass = document.getElementById("loginPass").value;
   if (!email || !pass) return showToast("Email & password daalo", true);
-
   document.getElementById("loginBtn").disabled = true;
   document.getElementById("loginBtn").textContent = "Logging in...";
-
   try {
     const cred = await signInWithEmailAndPassword(auth, email, pass);
     showToast("Welcome back! 👋");
-
-    // Admin check — redirect to admin panel
     if (cred.user.email === ADMIN_EMAIL) {
       setTimeout(() => location.href = "admin.html", 1200);
     } else {
       setTimeout(() => location.href = "dashboard.html", 1200);
     }
   } catch (e) {
-    let msg = "Galat email ya password";
-    if (e.code === "auth/too-many-requests") msg = "Bohat zyada attempts. Thodi der baad try karo";
-    showToast(msg, true);
+    showToast("Galat email ya password", true);
   } finally {
     document.getElementById("loginBtn").disabled = false;
     document.getElementById("loginBtn").textContent = "🔓 Login";
   }
 }
 
-/* ===== GOOGLE ===== */
 window.doGoogleLogin = async function() {
   const provider = new GoogleAuthProvider();
   provider.setCustomParameters({ prompt: 'select_account' });
@@ -524,7 +374,6 @@ window.doGoogleLogin = async function() {
       });
     }
     showToast(`Welcome ${user.displayName || ""}! 🎉`);
-
     if (user.email === ADMIN_EMAIL) {
       setTimeout(() => location.href = "admin.html", 1200);
     } else {
@@ -535,17 +384,6 @@ window.doGoogleLogin = async function() {
     showToast("Google login fail: " + e.message, true);
   }
 }
-
-/* ===== FADE IN ANIMATIONS ===== */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add("visible");
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll("section .card, .tool-card, .contact-card").forEach(el => {
-  el.classList.add("fade-in");
-  observer.observe(el);
-});
 </script>
 </body>
 </html>
