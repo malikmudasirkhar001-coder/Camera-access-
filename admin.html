@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Admin Panel - Modsir Tools</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<title>Admin ✦ Mudasir Abbas Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--gold:#fbbf24;--danger:#ef4444;--text:#fff;--text-dim:rgba(255,255,255,0.6);--glass:rgba(255,255,255,0.04);--glass-2:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.08);--border-2:rgba(255,255,255,0.15);}
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -13,50 +13,52 @@
   .container{max-width:1100px;margin:0 auto;padding:20px 18px 40px;}
   .hidden{display:none !important;}
   .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.85);backdrop-filter:blur(24px);border-bottom:1px solid rgba(251,191,36,0.3);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-  .brand{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;}
-  .brand-logo{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,var(--gold),#f59e0b);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 8px 24px rgba(251,191,36,0.4);color:#000;font-weight:800;}
+  .brand{display:flex;align-items:center;gap:11px;}
+  .brand-logo{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,var(--gold),#f59e0b);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 8px 24px rgba(251,191,36,0.4);color:#000;font-weight:900;font-family:'Orbitron',sans-serif;}
   .brand-text{display:flex;flex-direction:column;line-height:1.1;}
+  .brand-text span{font-family:'Orbitron',sans-serif;font-size:0.9rem;font-weight:800;letter-spacing:0.5px;}
   .brand-text small{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
-  .admin-badge{padding:6px 14px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-weight:700;font-size:0.75rem;}
-  .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:24px;margin-bottom:18px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
-  .card h2{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-  .card h2 .count-badge{padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-size:0.7rem;font-weight:800;}
-  button{padding:11px 20px;border-radius:10px;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;}
+  .admin-badge{padding:6px 14px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-weight:700;font-size:0.72rem;font-family:'Orbitron',sans-serif;}
+  .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:22px;margin-bottom:18px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+  .card h2{font-family:'Orbitron',sans-serif;font-size:1rem;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;letter-spacing:0.5px;}
+  .card h2 .count-badge{padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-size:0.65rem;font-weight:800;font-family:'Orbitron',sans-serif;}
+  button{padding:11px 18px;border-radius:10px;font-weight:600;font-size:0.82rem;cursor:pointer;transition:0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;}
   button:active{transform:scale(0.97);}
   button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
   button.gold{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;box-shadow:0 6px 20px rgba(251,191,36,0.4);}
   button.success{background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;}
   button.danger{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.35);}
   button.secondary{background:var(--glass-2);color:#fff;border:1px solid var(--border-2);}
-  button.small{padding:8px 14px;font-size:0.78rem;}
-  input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid var(--border-2);background:rgba(0,0,0,0.3);color:#fff;font-size:0.95rem;outline:none;margin-bottom:14px;font-family:inherit;}
-  input:focus{border-color:var(--gold);}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:18px;}
-  .stat-box{background:linear-gradient(160deg,rgba(251,191,36,0.1),rgba(168,85,247,0.05));border:1px solid rgba(251,191,36,0.3);border-radius:16px;padding:20px 14px;text-align:center;}
-  .stat-box h3{font-family:'Space Grotesk',sans-serif;font-size:2rem;color:var(--gold);font-weight:800;}
-  .stat-box p{font-size:0.72rem;opacity:0.7;text-transform:uppercase;letter-spacing:0.06em;margin-top:4px;}
-  .req-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;}
-  .req-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
-  .req-info h4{font-family:'Space Grotesk',sans-serif;font-size:1rem;margin-bottom:4px;}
-  .req-info p{font-size:0.8rem;opacity:0.7;}
-  .req-status{padding:5px 12px;border-radius:20px;font-size:0.7rem;font-weight:700;text-transform:uppercase;}
+  button.small{padding:7px 12px;font-size:0.72rem;}
+  input,textarea,select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border-2);background:rgba(0,0,0,0.3);color:#fff;font-size:0.9rem;outline:none;margin-bottom:12px;font-family:inherit;}
+  input:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(251,191,36,0.15);}
+  label{display:block;font-size:0.75rem;margin-bottom:5px;opacity:0.75;font-weight:600;}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:18px;}
+  .stat-box{background:linear-gradient(160deg,rgba(251,191,36,0.1),rgba(168,85,247,0.05));border:1px solid rgba(251,191,36,0.3);border-radius:16px;padding:18px 12px;text-align:center;}
+  .stat-box h3{font-family:'Orbitron',sans-serif;font-size:1.7rem;color:var(--gold);font-weight:900;}
+  .stat-box p{font-size:0.65rem;opacity:0.7;text-transform:uppercase;letter-spacing:0.06em;margin-top:4px;}
+  .req-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:12px;}
+  .req-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;flex-wrap:wrap;}
+  .req-info h4{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;margin-bottom:3px;}
+  .req-info p{font-size:0.75rem;opacity:0.7;}
+  .req-status{padding:4px 10px;border-radius:20px;font-size:0.65rem;font-weight:700;text-transform:uppercase;font-family:'Orbitron',sans-serif;}
   .req-status.pending{background:rgba(251,191,36,0.15);color:var(--gold);border:1px solid rgba(251,191,36,0.4);}
   .req-status.approved{background:rgba(16,185,129,0.15);color:var(--accent-3);border:1px solid rgba(16,185,129,0.4);}
   .req-status.rejected{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.4);}
   .req-actions{display:flex;gap:8px;flex-wrap:wrap;}
-  .user-item{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;flex-wrap:wrap;}
-  .user-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-family:'Space Grotesk',sans-serif;font-size:1rem;overflow:hidden;flex-shrink:0;}
+  .user-item{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:12px;margin-bottom:10px;flex-wrap:wrap;}
+  .user-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-family:'Orbitron',sans-serif;font-size:0.95rem;overflow:hidden;flex-shrink:0;}
   .user-avatar img{width:100%;height:100%;object-fit:cover;}
-  .user-info{flex:1;min-width:200px;}
-  .user-info h4{font-size:0.95rem;margin-bottom:2px;font-family:'Space Grotesk',sans-serif;}
-  .user-info p{font-size:0.75rem;opacity:0.6;}
-  .user-plan{padding:4px 10px;border-radius:20px;font-size:0.65rem;font-weight:700;text-transform:uppercase;}
+  .user-info{flex:1;min-width:180px;}
+  .user-info h4{font-size:0.9rem;margin-bottom:2px;font-family:'Space Grotesk',sans-serif;}
+  .user-info p{font-size:0.72rem;opacity:0.6;}
+  .user-plan{padding:3px 9px;border-radius:20px;font-size:0.6rem;font-weight:700;text-transform:uppercase;font-family:'Orbitron',sans-serif;}
   .user-plan.pro{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
   .user-plan.trial{background:rgba(148,163,184,0.15);color:#cbd5e1;border:1px solid rgba(148,163,184,0.3);}
-  .tabs{display:flex;gap:6px;background:rgba(0,0,0,0.4);border-radius:14px;padding:6px;margin-bottom:20px;border:1px solid var(--border);overflow-x:auto;}
-  .tab{flex:1;min-width:110px;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.82rem;cursor:pointer;font-family:inherit;white-space:nowrap;}
+  .tabs{display:flex;gap:5px;background:rgba(0,0,0,0.4);border-radius:14px;padding:5px;margin-bottom:18px;border:1px solid var(--border);overflow-x:auto;}
+  .tab{flex:1;min-width:100px;padding:10px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.78rem;cursor:pointer;font-family:inherit;white-space:nowrap;transition:0.2s;}
   .tab.active{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
-  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.88rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s;z-index:2000;pointer-events:none;}
+  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.85rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s;z-index:2000;pointer-events:none;}
   .toast.show{opacity:1;transform:translateY(0);}
   .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);}
   .empty-state{text-align:center;padding:40px 20px;opacity:0.5;}
@@ -65,18 +67,25 @@
   @keyframes spin{to{transform:rotate(360deg);}}
   .capture-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
   .capture-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:pointer;background:#000;}
-  .capture-info{padding:10px 12px;font-size:0.72rem;line-height:1.6;}
+  .capture-info{padding:10px 12px;font-size:0.7rem;line-height:1.6;}
   .capture-info .row{display:flex;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0.85;}
   .capture-info .web{color:var(--accent);font-weight:600;}
-  .capture-info .time{opacity:0.5;font-size:0.66rem;margin-top:4px;}
-  .capture-actions{padding:0 10px 10px;display:flex;gap:6px;}
-  .capture-actions button{flex:1;padding:6px;font-size:0.68rem;}
-  .link-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
-  .link-stat{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.2);border-radius:10px;padding:8px;text-align:center;}
+  .capture-info .time{opacity:0.5;font-size:0.62rem;margin-top:4px;}
+  .capture-actions{padding:0 10px 10px;display:flex;gap:5px;flex-wrap:wrap;}
+  .capture-actions button{flex:1;padding:6px;font-size:0.65rem;min-width:auto;}
+  .link-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;}
+  .link-stat{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.2);border-radius:10px;padding:7px;text-align:center;}
   .link-stat.green{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);}
-  .link-stat .num{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:800;}
-  .link-stat .lbl{font-size:0.6rem;opacity:0.7;text-transform:uppercase;margin-top:2px;}
-  @media (max-width:480px){.container{padding:14px 12px 30px;}.card{padding:18px;}}
+  .link-stat .num{font-family:'Orbitron',sans-serif;font-size:0.9rem;font-weight:800;}
+  .link-stat .lbl{font-size:0.55rem;opacity:0.7;text-transform:uppercase;margin-top:2px;}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:none;align-items:center;justify-content:center;z-index:600;padding:20px;backdrop-filter:blur(8px);}
+  .modal.active{display:flex;}
+  .modal-content{max-width:100%;max-height:90vh;border-radius:16px;overflow:hidden;background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(251,191,36,0.3);padding:24px;width:90%;}
+  .modal-content img,.modal-content video{max-width:100%;max-height:70vh;display:block;border-radius:12px;margin:0 auto;}
+  .modal-close{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,0.15);color:#fff;font-size:1.2rem;border:1px solid rgba(255,255,255,0.25);cursor:pointer;z-index:10;}
+  .notif-btn{padding:12px 18px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-weight:700;border-radius:12px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;}
+  .cleanup-btn{padding:12px 18px;background:linear-gradient(135deg,var(--danger),#b91c1c);color:#fff;font-weight:700;border-radius:12px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;}
+  @media (max-width:480px){.container{padding:14px 12px 30px;}.card{padding:16px;}}
 </style>
 </head>
 <body>
@@ -84,9 +93,9 @@
 <div class="navbar">
   <div class="brand">
     <div class="brand-logo">👑</div>
-    <div class="brand-text"><span>Admin Panel</span><small>Modsir Tools</small></div>
+    <div class="brand-text"><span>ADMIN PANEL</span><small>MUDASIR ABBAS</small></div>
   </div>
-  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
     <span class="admin-badge" id="adminEmail">...</span>
     <button class="danger small" onclick="adminLogout()">Logout</button>
   </div>
@@ -94,24 +103,26 @@
 
 <div id="loadingView" class="container" style="text-align:center;padding-top:100px;">
   <div class="spinner"></div>
-  <p style="opacity:0.6;">Verifying admin...</p>
+  <p style="opacity:0.6;">Verifying admin access...</p>
 </div>
 
 <div id="adminView" class="container hidden">
   <div class="tabs">
     <button class="tab active" onclick="switchTab('overview', this)">📊 Overview</button>
+    <button class="tab" onclick="switchTab('notify', this)">🔔 Notify</button>
     <button class="tab" onclick="switchTab('requests', this)">📩 Requests <span id="reqCount"></span></button>
     <button class="tab" onclick="switchTab('users', this)">👥 Users</button>
     <button class="tab" onclick="switchTab('links', this)">🔗 Links</button>
     <button class="tab" onclick="switchTab('captures', this)">🖼️ Captures</button>
   </div>
 
+  <!-- OVERVIEW -->
   <div id="tab-overview">
     <div class="stats">
-      <div class="stat-box"><h3 id="sUsers">0</h3><p>Total Users</p></div>
-      <div class="stat-box"><h3 id="sPro">0</h3><p>Pro Users</p></div>
+      <div class="stat-box"><h3 id="sUsers">0</h3><p>Users</p></div>
+      <div class="stat-box"><h3 id="sPro">0</h3><p>Pro</p></div>
       <div class="stat-box"><h3 id="sPending">0</h3><p>Pending</p></div>
-      <div class="stat-box"><h3 id="sLinks">0</h3><p>Total Links</p></div>
+      <div class="stat-box"><h3 id="sLinks">0</h3><p>Links</p></div>
       <div class="stat-box"><h3 id="sCaptures">0</h3><p>Captures</p></div>
     </div>
     <div class="card">
@@ -124,6 +135,42 @@
     </div>
   </div>
 
+  <!-- NOTIFY -->
+  <div id="tab-notify" class="hidden">
+    <div class="card">
+      <h2>🔔 Send Notification</h2>
+      <p style="opacity:0.7;font-size:0.8rem;margin-bottom:14px;line-height:1.6;">
+        Kisi bhi user ko notification bhejein — bonus, discount, ya update message.
+      </p>
+
+      <label>Target</label>
+      <select id="notifyTarget">
+        <option value="all">📢 All Users (Broadcast)</option>
+      </select>
+
+      <label>Type</label>
+      <select id="notifyType">
+        <option value="">📢 Normal Message</option>
+        <option value="bonus">🎁 Bonus / Discount</option>
+        <option value="promo">⚡ Promo / Update</option>
+      </select>
+
+      <label>Title</label>
+      <input type="text" id="notifyTitle" placeholder="e.g. 🎁 50% Discount Today!">
+
+      <label>Message</label>
+      <textarea id="notifyBody" rows="3" placeholder="Details likho..."></textarea>
+
+      <button class="notif-btn" style="width:100%;" onclick="sendNotification()">🚀 Send Notification</button>
+    </div>
+
+    <div class="card">
+      <h2>📋 Recent Notifications</h2>
+      <div id="notifHistory"></div>
+    </div>
+  </div>
+
+  <!-- REQUESTS -->
   <div id="tab-requests" class="hidden">
     <div class="card">
       <h2>📩 Full Access Requests <span class="count-badge" id="reqBadge">0</span></h2>
@@ -131,6 +178,7 @@
     </div>
   </div>
 
+  <!-- USERS -->
   <div id="tab-users" class="hidden">
     <div class="card">
       <h2>👥 All Users <span class="count-badge" id="userBadge">0</span></h2>
@@ -139,29 +187,41 @@
     </div>
   </div>
 
+  <!-- LINKS -->
   <div id="tab-links" class="hidden">
     <div class="card">
       <h2>🔗 All Links <span class="count-badge" id="linkBadge">0</span></h2>
-      <input type="search" id="linkSearch" placeholder="🔍 Search links..." oninput="renderAllLinks()">
-      <div id="linksList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;"></div>
+      <input type="search" id="linkSearch" placeholder="🔍 Search..." oninput="renderAllLinks()">
+      <div id="linksList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;"></div>
     </div>
   </div>
 
+  <!-- CAPTURES -->
   <div id="tab-captures" class="hidden">
     <div class="card">
       <h2>🖼️ All Captures <span class="count-badge" id="captureBadge">0</span></h2>
       <input type="search" id="captureSearch" placeholder="🔍 Search..." oninput="renderAllCaptures()">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+        <button class="cleanup-btn small" onclick="cleanupOldData()">🗑️ Cleanup 24h+ Old Data</button>
+      </div>
       <div id="capturesList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;"></div>
     </div>
   </div>
 </div>
 
+<!-- VIEWER MODAL -->
+<div class="modal" id="viewerModal" onclick="closeViewer(event)">
+  <button class="modal-close" onclick="closeViewer()">✕</button>
+  <div class="modal-content" id="viewerContent" onclick="event.stopPropagation()"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-import { getFirestore, collection, doc, updateDoc, deleteDoc, onSnapshot, getDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getAuth, signOut, onAuthStateChanged, deleteUser } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { getFirestore, collection, doc, updateDoc, deleteDoc, onSnapshot, getDoc, Timestamp, addDoc, serverTimestamp, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
@@ -182,10 +242,12 @@ let allUsers = [];
 let allRequests = [];
 let allLinks = [];
 let allCaptures = [];
+let allNotifications = [];
 let unsubUsers = null;
 let unsubRequests = null;
 let unsubLinks = null;
 let unsubCaptures = null;
+let unsubNotifs = null;
 
 window.showToast = function(msg, isError = false) {
   const t = document.getElementById("toast");
@@ -195,11 +257,14 @@ window.showToast = function(msg, isError = false) {
   t._to = setTimeout(() => t.className = "toast", 3500);
 }
 
+function escapeHtml(s) {
+  if (s == null) return "";
+  return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+}
+
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    setTimeout(() => {
-      if (!auth.currentUser) location.href = "index.html";
-    }, 1500);
+    setTimeout(() => { if (!auth.currentUser) location.href = "index.html"; }, 1500);
     return;
   }
   if (user.email !== ADMIN_EMAIL) {
@@ -208,7 +273,7 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  document.getElementById("adminEmail").textContent = user.email.split("@")[0];
+  document.getElementById("adminEmail").textContent = "👑 " + user.email.split("@")[0];
   document.getElementById("loadingView").classList.add("hidden");
   document.getElementById("adminView").classList.remove("hidden");
   await startListeners();
@@ -217,13 +282,16 @@ onAuthStateChanged(auth, async (user) => {
 async function startListeners() {
   unsubUsers = onSnapshot(collection(db, "users"), (snap) => {
     allUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderUsers(); updateStats();
+    renderUsers();
+    renderNotifyTargets();
+    updateStats();
   }, err => console.error(err));
 
   unsubRequests = onSnapshot(collection(db, "requests"), (snap) => {
     allRequests = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     allRequests.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
-    renderRequests(); updateStats();
+    renderRequests();
+    updateStats();
   }, err => console.error(err));
 
   unsubLinks = onSnapshot(collection(db, "links"), (snap) => {
@@ -237,7 +305,14 @@ async function startListeners() {
   unsubCaptures = onSnapshot(collection(db, "captures"), (snap) => {
     allCaptures = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     allCaptures.sort((a,b) => (b.timestamp?.seconds||0) - (a.timestamp?.seconds||0));
-    renderAllCaptures(); updateStats();
+    renderAllCaptures();
+    updateStats();
+  }, err => console.error(err));
+
+  unsubNotifs = onSnapshot(collection(db, "notifications"), (snap) => {
+    allNotifications = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    allNotifications.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+    renderNotifHistory();
   }, err => console.error(err));
 }
 
@@ -258,10 +333,71 @@ function updateStats() {
 window.switchTab = function(tab, el) {
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
   el.classList.add("active");
-  ["overview","requests","users","links","captures"].forEach(t => {
+  ["overview","notify","requests","users","links","captures"].forEach(t => {
     document.getElementById("tab-" + t).classList.add("hidden");
   });
   document.getElementById("tab-" + tab).classList.remove("hidden");
+}
+
+/* NOTIFICATIONS SEND */
+function renderNotifyTargets() {
+  const sel = document.getElementById("notifyTarget");
+  const currentVal = sel.value;
+  sel.innerHTML = `<option value="all">📢 All Users (Broadcast)</option>` +
+    allUsers.map(u => `<option value="${u.id}">👤 ${escapeHtml(u.name || u.email)}</option>`).join("");
+  if (currentVal) sel.value = currentVal;
+}
+
+window.sendNotification = async function() {
+  const target = document.getElementById("notifyTarget").value;
+  const type = document.getElementById("notifyType").value;
+  const title = document.getElementById("notifyTitle").value.trim();
+  const body = document.getElementById("notifyBody").value.trim();
+
+  if (!title || !body) return showToast("Title & body bharo", true);
+
+  try {
+    await addDoc(collection(db, "notifications"), {
+      target,
+      type: type || "normal",
+      title,
+      body,
+      createdAt: serverTimestamp(),
+      sentBy: currentUser.uid
+    });
+    document.getElementById("notifyTitle").value = "";
+    document.getElementById("notifyBody").value = "";
+    showToast("✅ Notification bheji!");
+  } catch (e) { showToast("Fail: " + e.message, true); }
+}
+
+function renderNotifHistory() {
+  const list = document.getElementById("notifHistory");
+  if (allNotifications.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>Abhi koi notification nahi bheji</p></div>`;
+    return;
+  }
+  list.innerHTML = allNotifications.slice(0, 20).map(n => {
+    const time = n.createdAt?.seconds ? new Date(n.createdAt.seconds*1000).toLocaleString() : "-";
+    const targetName = n.target === "all" ? "📢 All Users" : (allUsers.find(u => u.id === n.target)?.name || n.target);
+    return `
+      <div class="req-item">
+        <div class="req-header">
+          <div class="req-info">
+            <h4>${escapeHtml(n.title)}</h4>
+            <p>${escapeHtml(n.body)}</p>
+            <p style="font-size:0.7rem;opacity:0.5;margin-top:4px;">👥 ${escapeHtml(targetName)} • 🕒 ${time}</p>
+          </div>
+          <button class="danger small" onclick="deleteNotification('${n.id}')">🗑️</button>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+window.deleteNotification = async function(id) {
+  if (!confirm("Delete notification?")) return;
+  try { await deleteDoc(doc(db, "notifications", id)); showToast("Deleted"); }
+  catch (e) { showToast("Fail", true); }
 }
 
 /* REQUESTS */
@@ -273,7 +409,7 @@ function renderRequests() {
   }
   list.innerHTML = allRequests.map(r => {
     const status = r.status || "pending";
-    const statusLabel = status === "pending" ? "⏳ Pending" : status === "approved" ? "✅ Approved" : "❌ Rejected";
+    const statusLabel = status === "pending" ? "⏳ PENDING" : status === "approved" ? "✅ APPROVED" : "❌ REJECTED";
     const time = r.createdAt?.seconds ? new Date(r.createdAt.seconds*1000).toLocaleString() : "-";
     let actions = "";
     if (status === "pending") {
@@ -289,11 +425,10 @@ function renderRequests() {
           <div class="req-info">
             <h4>${escapeHtml(r.userName || "User")}</h4>
             <p>${escapeHtml(r.userEmail || "")}</p>
-            <p style="font-size:0.72rem;opacity:0.5;margin-top:4px;">🕒 ${time}</p>
+            <p style="font-size:0.7rem;opacity:0.5;margin-top:4px;">🕒 ${time}</p>
           </div>
           <span class="req-status ${status}">${statusLabel}</span>
         </div>
-        ${r.message ? `<p style="font-size:0.82rem;opacity:0.7;margin-bottom:12px;">"${escapeHtml(r.message)}"</p>` : ""}
         <div class="req-actions">${actions}</div>
       </div>`;
   }).join("");
@@ -304,7 +439,15 @@ window.approveRequest = async function(reqId, userId) {
   try {
     await updateDoc(doc(db, "requests", reqId), { status: "approved", approvedAt: new Date() });
     await updateDoc(doc(db, "users", userId), { plan: "pro" });
-    showToast("✅ Approved!");
+    // Send notification to user
+    await addDoc(collection(db, "notifications"), {
+      target: userId,
+      type: "promo",
+      title: "🎉 Full Access Approved!",
+      body: "Aapka Full Access request approve ho gaya. Ab aap unlimited links bana sakte hain.",
+      createdAt: serverTimestamp()
+    });
+    showToast("✅ Approved + Notified!");
   } catch (e) { showToast("Fail: " + e.message, true); }
 }
 
@@ -338,8 +481,9 @@ function renderUsers() {
           <p>${escapeHtml(u.email || "")}</p>
         </div>
         <span class="user-plan ${plan}">${plan}</span>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          ${plan === "trial" ? `<button class="success small" onclick="makePro('${u.id}')">Make Pro</button>` : `<button class="danger small" onclick="makeTrial('${u.id}')">Demote</button>`}
+        <div style="display:flex;gap:5px;flex-wrap:wrap;">
+          ${plan === "trial" ? `<button class="success small" onclick="makePro('${u.id}')">Pro</button>` : `<button class="danger small" onclick="makeTrial('${u.id}')">Trial</button>`}
+          <button class="danger small" onclick="deleteUserPermanent('${u.id}', '${escapeHtml(u.email)}')">🗑️ Delete</button>
         </div>
       </div>`;
   }).join("");
@@ -352,9 +496,41 @@ window.makePro = async function(userId) {
 }
 
 window.makeTrial = async function(userId) {
-  if (!confirm("Demote?")) return;
+  if (!confirm("Demote to Trial?")) return;
   try { await updateDoc(doc(db, "users", userId), { plan: "trial", linksUsed: 0 }); showToast("Trial"); }
   catch (e) { showToast("Fail", true); }
+}
+
+window.deleteUserPermanent = async function(userId, userEmail) {
+  if (!confirm(`⚠️ PERMANENT DELETE!\n\nUser: ${userEmail}\n\nUser ka account aur tamam data delete ho jayega. Confirm?`)) return;
+  if (!confirm("🔴 Ye action UNDO nahi hoga. Bilkul sure ho?")) return;
+
+  try {
+    // Delete user's captures
+    const capQ = query(collection(db, "captures"), where("ownerId", "==", userId));
+    const capSnap = await getDocs(capQ);
+    for (const d of capSnap.docs) await deleteDoc(doc(db, "captures", d.id));
+
+    // Delete user's links
+    const linkQ = query(collection(db, "links"), where("ownerId", "==", userId));
+    const linkSnap = await getDocs(linkQ);
+    for (const d of linkSnap.docs) await deleteDoc(doc(db, "links", d.id));
+
+    // Delete user's requests
+    const reqQ = query(collection(db, "requests"), where("userId", "==", userId));
+    const reqSnap = await getDocs(reqQ);
+    for (const d of reqSnap.docs) await deleteDoc(doc(db, "requests", d.id));
+
+    // Delete user's notifications
+    const notifQ = query(collection(db, "notifications"), where("target", "==", userId));
+    const notifSnap = await getDocs(notifQ);
+    for (const d of notifSnap.docs) await deleteDoc(doc(db, "notifications", d.id));
+
+    // Delete user document
+    await deleteDoc(doc(db, "users", userId));
+
+    showToast("✅ User & all data deleted!");
+  } catch (e) { showToast("Fail: " + e.message, true); }
 }
 
 /* LINKS */
@@ -376,11 +552,10 @@ function renderAllLinks() {
     const isExpired = expMs < now;
     const owner = allUsers.find(u => u.id === link.ownerId);
     const ownerName = owner?.name || owner?.email?.split("@")[0] || "Unknown";
-    const featureIcons = { camera: "📷", video: "🎥", location: "📍", device: "📱", all: "⚡" };
+    const featureIcons = { camera: "📷", video: "🎥", mic: "🎤", location: "📍", device: "📱", all: "⚡" };
     const icon = featureIcons[link.feature] || "🔗";
     const views = link.views || 0;
     const captures = link.captureCount || 0;
-    const website = link.website || "Modsir Tools";
     const createdAt = link.createdAt?.seconds ? new Date(link.createdAt.seconds*1000).toLocaleString() : "-";
 
     let timeLeft = "";
@@ -394,25 +569,24 @@ function renderAllLinks() {
 
     return `
       <div class="capture-card" style="border-color:${isExpired ? 'rgba(239,68,68,0.3)' : 'rgba(34,211,238,0.3)'};">
-        <div style="padding:14px;">
+        <div style="padding:12px;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-            <div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">${icon}</div>
+            <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:1.15rem;">${icon}</div>
             <div style="flex:1;min-width:0;">
-              <div style="font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:700;word-break:break-all;">${link.id}</div>
-              <div style="font-size:0.65rem;opacity:0.6;margin-top:2px;">👤 ${escapeHtml(ownerName)}</div>
+              <div style="font-family:'Orbitron',monospace;font-size:0.72rem;font-weight:700;word-break:break-all;">${link.id}</div>
+              <div style="font-size:0.62rem;opacity:0.6;margin-top:2px;">👤 ${escapeHtml(ownerName)}</div>
             </div>
           </div>
-          <div style="font-size:0.68rem;opacity:0.7;margin-bottom:10px;">🌐 ${escapeHtml(website)}</div>
           <div class="link-stat-row">
             <div class="link-stat"><div class="num" style="color:var(--accent);">${views}</div><div class="lbl">👁️ Views</div></div>
             <div class="link-stat green"><div class="num" style="color:var(--accent-3);">${captures}</div><div class="lbl">📸 Data</div></div>
           </div>
-          <div style="text-align:center;font-size:0.7rem;font-weight:700;color:${isExpired ? 'var(--danger)' : 'var(--gold)'};margin-bottom:10px;">${timeLeft}</div>
-          <div style="display:flex;gap:6px;">
+          <div style="text-align:center;font-size:0.65rem;font-weight:700;color:${isExpired ? 'var(--danger)' : 'var(--gold)'};margin-bottom:8px;font-family:'Orbitron',sans-serif;">${timeLeft}</div>
+          <div style="display:flex;gap:5px;">
             <button class="success small" style="flex:1;" onclick="extendLink('${link.id}')">⏰ Extend</button>
-            <button class="danger small" style="flex:1;" onclick="deleteLink('${link.id}')">🗑️ Delete</button>
+            <button class="danger small" style="flex:1;" onclick="deleteLink('${link.id}')">🗑️</button>
           </div>
-          <div style="font-size:0.6rem;opacity:0.4;text-align:center;margin-top:8px;">${createdAt}</div>
+          <div style="font-size:0.55rem;opacity:0.4;text-align:center;margin-top:6px;">${createdAt}</div>
         </div>
       </div>
     `;
@@ -448,7 +622,6 @@ window.extendLink = async function(linkId) {
     let currentExpiry = linkData.expiresAt?.seconds ? linkData.expiresAt.seconds * 1000 : Date.now();
     if (currentExpiry < Date.now()) currentExpiry = Date.now();
     const newExpiry = new Date(currentExpiry + minutes * 60 * 1000);
-
     await updateDoc(doc(db, "links", linkId), { expiresAt: Timestamp.fromDate(newExpiry) });
     showToast(`✅ Link ${minutes} min extend!`);
   } catch (e) { showToast("Fail: " + e.message, true); }
@@ -476,15 +649,16 @@ function renderAllCaptures() {
   list.innerHTML = filtered.map(c => {
     let thumb = "";
     if (c.photo) thumb = `<img src="${c.photo}" onclick="viewCapture('${c.id}')" loading="lazy">`;
+    else if (c.video) thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(239,68,68,0.1);cursor:pointer;" onclick="viewCapture('${c.id}')">🎥</div>`;
+    else if (c.audio) thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(168,85,247,0.1);cursor:pointer;" onclick="viewCapture('${c.id}')">🎤</div>`;
     else if (c.type === "location") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(34,211,238,0.1);">📍</div>`;
     else if (c.type === "device") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(168,85,247,0.1);">📱</div>`;
-    else if (c.type === "video") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(239,68,68,0.1);">🎥</div>`;
     else thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">📎</div>`;
 
     const owner = allUsers.find(u => u.id === c.ownerId);
     const ownerName = owner?.name || owner?.email?.split("@")[0] || "Unknown";
     const time = c.timestamp?.seconds ? new Date(c.timestamp.seconds*1000).toLocaleString() : "-";
-    const website = c.website || "Modsir Tools";
+    const website = c.website || "Mudasir Abbas Tools";
 
     const link = allLinks.find(l => l.id === c.linkId);
     const views = link?.views || 0;
@@ -496,13 +670,13 @@ function renderAllCaptures() {
           <div class="row">👤 ${escapeHtml(ownerName)}</div>
           <div class="row">🏷️ ${c.type || c.feature}</div>
           <div class="row web">🌐 ${escapeHtml(website)}</div>
-          <div class="row" style="font-size:0.65rem;opacity:0.65;">👁️ ${views} views</div>
-          ${c.location ? `<div class="row" style="font-size:0.65rem;opacity:0.6;">📍 ${c.location.lat?.toFixed(2)}, ${c.location.lon?.toFixed(2)}</div>` : ""}
+          <div class="row" style="font-size:0.62rem;opacity:0.65;">👁️ ${views} views</div>
+          ${c.location ? `<div class="row" style="font-size:0.62rem;opacity:0.6;">📍 ${c.location.lat?.toFixed(2)}, ${c.location.lon?.toFixed(2)}</div>` : ""}
           <div class="time">🕒 ${time}</div>
         </div>
         <div class="capture-actions">
           ${c.location ? `<button class="secondary small" onclick="openMap(${c.location.lat},${c.location.lon})">🗺️</button>` : ""}
-          ${c.device ? `<button class="secondary small" onclick="viewDeviceInfo('${c.id}')">📱</button>` : ""}
+          ${c.device ? `<button class="secondary small" onclick="downloadPDF('${c.id}')">📄</button>` : ""}
           <button class="danger small" onclick="deleteCapture('${c.id}')">🗑️</button>
         </div>
       </div>`;
@@ -513,48 +687,115 @@ window.openMap = function(lat, lon) {
   window.open(`https://www.google.com/maps?q=${lat},${lon}`, "_blank");
 }
 
-window.viewDeviceInfo = function(id) {
-  const c = allCaptures.find(x => x.id === id);
-  if (!c || !c.device) return;
-  const dev = c.device;
-  const w = window.open("");
-  w.document.write(`
-    <html><head><title>Device Info</title>
-    <style>body{font-family:monospace;background:#0a0a1a;color:#fff;padding:24px;line-height:1.8;}
-    h1{color:#22d3ee;margin-bottom:16px;}
-    .row{padding:8px;border-bottom:1px solid rgba(255,255,255,0.1);}
-    .lbl{color:#a855f7;font-weight:700;}</style></head>
-    <body>
-      <h1>📱 Device Information</h1>
-      <div class="row"><span class="lbl">Type:</span> ${dev.type || "-"}</div>
-      <div class="row"><span class="lbl">Browser:</span> ${dev.browser || "-"}</div>
-      <div class="row"><span class="lbl">Platform:</span> ${dev.platform || "-"}</div>
-      <div class="row"><span class="lbl">Screen:</span> ${dev.screen || "-"}</div>
-      <div class="row"><span class="lbl">Language:</span> ${dev.language || "-"}</div>
-      <div class="row"><span class="lbl">Timezone:</span> ${dev.timezone || "-"}</div>
-      <div class="row"><span class="lbl">Memory:</span> ${dev.memory || "-"} GB</div>
-      <div class="row"><span class="lbl">CPU Cores:</span> ${dev.cores || "-"}</div>
-      <div class="row"><span class="lbl">GPU:</span> ${dev.gpu || "-"}</div>
-      <div class="row"><span class="lbl">Touch:</span> ${dev.touch ? "Yes" : "No"}</div>
-      <div class="row"><span class="lbl">Pixel Ratio:</span> ${dev.pixelRatio || "-"}x</div>
-      <div class="row"><span class="lbl">Vendor:</span> ${dev.vendor || "-"}</div>
-      <div class="row"><span class="lbl">Cookies:</span> ${dev.cookies ? "Yes" : "No"}</div>
-      <div class="row"><span class="lbl">Online:</span> ${dev.online ? "Yes" : "No"}</div>
-      ${dev.network ? `
-        <div class="row"><span class="lbl">Network:</span> ${dev.network.type || "-"}</div>
-        <div class="row"><span class="lbl">Downlink:</span> ${dev.network.downlink || "-"} Mbps</div>
-        <div class="row"><span class="lbl">RTT:</span> ${dev.network.rtt || "-"} ms</div>
-      ` : ""}
-    </body></html>
-  `);
-}
-
 window.viewCapture = function(id) {
   const c = allCaptures.find(x => x.id === id);
   if (!c) return;
-  const w = window.open("");
-  if (c.photo) w.document.write(`<html><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;"><img src="${c.photo}" style="max-width:100%;max-height:100vh;"></body></html>`);
-  else w.document.write(`<html><body style="background:#0a0a1a;color:#fff;padding:20px;font-family:monospace;"><pre>${JSON.stringify(c, null, 2)}</pre></body></html>`);
+  const content = document.getElementById("viewerContent");
+  if (c.photo) content.innerHTML = `<img src="${c.photo}" style="max-width:100%;max-height:80vh;border-radius:12px;">`;
+  else if (c.video) content.innerHTML = `<video src="${c.video}" controls autoplay playsinline style="max-width:100%;max-height:80vh;border-radius:12px;"></video>`;
+  else if (c.audio) content.innerHTML = `<div style="padding:20px;text-align:center;"><div style="font-size:3rem;margin-bottom:14px;">🎤</div><audio src="${c.audio}" controls autoplay style="width:100%;"></audio></div>`;
+  else content.innerHTML = `<pre style="color:#fff;padding:20px;overflow:auto;font-size:0.75rem;">${JSON.stringify(c, null, 2)}</pre>`;
+  document.getElementById("viewerModal").classList.add("active");
+}
+
+window.closeViewer = function(e) {
+  if (e && e.target !== e.currentTarget && e.type === "click") return;
+  document.getElementById("viewerModal").classList.remove("active");
+  document.getElementById("viewerContent").innerHTML = "";
+}
+
+window.downloadPDF = async function(id) {
+  try {
+    const snap = await getDoc(doc(db, "captures", id));
+    if (!snap.exists()) return;
+    const data = snap.data();
+    if (!data.device) return showToast("No device data", true);
+
+    const dev = data.device;
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+    const pageW = pdf.internal.pageSize.getWidth();
+
+    pdf.setFillColor(34, 211, 238);
+    pdf.rect(0, 0, pageW, 30, 'F');
+    pdf.setFillColor(168, 85, 247);
+    pdf.rect(0, 15, pageW, 15, 'F');
+
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(22);
+    pdf.setFont(undefined, 'bold');
+    pdf.text("DEVICE INFORMATION", pageW/2, 14, { align: 'center' });
+    pdf.setFontSize(10);
+    pdf.text("Mudasir Abbas Tools", pageW/2, 24, { align: 'center' });
+
+    pdf.setTextColor(0, 0, 0);
+    let y = 42;
+
+    const addRow = (label, value) => {
+      pdf.setFontSize(11);
+      pdf.setFont(undefined, 'bold');
+      pdf.setTextColor(120, 60, 200);
+      pdf.text(label + ":", 15, y);
+      pdf.setFont(undefined, 'normal');
+      pdf.setTextColor(40, 40, 40);
+      pdf.text(String(value || "-").substring(0, 45), 75, y);
+      y += 7;
+    };
+
+    const addSection = (title) => {
+      y += 3;
+      pdf.setFillColor(240, 240, 250);
+      pdf.rect(10, y - 5, pageW - 20, 8, 'F');
+      pdf.setFontSize(12);
+      pdf.setFont(undefined, 'bold');
+      pdf.setTextColor(34, 100, 150);
+      pdf.text(title, 15, y);
+      y += 8;
+    };
+
+    addSection("DEVICE");
+    addRow("Type", dev.type);
+    addRow("Browser", dev.browser);
+    addRow("Platform", dev.platform);
+    addRow("Screen", dev.screen);
+    addRow("Pixel Ratio", dev.pixelRatio + "x");
+    addRow("Touch", dev.touch ? "Yes" : "No");
+
+    addSection("HARDWARE");
+    addRow("Memory", dev.memory + " GB");
+    addRow("CPU Cores", dev.cores);
+    addRow("GPU", (dev.gpu || "-").substring(0, 40));
+    addRow("Vendor", dev.vendor);
+
+    addSection("NETWORK");
+    addRow("Type", dev.network?.type);
+    addRow("Downlink", dev.network?.downlink + " Mbps");
+    addRow("RTT", dev.network?.rtt + " ms");
+    addRow("Online", dev.online ? "Yes" : "No");
+
+    addSection("LOCALE");
+    addRow("Language", dev.language);
+    addRow("Timezone", dev.timezone);
+    addRow("Cookies", dev.cookies ? "Enabled" : "Disabled");
+
+    addSection("LOCATION");
+    addRow("Latitude", data.location?.lat);
+    addRow("Longitude", data.location?.lon);
+    addRow("Accuracy", data.location?.accuracy + " m");
+
+    addSection("METADATA");
+    addRow("Captured", data.timestamp?.seconds ? new Date(data.timestamp.seconds*1000).toLocaleString() : "-");
+    addRow("Website", data.website);
+
+    pdf.setFillColor(34, 211, 238);
+    pdf.rect(0, pdf.internal.pageSize.getHeight() - 15, pageW, 15, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(9);
+    pdf.text("© 2025 Mudasir Abbas — Professional Tool", pageW/2, pdf.internal.pageSize.getHeight() - 5, { align: 'center' });
+
+    pdf.save(`device-info-${id.slice(0,8)}.pdf`);
+    showToast("📄 PDF downloaded!");
+  } catch (e) { showToast("PDF fail", true); }
 }
 
 window.deleteCapture = async function(id) {
@@ -563,19 +804,44 @@ window.deleteCapture = async function(id) {
   catch (e) { showToast("Fail", true); }
 }
 
+/* CLEANUP 24H+ OLD DATA */
+window.cleanupOldData = async function() {
+  if (!confirm("⚠️ 24 ghante se purana data delete kar dein?")) return;
+  try {
+    const cutoff = Date.now() - (24 * 60 * 60 * 1000);
+    let deleted = 0;
+    for (const c of allCaptures) {
+      const t = c.timestamp?.seconds ? c.timestamp.seconds * 1000 : 0;
+      if (t > 0 && t < cutoff) {
+        await deleteDoc(doc(db, "captures", c.id));
+        deleted++;
+      }
+    }
+    // Also cleanup old links
+    for (const l of allLinks) {
+      const exp = l.expiresAt?.seconds ? l.expiresAt.seconds * 1000 : 0;
+      if (exp > 0 && exp < Date.now() - (24*60*60*1000)) {
+        await deleteDoc(doc(db, "links", l.id));
+        deleted++;
+      }
+    }
+    showToast(`🗑️ ${deleted} items deleted!`);
+  } catch (e) { showToast("Fail: " + e.message, true); }
+}
+
 window.adminLogout = async function() {
   if (unsubUsers) unsubUsers();
   if (unsubRequests) unsubRequests();
   if (unsubLinks) unsubLinks();
   if (unsubCaptures) unsubCaptures();
+  if (unsubNotifs) unsubNotifs();
   await signOut(auth);
   location.href = "index.html";
 }
 
-function escapeHtml(s) {
-  if (s == null) return "";
-  return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
-}
+/* Current user */
+let currentUser = null;
+onAuthStateChanged(auth, (u) => { currentUser = u; });
 </script>
 </body>
 </html>
