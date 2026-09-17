@@ -9,26 +9,24 @@
   :root{--bg:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--gold:#fbbf24;--danger:#ef4444;--text:#fff;--text-dim:rgba(255,255,255,0.6);--glass:rgba(255,255,255,0.04);--glass-2:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.08);--border-2:rgba(255,255,255,0.15);}
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{scroll-behavior:smooth;}
-  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
-  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.35) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.3) 0%,transparent 50%);z-index:-2;animation:bgFloat 25s ease-in-out infinite;}
-  @keyframes bgFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;position:relative;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.35) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.3) 0%,transparent 50%);z-index:-2;}
+  body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:40px 40px;z-index:-1;mask-image:radial-gradient(ellipse at center,#000 40%,transparent 80%);}
   .hidden{display:none !important;}
   .container{max-width:1100px;margin:0 auto;padding:20px 18px 40px;}
 
-  /* NAVBAR */
   .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.8);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
   .brand{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;text-decoration:none;color:inherit;}
   .brand-logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800;color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.35);overflow:hidden;}
   .brand-text{display:flex;flex-direction:column;line-height:1.15;}
-  .brand-text small{font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);opacity:0.9;}
+  .brand-text small{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);}
   .nav-menu{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
   .nav-link{padding:9px 14px;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--text-dim);font-weight:600;font-size:0.82rem;cursor:pointer;transition:0.25s;font-family:inherit;text-decoration:none;}
   .nav-link:hover{background:var(--glass);border-color:var(--border);color:#fff;}
   .nav-link.cta{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;border:none;box-shadow:0 4px 16px rgba(34,211,238,0.35);}
 
-  /* HERO */
   .hero{padding:50px 20px 30px;text-align:center;}
-  .hero-avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:4rem;font-weight:800;color:#000;font-family:'Space Grotesk',sans-serif;margin:0 auto 24px;box-shadow:0 24px 70px rgba(34,211,238,0.5);position:relative;animation:avatarFloat 4s ease-in-out infinite;overflow:hidden;}
+  .hero-avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:4rem;font-weight:800;color:#000;font-family:'Space Grotesk',sans-serif;margin:0 auto 24px;box-shadow:0 24px 70px rgba(34,211,238,0.5);animation:avatarFloat 4s ease-in-out infinite;}
   @keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
   .hero-greeting{display:inline-block;padding:6px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.8rem;color:var(--accent);font-weight:600;margin-bottom:16px;}
   .hero h1{font-family:'Space Grotesk',sans-serif;font-size:2.8rem;font-weight:800;line-height:1.1;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#22d3ee 50%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -38,24 +36,28 @@
   button{padding:13px 24px;border-radius:12px;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
   button:active:not(:disabled){transform:scale(0.97);}
   button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4);}
-  button.primary:hover{transform:translateY(-2px);}
   button.secondary{background:var(--glass-2);color:#fff;border:1px solid var(--border-2);}
-  button.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;}
   button.block{width:100%;}
 
-  /* SECTIONS */
   section{padding:50px 0;}
   .section-title{font-family:'Space Grotesk',sans-serif;font-size:1.9rem;font-weight:800;margin-bottom:10px;text-align:center;}
   .section-subtitle{text-align:center;color:var(--text-dim);font-size:0.95rem;margin-bottom:32px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6;}
 
-  /* TOOLS */
-  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;max-width:900px;margin:0 auto;}
-  .tool-card{background:var(--glass);border:1px solid var(--border);border-radius:22px;padding:26px 22px;text-align:center;cursor:pointer;transition:0.3s;font-family:inherit;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;}
-  .tool-card:hover{background:var(--glass-2);border-color:var(--accent);transform:translateY(-6px);box-shadow:0 20px 40px rgba(34,211,238,0.15);}
-  .tool-icon{width:70px;height:70px;margin:0 auto 16px;border-radius:20px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:2rem;}
-  .tool-card h3{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:6px;font-weight:700;}
-  .tool-card p{font-size:0.82rem;color:var(--text-dim);line-height:1.5;}
-  .tool-badge{display:inline-block;padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;font-size:0.65rem;font-weight:700;margin-top:10px;letter-spacing:0.05em;}
+  /* TOOLS - APP STYLE BOXES */
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;max-width:900px;margin:0 auto;}
+  @media (max-width:480px){.tools-grid{grid-template-columns:repeat(3,1fr);gap:12px;}}
+  @media (max-width:360px){.tools-grid{grid-template-columns:repeat(2,1fr);}}
+  .tool-box{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:18px 10px;text-align:center;cursor:pointer;transition:0.3s;font-family:inherit;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:10px;position:relative;overflow:hidden;}
+  .tool-box:hover{background:var(--glass-2);border-color:var(--accent);transform:translateY(-5px);box-shadow:0 20px 40px rgba(34,211,238,0.15);}
+  .tool-box::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transition:0.75s;}
+  .tool-box:hover::before{left:125%;}
+  .tool-box-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:1.7rem;transition:transform 0.3s;}
+  .tool-box:hover .tool-box-icon{transform:scale(1.1) rotate(5deg);}
+  .tool-box-title{font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:700;}
+  .tool-box-desc{font-size:0.65rem;opacity:0.55;line-height:1.3;}
+  .tool-box-badge{position:absolute;top:8px;right:8px;padding:2px 7px;border-radius:10px;font-size:0.55rem;font-weight:700;}
+  .tool-box-badge.new{background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;}
+  .tool-box-badge.pro{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
 
   /* ABOUT */
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
@@ -68,7 +70,7 @@
   .timeline-item:last-child{padding-bottom:0;}
   .timeline-item::before{content:'';position:absolute;left:-24px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 12px var(--accent);}
   .timeline-item h4{font-family:'Space Grotesk',sans-serif;font-size:1rem;margin-bottom:2px;font-weight:700;}
-  .timeline-item .year{font-size:0.72rem;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:4px;letter-spacing:0.05em;}
+  .timeline-item .year{font-size:0.72rem;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
   .timeline-item p{font-size:0.85rem;color:var(--text-dim);line-height:1.5;}
   .skills-list{display:flex;flex-wrap:wrap;gap:8px;}
   .skill-tag{padding:7px 14px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.8rem;font-weight:600;color:var(--accent);}
@@ -88,7 +90,7 @@
   /* MODAL */
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;overflow-y:auto;}
   .modal-overlay.active{display:flex;}
-  .modal-box{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.3);border-radius:24px;padding:30px 24px;max-width:430px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);position:relative;}
+  .modal-box{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.3);border-radius:24px;padding:30px 24px;max-width:430px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);position:relative;max-height:90vh;overflow-y:auto;}
   .modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;border:1px solid rgba(255,255,255,0.15);cursor:pointer;}
   .modal-box h2{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:6px;text-align:center;}
   .modal-box p.subtitle{text-align:center;color:var(--text-dim);font-size:0.82rem;margin-bottom:22px;}
@@ -100,6 +102,7 @@
   .modal-tab{flex:1;padding:10px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.85rem;cursor:pointer;font-family:inherit;}
   .modal-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
   .google-btn{background:#fff;color:#000;font-weight:600;border:1px solid rgba(0,0,0,0.1);width:100%;padding:12px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:0.9rem;}
+  .google-btn:hover{background:#f5f5f5;}
   .divider{display:flex;align-items:center;gap:10px;margin:16px 0;}
   .divider .line{flex:1;height:1px;background:rgba(255,255,255,0.1);}
   .divider .text{font-size:0.7rem;opacity:0.5;}
@@ -108,6 +111,24 @@
   .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);}
   footer{text-align:center;padding:36px 20px;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.82rem;margin-top:30px;}
   footer a{color:var(--accent);text-decoration:none;}
+  footer .footer-links{display:flex;gap:16px;justify-content:center;margin-top:12px;flex-wrap:wrap;}
+  footer .footer-links button{background:none;border:none;color:var(--text-dim);font-size:0.78rem;cursor:pointer;font-family:inherit;padding:4px 8px;}
+  footer .footer-links button:hover{color:var(--accent);}
+
+  /* TOOLS DETAIL VIEW */
+  .tools-detail-view{padding:30px 0;}
+  .back-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--glass);border:1px solid var(--border);border-radius:10px;color:#fff;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:24px;font-family:inherit;}
+  .back-btn:hover{background:var(--glass-2);}
+  .detail-title{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;margin-bottom:12px;font-weight:800;text-align:center;}
+  .detail-desc{color:var(--text-dim);font-size:0.95rem;line-height:1.6;margin-bottom:30px;max-width:700px;margin-left:auto;margin-right:auto;text-align:center;}
+
+  /* TERMS MODAL */
+  .terms-content{font-size:0.82rem;line-height:1.8;color:var(--text-dim);max-height:70vh;overflow-y:auto;padding-right:8px;}
+  .terms-content h3{font-family:'Space Grotesk',sans-serif;color:var(--accent);font-size:1rem;margin:20px 0 10px;}
+  .terms-content h3:first-child{margin-top:0;}
+  .terms-content p{margin-bottom:12px;}
+  .terms-content ul{margin-left:20px;margin-bottom:12px;}
+  .terms-content li{margin-bottom:6px;}
 </style>
 </head>
 <body>
@@ -115,151 +136,128 @@
 <div class="navbar">
   <a href="#home" class="brand">
     <div class="brand-logo">M</div>
-    <div class="brand-text">
-      <span>Modsir Abbas</span>
-      <small>Full Stack Dev</small>
-    </div>
+    <div class="brand-text"><span>Modsir Abbas</span><small>Full Stack Dev</small></div>
   </a>
   <div class="nav-menu">
     <a href="#home" class="nav-link">Home</a>
     <a href="#about" class="nav-link">About</a>
-    <a href="#tools" class="nav-link">Tools</a>
+    <button class="nav-link" onclick="showTools()">Tools</button>
     <a href="#contact" class="nav-link">Contact</a>
     <button class="nav-link cta" onclick="openLogin()">Login</button>
   </div>
 </div>
 
-<section class="hero" id="home">
-  <div class="hero-avatar">MA</div>
-  <div class="hero-greeting">👋 Welcome to my portfolio</div>
-  <h1>Modsir Abbas</h1>
-  <p class="hero-subtitle">Full-Stack Developer • Building modern web apps & professional data tools</p>
-  <div class="hero-actions">
-    <button class="primary" onclick="document.getElementById('tools').scrollIntoView()">🚀 Explore Tools</button>
-    <button class="secondary" onclick="document.getElementById('about').scrollIntoView()">📄 About Me</button>
-  </div>
-</section>
+<!-- HOME VIEW -->
+<div id="homeView">
+  <section class="hero" id="home">
+    <div class="hero-avatar">MA</div>
+    <div class="hero-greeting">👋 Welcome to my portfolio</div>
+    <h1>Modsir Abbas</h1>
+    <p class="hero-subtitle">Full-Stack Developer • Building modern web apps & professional data tools</p>
+    <div class="hero-actions">
+      <button class="primary" onclick="showTools()">🚀 Explore Tools</button>
+      <button class="secondary" onclick="document.getElementById('about').scrollIntoView()">📄 About Me</button>
+    </div>
+  </section>
 
-<section id="about">
-  <div class="container">
-    <h2 class="section-title">About Me</h2>
-    <p class="section-subtitle">My journey in tech — from Matric to becoming a full-stack developer</p>
-    <div class="about-grid">
-      <div class="card">
-        <h3>🎓 Education</h3>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="year">Matric</div>
-            <h4>Science Stream</h4>
-            <p>Completed secondary education with focus on Science</p>
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">My journey — from Matric to becoming a full-stack developer</p>
+      <div class="about-grid">
+        <div class="card">
+          <h3>🎓 Education</h3>
+          <div class="timeline">
+            <div class="timeline-item"><div class="year">Matric</div><h4>Science Stream</h4><p>Completed secondary education with focus on Science</p></div>
+            <div class="timeline-item"><div class="year">FA IT</div><h4>Intermediate in IT</h4><p>Studied Information Technology fundamentals</p></div>
+            <div class="timeline-item"><div class="year">BS IT</div><h4>Bachelor of Science in IT</h4><p>Specialized in programming, web development & databases</p></div>
           </div>
-          <div class="timeline-item">
-            <div class="year">FA IT</div>
-            <h4>Intermediate in IT</h4>
-            <p>Studied Information Technology fundamentals</p>
+        </div>
+        <div class="card">
+          <h3>💼 Skills & Expertise</h3>
+          <p style="opacity:0.75;font-size:0.85rem;margin-bottom:14px;line-height:1.6;">Building modern, secure & scalable web applications</p>
+          <div class="skills-list">
+            <span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Firebase</span><span class="skill-tag">Firestore</span><span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">Responsive</span><span class="skill-tag">Node.js</span><span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">Git</span>
           </div>
-          <div class="timeline-item">
-            <div class="year">BS IT</div>
-            <h4>Bachelor of Science in IT</h4>
-            <p>Specialized in programming, web development & databases</p>
+          <div class="stats-row">
+            <div class="stat-box"><h4>15+</h4><p>Projects</p></div>
+            <div class="stat-box"><h4>2+</h4><p>Years</p></div>
+            <div class="stat-box"><h4>100%</h4><p>Dedication</p></div>
           </div>
         </div>
       </div>
-      <div class="card">
-        <h3>💼 Skills & Expertise</h3>
-        <p style="opacity:0.75;font-size:0.85rem;margin-bottom:14px;line-height:1.6;">Building modern, secure & scalable web applications</p>
-        <div class="skills-list">
-          <span class="skill-tag">HTML5</span>
-          <span class="skill-tag">CSS3</span>
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">Firebase</span>
-          <span class="skill-tag">Firestore</span>
-          <span class="skill-tag">REST APIs</span>
-          <span class="skill-tag">Responsive</span>
-          <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">MongoDB</span>
-          <span class="skill-tag">Git</span>
-        </div>
-        <div class="stats-row">
-          <div class="stat-box"><h4>15+</h4><p>Projects</p></div>
-          <div class="stat-box"><h4>2+</h4><p>Years</p></div>
-          <div class="stat-box"><h4>100%</h4><p>Dedication</p></div>
-        </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="section-subtitle">Let's build something amazing together</p>
+      <div class="contact-grid">
+        <a href="https://wa.me/923084191378" target="_blank" class="contact-card">
+          <div class="cc-icon">💬</div><h4>WhatsApp</h4><p>0308 419 1378</p>
+        </a>
+        <a href="mailto:malikmudasirkhar001@gmail.com" class="contact-card">
+          <div class="cc-icon">✉️</div><h4>Email</h4><p>malikmudasirkhar001</p>
+        </a>
+        <a href="live-tv.html" class="contact-card">
+          <div class="cc-icon">📺</div><h4>Live TV</h4><p>Watch Now</p>
+        </a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
-<section id="tools">
-  <div class="container">
-    <h2 class="section-title">My Tools & Services</h2>
-    <p class="section-subtitle">Click on any tool to explore</p>
-    <div class="tools-grid">
-      <a href="live-tv.html" class="tool-card">
-        <div class="tool-icon">📺</div>
-        <h3>Live TV Portal</h3>
-        <p>50+ Pakistani & international channels streaming live</p>
-        <span class="tool-badge">NEW</span>
-      </a>
-      <button class="tool-card" onclick="openLogin()">
-        <div class="tool-icon">📷</div>
-        <h3>Camera Access</h3>
-        <p>Professional photo capture with live dashboard</p>
-      </button>
-      <button class="tool-card" onclick="openLogin()">
-        <div class="tool-icon">📍</div>
-        <h3>Location Tracking</h3>
-        <p>GPS capture & real-time tracking</p>
-      </button>
-      <button class="tool-card" onclick="openLogin()">
-        <div class="tool-icon">📱</div>
-        <h3>Device Info</h3>
-        <p>Complete device information capture</p>
-      </button>
-      <button class="tool-card" onclick="openLogin()">
-        <div class="tool-icon">🎥</div>
-        <h3>Video Recording</h3>
-        <p>Browser-based video recording tool</p>
-      </button>
-      <button class="tool-card" onclick="openLogin()">
-        <div class="tool-icon">⚡</div>
-        <h3>Full Access Pro</h3>
-        <p>All features unlocked — unlimited</p>
-        <span class="tool-badge" style="background:linear-gradient(135deg,var(--gold),#f59e0b);">PRO</span>
-      </button>
-    </div>
-  </div>
-</section>
+<!-- TOOLS VIEW -->
+<div id="toolsView" class="container tools-detail-view hidden">
+  <button class="back-btn" onclick="closeTools()">← Back</button>
+  <h1 class="detail-title">🛠️ My Tools</h1>
+  <p class="detail-desc">Professional tools built with modern web technologies</p>
 
-<section id="contact">
-  <div class="container">
-    <h2 class="section-title">Get in Touch</h2>
-    <p class="section-subtitle">Let's build something amazing together</p>
-    <div class="contact-grid">
-      <a href="https://wa.me/923084191378" target="_blank" class="contact-card">
-        <div class="cc-icon">💬</div>
-        <h4>WhatsApp</h4>
-        <p>0308 419 1378</p>
-      </a>
-      <a href="mailto:malikmudasirkhar001@gmail.com" class="contact-card">
-        <div class="cc-icon">✉️</div>
-        <h4>Email</h4>
-        <p>malikmudasirkhar001</p>
-      </a>
-      <a href="live-tv.html" class="contact-card">
-        <div class="cc-icon">📺</div>
-        <h4>Live TV</h4>
-        <p>Watch Now</p>
-      </a>
-    </div>
+  <div class="tools-grid">
+    <a href="live-tv.html" class="tool-box">
+      <div class="tool-box-icon">📺</div>
+      <div class="tool-box-title">Live TV</div>
+      <div class="tool-box-desc">50+ Channels</div>
+      <span class="tool-box-badge new">NEW</span>
+    </a>
+    <button class="tool-box" onclick="openLogin()">
+      <div class="tool-box-icon">📷</div>
+      <div class="tool-box-title">Camera</div>
+      <div class="tool-box-desc">Photo Capture</div>
+    </button>
+    <button class="tool-box" onclick="openLogin()">
+      <div class="tool-box-icon">🎥</div>
+      <div class="tool-box-title">Video</div>
+      <div class="tool-box-desc">Recording</div>
+    </button>
+    <button class="tool-box" onclick="openLogin()">
+      <div class="tool-box-icon">📍</div>
+      <div class="tool-box-title">Location</div>
+      <div class="tool-box-desc">GPS Tracking</div>
+    </button>
+    <button class="tool-box" onclick="openLogin()">
+      <div class="tool-box-icon">📱</div>
+      <div class="tool-box-title">Device Info</div>
+      <div class="tool-box-desc">Phone Details</div>
+    </button>
+    <button class="tool-box" onclick="openLogin()">
+      <div class="tool-box-icon">⚡</div>
+      <div class="tool-box-title">Full Access</div>
+      <div class="tool-box-desc">All Features</div>
+      <span class="tool-box-badge pro">PRO</span>
+    </button>
   </div>
-</section>
+</div>
 
 <!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeLogin()">✕</button>
-    <h2>Welcome</h2>
+    <h2 id="loginTitle">Welcome</h2>
     <p class="subtitle">Login karo ya naya account banao</p>
     <div class="modal-tabs">
       <button class="modal-tab active" id="tabLogin" onclick="switchAuth('login')">Login</button>
@@ -286,6 +284,12 @@
       <input type="email" id="regEmail" placeholder="your@email.com">
       <label>Password (min 6 chars)</label>
       <input type="password" id="regPass" placeholder="••••••••">
+      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:12px;font-size:0.75rem;opacity:0.8;">
+        <input type="checkbox" id="agreeTerms" style="width:auto;margin-top:3px;">
+        <label for="agreeTerms" style="margin:0;cursor:pointer;">
+          Main <button type="button" onclick="openTerms()" style="background:none;border:none;color:var(--accent);text-decoration:underline;cursor:pointer;padding:0;font-size:inherit;font-family:inherit;">Terms & Conditions</button> se agree karta hoon
+        </label>
+      </div>
       <button class="primary block" onclick="doRegister()" id="regBtn">✨ Create Account</button>
       <div class="divider"><div class="line"></div><div class="text">OR</div><div class="line"></div></div>
       <button class="google-btn" onclick="doGoogleLogin()">
@@ -296,9 +300,69 @@
   </div>
 </div>
 
+<!-- TERMS MODAL -->
+<div class="modal-overlay" id="termsModal">
+  <div class="modal-box" style="max-width:560px;">
+    <button class="modal-close" onclick="closeTerms()">✕</button>
+    <h2>📜 Terms & Conditions</h2>
+    <p class="subtitle">Last updated: 2025</p>
+    <div class="terms-content">
+      <h3>1. Acceptance of Terms</h3>
+      <p>By accessing and using Modsir Tools ("Service"), you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this Service.</p>
+
+      <h3>2. Use of Service</h3>
+      <p>You agree to use the Service only for lawful purposes and in a manner that does not infringe the rights of, restrict or inhibit anyone else's use and enjoyment of the Service.</p>
+      <p>Prohibited uses include:</p>
+      <ul>
+        <li>Any unlawful, fraudulent, or malicious activity</li>
+        <li>Collecting data without proper consent</li>
+        <li>Infringing intellectual property rights</li>
+        <li>Attempting to gain unauthorized access</li>
+        <li>Distributing malware or harmful code</li>
+      </ul>
+
+      <h3>3. User Accounts</h3>
+      <p>You are responsible for maintaining the confidentiality of your account credentials. You agree to accept responsibility for all activities that occur under your account.</p>
+
+      <h3>4. Data Collection</h3>
+      <p>Our tools capture data (photos, location, device info) only after explicit user consent through browser permission prompts. You are responsible for ensuring proper consent is obtained from your clients.</p>
+
+      <h3>5. Privacy</h3>
+      <p>We respect your privacy. Data captured through our tools is stored securely and is only accessible to the account owner who generated the link. We do not sell or share your data with third parties.</p>
+
+      <h3>6. Plans & Payment</h3>
+      <p>Free trial offers 3 links. Pro plan (1500 PKR/month) offers unlimited links. Payments are non-refundable. We reserve the right to change pricing with prior notice.</p>
+
+      <h3>7. Intellectual Property</h3>
+      <p>The Service and its original content, features, and functionality are owned by Modsir Abbas and are protected by international copyright, trademark, and other intellectual property laws.</p>
+
+      <h3>8. Limitation of Liability</h3>
+      <p>In no event shall Modsir Abbas be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the Service.</p>
+
+      <h3>9. Changes to Terms</h3>
+      <p>We reserve the right to modify these terms at any time. Continued use of the Service after changes constitutes acceptance of new terms.</p>
+
+      <h3>10. Termination</h3>
+      <p>We may terminate or suspend your account immediately for any violation of these Terms.</p>
+
+      <h3>11. Governing Law</h3>
+      <p>These Terms shall be governed by and construed in accordance with the laws of Pakistan.</p>
+
+      <h3>12. Contact</h3>
+      <p>For questions: malikmudasirkhar001@gmail.com</p>
+
+      <p style="margin-top:20px;font-size:0.75rem;opacity:0.6;">© 2025 Modsir Abbas. All rights reserved.</p>
+    </div>
+    <button class="primary block" onclick="closeTerms()" style="margin-top:16px;">I Understand</button>
+  </div>
+</div>
+
 <footer>
   <p>© 2025 <a href="#home">Modsir Abbas</a> — Full Stack Developer</p>
-  <p style="margin-top:6px;font-size:0.75rem;">Built with ❤️ using Firebase</p>
+  <div class="footer-links">
+    <button onclick="openTerms()">Terms & Conditions</button>
+    <button onclick="document.getElementById('contact').scrollIntoView()">Contact</button>
+  </div>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -323,7 +387,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/* Auto-login: user ko yaad rakho */
 setPersistence(auth, browserLocalPersistence).catch(console.error);
 
 window.showToast = function(msg, isError = false) {
@@ -336,11 +399,26 @@ window.showToast = function(msg, isError = false) {
 
 window.openLogin = function() { document.getElementById("loginModal").classList.add("active"); }
 window.closeLogin = function() { document.getElementById("loginModal").classList.remove("active"); }
+window.openTerms = function() { document.getElementById("termsModal").classList.add("active"); }
+window.closeTerms = function() { document.getElementById("termsModal").classList.remove("active"); }
+
 window.switchAuth = function(mode) {
   document.getElementById("tabLogin").classList.toggle("active", mode === "login");
   document.getElementById("tabRegister").classList.toggle("active", mode === "register");
   document.getElementById("loginForm").classList.toggle("hidden", mode !== "login");
   document.getElementById("registerForm").classList.toggle("hidden", mode !== "register");
+}
+
+window.showTools = function() {
+  document.getElementById("homeView").classList.add("hidden");
+  document.getElementById("toolsView").classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+window.closeTools = function() {
+  document.getElementById("toolsView").classList.add("hidden");
+  document.getElementById("homeView").classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 async function saveDeviceInfo(uid) {
@@ -361,10 +439,15 @@ window.doRegister = async function() {
   const name = document.getElementById("regName").value.trim();
   const email = document.getElementById("regEmail").value.trim().toLowerCase();
   const pass = document.getElementById("regPass").value;
+  const agreed = document.getElementById("agreeTerms").checked;
+
   if (!name || !email || !pass) return showToast("Sab fields bharo", true);
-  if (pass.length < 6) return showToast("Password 6+ characters ka ho", true);
+  if (!agreed) return showToast("Terms accept karo", true);
+  if (pass.length < 6) return showToast("Password 6+ chars", true);
+
   document.getElementById("regBtn").disabled = true;
   document.getElementById("regBtn").textContent = "Creating...";
+
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
     await updateProfile(cred.user, { displayName: name });
@@ -379,8 +462,8 @@ window.doRegister = async function() {
     }, 1200);
   } catch (e) {
     let msg = e.message;
-    if (e.code === "auth/email-already-in-use") msg = "Ye email already registered hai";
-    else if (e.code === "auth/weak-password") msg = "Password weak hai";
+    if (e.code === "auth/email-already-in-use") msg = "Email already registered";
+    else if (e.code === "auth/weak-password") msg = "Password weak";
     showToast(msg, true);
   } finally {
     document.getElementById("regBtn").disabled = false;
@@ -392,8 +475,10 @@ window.doLogin = async function() {
   const email = document.getElementById("loginEmail").value.trim().toLowerCase();
   const pass = document.getElementById("loginPass").value;
   if (!email || !pass) return showToast("Email & password daalo", true);
+
   document.getElementById("loginBtn").disabled = true;
   document.getElementById("loginBtn").textContent = "Logging in...";
+
   try {
     const cred = await signInWithEmailAndPassword(auth, email, pass);
     await saveDeviceInfo(cred.user.uid);
