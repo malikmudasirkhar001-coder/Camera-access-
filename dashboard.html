@@ -43,7 +43,7 @@
   .profile-info h2{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:3px;}
   .profile-info p{font-size:0.8rem;opacity:0.6;}
   .how-to-use{background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(34,211,238,0.08));border:1px solid rgba(16,185,129,0.3);border-radius:16px;padding:18px;margin-bottom:18px;font-size:0.85rem;line-height:1.7;}
-  .how-to-use h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;margin-bottom:10px;color:var(--accent-3);display:flex;align-items:center;gap:8px;}
+  .how-to-use h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;margin-bottom:10px;color:var(--accent-3);}
   .how-to-use ol{padding-left:20px;}
   .how-to-use li{margin-bottom:6px;opacity:0.85;}
   .usage-bar{background:rgba(0,0,0,0.35);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid var(--border);}
@@ -56,7 +56,7 @@
   .usage-fill.warn{background:linear-gradient(90deg,var(--gold),#f97316);}
   .usage-fill.danger{background:linear-gradient(90deg,var(--danger),#dc2626);}
   .feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
-  .feature-btn{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px 14px;cursor:pointer;transition:0.25s;text-align:center;color:#fff;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:inherit;position:relative;}
+  .feature-btn{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px 14px;cursor:pointer;transition:0.25s;text-align:center;color:#fff;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:inherit;}
   .feature-btn:hover:not(:disabled){background:var(--glass-2);border-color:var(--accent);transform:translateY(-5px);}
   .feature-btn:disabled{opacity:0.5;cursor:not-allowed;}
   .feature-btn .fb-icon{width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
@@ -73,8 +73,8 @@
   .media-info{padding:10px 12px;font-size:0.72rem;line-height:1.5;}
   .media-info .row{display:flex;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0.85;}
   .media-info .time{opacity:0.5;font-size:0.66rem;margin-top:4px;}
-  .media-actions{padding:0 10px 10px;}
-  .media-actions button{width:100%;padding:8px;font-size:0.72rem;}
+  .media-actions{padding:0 10px 10px;display:flex;gap:6px;}
+  .media-actions button{flex:1;padding:8px;font-size:0.72rem;}
   .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.88rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s;z-index:2000;pointer-events:none;}
   .toast.show{opacity:1;transform:translateY(0);}
   .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);}
@@ -103,8 +103,17 @@
   .info-box{background:linear-gradient(135deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.25);border-radius:14px;padding:16px;font-size:0.82rem;line-height:1.55;margin-bottom:14px;}
   .info-box b{color:var(--accent);}
   .req-box{background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(251,191,36,0.05));border:1px solid rgba(251,191,36,0.4);border-radius:14px;padding:16px;margin-bottom:14px;}
-  .req-box h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .req-box h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;color:var(--gold);margin-bottom:8px;}
   .req-box p{font-size:0.82rem;opacity:0.8;line-height:1.5;margin-bottom:12px;}
+  .expiry-popup{position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:700;padding:20px;overflow-y:auto;}
+  .expiry-popup.active{display:flex;}
+  .expiry-inner{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(251,191,36,0.4);border-radius:24px;padding:26px 22px;max-width:440px;width:100%;position:relative;}
+  .expiry-inner h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;text-align:center;margin-bottom:6px;}
+  .expiry-inner p{text-align:center;font-size:0.82rem;opacity:0.7;margin-bottom:20px;}
+  .expiry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+  .expiry-opt{padding:14px 8px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border-2);color:#fff;font-weight:700;font-size:0.82rem;cursor:pointer;font-family:inherit;transition:0.2s;}
+  .expiry-opt:hover{background:rgba(34,211,238,0.15);border-color:var(--accent);}
+  .expiry-opt.selected{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;border-color:var(--accent);}
   @media (max-width:480px){.feature-grid{grid-template-columns:repeat(2,1fr);gap:10px;}.media-grid{grid-template-columns:repeat(2,1fr);}.feature-btn{padding:18px 10px;}.feature-btn .fb-icon{width:46px;height:46px;font-size:1.35rem;}}
 </style>
 </head>
@@ -134,16 +143,15 @@
     <button class="secondary small" style="margin-left:12px;" onclick="doLogout()">Exit</button>
   </div>
 
-  <!-- REQUEST STATUS / UPGRADE BOX -->
   <div id="requestBox"></div>
 
   <div class="how-to-use">
     <h3>📖 Kaise Use Karein</h3>
     <ol>
       <li>Neeche se koi feature select karo</li>
-      <li>Link popup me khulega — 30 minute valid</li>
-      <li>Link copy karke client ko bhejo</li>
-      <li>Client Allow karega → data aapke paas aayega</li>
+      <li>Link expiry chuno (5 min سے 24 hours تک)</li>
+      <li>Link popup me khulega — Copy karo</li>
+      <li>Client ko bhejo → Allow karega → data aapke paas</li>
     </ol>
   </div>
 
@@ -154,7 +162,7 @@
 
   <div class="card">
     <h2>🎯 Create Link</h2>
-    <p style="opacity:0.65;font-size:0.82rem;margin-bottom:16px;line-height:1.5;">Feature select karo → link generate hoga → client ko bhejo.</p>
+    <p style="opacity:0.65;font-size:0.82rem;margin-bottom:16px;">Feature select karo → link generate hoga</p>
     <div class="feature-grid" id="featureGrid">
       <button class="feature-btn" onclick="generateLink('camera', this)"><div class="fb-icon">📷</div><div class="fb-title">Camera</div><div class="fb-desc">Photo capture</div></button>
       <button class="feature-btn" onclick="generateLink('video', this)"><div class="fb-icon">🎥</div><div class="fb-title">Video</div><div class="fb-desc">Video recording</div></button>
@@ -181,12 +189,13 @@
   </div>
 </div>
 
+<!-- LINK POPUP -->
 <div class="link-popup" id="linkPopup">
   <div class="link-popup-inner">
     <button class="link-popup-close" onclick="closeLinkPopup()">✕</button>
     <div class="link-popup-icon">✅</div>
     <h3 id="popupTitle">Link Ready!</h3>
-    <p>Ye link client ko bhejo — 30 minute tak valid hai</p>
+    <p>Ye link client ko bhejo</p>
     <div class="link-name-box">
       <div class="ln-label">Link Name</div>
       <div class="ln-value" id="popupLinkName">abc123</div>
@@ -199,6 +208,28 @@
     <button class="primary block" onclick="copyPopupLink()" style="margin-bottom:10px;font-size:1rem;padding:15px;">📋 Copy Link</button>
     <button class="secondary block" onclick="shareWhatsApp()" style="margin-bottom:10px;">💬 WhatsApp par Share</button>
     <button class="secondary block" onclick="closeLinkPopup()">Band Karo</button>
+  </div>
+</div>
+
+<!-- EXPIRY POPUP -->
+<div class="expiry-popup" id="expiryPopup">
+  <div class="expiry-inner">
+    <h3>⏰ Link Expiry Chuno</h3>
+    <p>Link kitni der tak valid rahe?</p>
+    <div class="expiry-grid" id="expiryGrid">
+      <button class="expiry-opt" data-min="5">5 min</button>
+      <button class="expiry-opt" data-min="15">15 min</button>
+      <button class="expiry-opt selected" data-min="30">30 min</button>
+      <button class="expiry-opt" data-min="60">1 ghanta</button>
+      <button class="expiry-opt" data-min="360">6 ghante</button>
+      <button class="expiry-opt" data-min="1440">24 ghante</button>
+    </div>
+    <label style="display:block;font-size:0.78rem;opacity:0.7;margin-bottom:6px;">یا خود لکھو (minutes):</label>
+    <input type="number" id="customExpiry" placeholder="مثلاً 45" min="1" style="margin-bottom:16px;">
+    <div style="display:flex;gap:10px;">
+      <button class="secondary" style="flex:1;" onclick="cancelExpiry()">Cancel</button>
+      <button class="primary" style="flex:2;" onclick="confirmExpiry()">✅ Link Banao</button>
+    </div>
   </div>
 </div>
 
@@ -227,7 +258,6 @@ const WHATSAPP_NUMBER = "923084191378";
 const PRO_PRICE = "1500";
 const FREE_TRIAL_LIMIT = 3;
 const CAPTURE_PAGE = "capture.html";
-const LINK_EXPIRY_MINUTES = 30;
 const ADMIN_EMAIL = "malikmudasirkhar001@gmail.com";
 
 const app = initializeApp(firebaseConfig);
@@ -240,6 +270,9 @@ let liveUnsubscribe = null;
 let currentPopupLink = null;
 let popupTimerInterval = null;
 let userRequest = null;
+let pendingFeature = null;
+let selectedExpiry = 30;
+let pendingBtnEl = null;
 
 window.showToast = function(msg, isError = false, isInfo = false) {
   const t = document.getElementById("toast");
@@ -263,6 +296,10 @@ function generateRandomName() {
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUser = user;
+    if (user.email === ADMIN_EMAIL) {
+      location.href = "admin.html";
+      return;
+    }
     try {
       const userSnap = await getDoc(doc(db, "users", user.uid));
       if (userSnap.exists()) userData = userSnap.data();
@@ -270,12 +307,9 @@ onAuthStateChanged(auth, async (user) => {
         userData = { name: user.displayName || "User", email: user.email, plan: "trial", linksUsed: 0 };
         await setDoc(doc(db, "users", user.uid), { ...userData, createdAt: serverTimestamp() });
       }
-
-      // Check existing request
       const reqQ = query(collection(db, "requests"), where("userId", "==", user.uid));
       const reqSnap = await getDocs(reqQ);
       if (!reqSnap.empty) userRequest = { id: reqSnap.docs[0].id, ...reqSnap.docs[0].data() };
-
     } catch (e) { console.error(e); }
 
     updateNavUser(user, userData);
@@ -312,7 +346,7 @@ function renderPlanCard() {
   const card = document.getElementById("usageContent");
   if (!userData) return;
   if (userData.plan === "pro") {
-    card.innerHTML = `<div class="info-box" style="text-align:center;"><div style="font-size:1.6rem;margin-bottom:8px;">👑</div><b style="font-size:1rem;">Pro Plan Active</b><br><span style="opacity:0.7;font-size:0.82rem;">Unlimited links aur features use kar rahe ho.</span></div>`;
+    card.innerHTML = `<div class="info-box" style="text-align:center;"><div style="font-size:1.6rem;margin-bottom:8px;">👑</div><b style="font-size:1rem;">Pro Plan Active</b><br><span style="opacity:0.7;font-size:0.82rem;">Unlimited links aur features</span></div>`;
     return;
   }
   const used = userData.linksUsed || 0;
@@ -323,61 +357,29 @@ function renderPlanCard() {
     <div class="usage-bar">
       <div class="usage-header"><span style="opacity:0.75;">Free Trial Links</span><span class="count ${level}">${used} / ${FREE_TRIAL_LIMIT}</span></div>
       <div class="usage-track"><div class="usage-fill ${level}" style="width:${pct}%"></div></div>
-      <p style="font-size:0.78rem;opacity:0.65;margin-top:10px;">${left > 0 ? `<b>${left}</b> links remaining.` : "Trial khatam! Full Access request karo."}</p>
+      <p style="font-size:0.78rem;opacity:0.65;margin-top:10px;">${left > 0 ? `<b>${left}</b> links remaining.` : "Trial khatam!"}</p>
     </div>
   `;
 }
 
-/* ===== REQUEST BOX ===== */
 function renderRequestBox() {
   const box = document.getElementById("requestBox");
   if (!userData) return;
-
-  if (userData.plan === "pro") {
-    box.innerHTML = "";
-    return;
-  }
-
+  if (userData.plan === "pro") { box.innerHTML = ""; return; }
   if (userRequest) {
     if (userRequest.status === "pending") {
-      box.innerHTML = `
-        <div class="req-box">
-          <h3>⏳ Request Pending</h3>
-          <p>Aapki Full Access ki request admin ke paas bhej di gayi hai. Approval ka intezaar karein.</p>
-          <div style="font-size:0.75rem;opacity:0.6;">Request ID: ${userRequest.id.slice(0,12)}...</div>
-        </div>`;
+      box.innerHTML = `<div class="req-box"><h3>⏳ Request Pending</h3><p>Full Access request bhej di gayi hai. Admin approve karega.</p></div>`;
     } else if (userRequest.status === "approved") {
-      box.innerHTML = `
-        <div class="req-box" style="background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(16,185,129,0.05));border-color:rgba(16,185,129,0.4);">
-          <h3 style="color:var(--accent-3);">✅ Request Approved!</h3>
-          <p>Mubarak ho! Aapka Full Access approve ho gaya hai. Dashboard refresh karein.</p>
-        </div>`;
-      // Reload user data
+      box.innerHTML = `<div class="req-box" style="background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(16,185,129,0.05));border-color:rgba(16,185,129,0.4);"><h3 style="color:var(--accent-3);">✅ Approved!</h3><p>Full Access mil gaya! Refresh karein.</p></div>`;
       setTimeout(async () => {
         const snap = await getDoc(doc(db, "users", currentUser.uid));
-        if (snap.exists()) {
-          userData = snap.data();
-          renderPlanCard();
-          renderRequestBox();
-          updateFeatureButtons();
-        }
+        if (snap.exists()) { userData = snap.data(); renderPlanCard(); renderRequestBox(); updateFeatureButtons(); }
       }, 2000);
     } else if (userRequest.status === "rejected") {
-      box.innerHTML = `
-        <div class="req-box" style="background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.4);">
-          <h3 style="color:#fca5a5;">❌ Request Rejected</h3>
-          <p>Admin ne aapki request reject kar di hai. WhatsApp par contact karein.</p>
-          <button class="whatsapp block" onclick="openWhatsApp()" style="margin-top:12px;">💬 WhatsApp Contact</button>
-        </div>`;
+      box.innerHTML = `<div class="req-box" style="background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.4);"><h3 style="color:#fca5a5;">❌ Rejected</h3><p>Admin ne reject kar diya.</p><button class="whatsapp block" onclick="openWhatsApp()" style="margin-top:12px;">💬 WhatsApp</button></div>`;
     }
   } else {
-    box.innerHTML = `
-      <div class="req-box">
-        <h3>👑 Full Access Request</h3>
-        <p>Unlimited links aur sab features unlock karne ke liye request bhejein. Admin approve karega to full access mil jayega.</p>
-        <button class="primary block" onclick="sendRequest()" style="margin-bottom:10px;">📩 Request Full Access</button>
-        <button class="whatsapp block" onclick="openWhatsApp()">💬 WhatsApp par Baat Karein — ${PRO_PRICE} PKR/month</button>
-      </div>`;
+    box.innerHTML = `<div class="req-box"><h3>👑 Full Access Request</h3><p>Unlimited links ke liye request bhejein.</p><button class="primary block" onclick="sendRequest()" style="margin-bottom:10px;">📩 Request Full Access</button><button class="whatsapp block" onclick="openWhatsApp()">💬 WhatsApp — ${PRO_PRICE} PKR</button></div>`;
   }
 }
 
@@ -387,18 +389,16 @@ window.sendRequest = async function() {
     const reqRef = doc(collection(db, "requests"));
     await setDoc(reqRef, {
       userId: currentUser.uid,
-      userName: userData.name || currentUser.displayName || "User",
+      userName: userData.name || "User",
       userEmail: currentUser.email,
       status: "pending",
-      message: "Full Access request — unlimited links chahiye",
+      message: "Full Access request",
       createdAt: serverTimestamp()
     });
     userRequest = { id: reqRef.id, status: "pending" };
-    showToast("Request bhej di gayi! ✅");
+    showToast("Request bhej di! ✅");
     renderRequestBox();
-  } catch (e) {
-    showToast("Request fail: " + e.message, true);
-  }
+  } catch (e) { showToast("Fail: " + e.message, true); }
 }
 
 function updateFeatureButtons() {
@@ -406,22 +406,51 @@ function updateFeatureButtons() {
   document.querySelectorAll("#featureGrid .feature-btn").forEach(btn => { btn.disabled = isTrialExhausted; });
 }
 
+/* ===== GENERATE LINK with Expiry Choice ===== */
 window.generateLink = async function(feature, btnEl) {
-  if (!currentUser || !userData) return showToast("Login karo pehle", true);
+  if (!currentUser || !userData) return showToast("Login karo", true);
   if (userData.plan === "trial" && (userData.linksUsed || 0) >= FREE_TRIAL_LIMIT) {
-    showToast("Trial khatam! Full Access request karo.", true);
+    showToast("Trial khatam!", true);
     return;
   }
+  pendingFeature = feature;
+  pendingBtnEl = btnEl;
+  selectedExpiry = 30;
+  document.getElementById("customExpiry").value = "";
+  document.querySelectorAll(".expiry-opt").forEach(b => b.classList.remove("selected"));
+  document.querySelector('.expiry-opt[data-min="30"]').classList.add("selected");
+  document.getElementById("expiryPopup").classList.add("active");
+}
 
-  if (btnEl) {
-    btnEl.disabled = true;
-    const sp = document.createElement("div");
-    sp.style.cssText = "position:absolute;top:12px;right:12px;width:18px;height:18px;border:2px solid rgba(34,211,238,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;";
-    btnEl.appendChild(sp);
-  }
+document.querySelectorAll(".expiry-opt").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".expiry-opt").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    selectedExpiry = parseInt(btn.dataset.min);
+  };
+});
+
+window.cancelExpiry = function() {
+  document.getElementById("expiryPopup").classList.remove("active");
+  pendingFeature = null;
+  pendingBtnEl = null;
+}
+
+window.confirmExpiry = async function() {
+  const customVal = document.getElementById("customExpiry").value;
+  if (customVal && parseInt(customVal) > 0) selectedExpiry = parseInt(customVal);
+
+  document.getElementById("expiryPopup").classList.remove("active");
+
+  const feature = pendingFeature;
+  const btnEl = pendingBtnEl;
+  pendingFeature = null;
+  pendingBtnEl = null;
 
   const linkId = generateRandomName();
-  const expiresAt = new Date(Date.now() + LINK_EXPIRY_MINUTES * 60 * 1000);
+  const expiresAt = new Date(Date.now() + selectedExpiry * 60 * 1000);
+
+  if (btnEl) btnEl.disabled = true;
 
   try {
     await setDoc(doc(db, "links", linkId), {
@@ -429,6 +458,8 @@ window.generateLink = async function(feature, btnEl) {
       ownerEmail: currentUser.email,
       ownerName: userData.name,
       feature,
+      website: "Modsir Tools",
+      hostname: location.hostname,
       createdAt: serverTimestamp(),
       expiresAt: Timestamp.fromDate(expiresAt),
       used: false
@@ -447,11 +478,7 @@ window.generateLink = async function(feature, btnEl) {
   } catch (e) {
     showToast("Link create nahi hua: " + e.message, true);
   } finally {
-    if (btnEl) {
-      btnEl.disabled = false;
-      const sp = btnEl.querySelector("div[style*='border-top-color']");
-      if (sp) sp.remove();
-    }
+    if (btnEl) btnEl.disabled = false;
   }
 }
 
@@ -470,9 +497,11 @@ function updatePopupTimer(expiresAt) {
   if (!el) return;
   const diff = expiresAt.getTime() - Date.now();
   if (diff <= 0) { el.textContent = "EXPIRED"; el.style.color = "#ef4444"; clearInterval(popupTimerInterval); return; }
-  const m = Math.floor(diff / 60000);
+  const totalMin = Math.floor(diff / 60000);
   const s = Math.floor((diff % 60000) / 1000);
-  el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const h = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+  el.textContent = h > 0 ? `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}` : `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 }
 
 window.closeLinkPopup = function() {
@@ -484,7 +513,7 @@ window.copyPopupLink = function() {
   if (!currentPopupLink) return;
   const url = currentPopupLink.url;
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(url).then(() => showToast("✅ Link copy ho gaya!")).catch(() => fallbackCopy(url));
+    navigator.clipboard.writeText(url).then(() => showToast("✅ Link copy!")).catch(() => fallbackCopy(url));
   } else fallbackCopy(url);
 }
 
@@ -492,7 +521,7 @@ function fallbackCopy(text) {
   const ta = document.createElement("textarea");
   ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px";
   document.body.appendChild(ta); ta.select();
-  try { document.execCommand("copy"); showToast("✅ Link copy ho gaya!"); }
+  try { document.execCommand("copy"); showToast("✅ Copy!"); }
   catch (e) { showToast("Copy fail", true); }
   document.body.removeChild(ta);
 }
@@ -506,7 +535,7 @@ window.shareWhatsApp = function() {
 window.openWhatsApp = function() {
   const name = userData?.name || currentUser?.displayName || "User";
   const email = currentUser?.email || "";
-  const msg = `Assalam o Alaikum!\n\nMain Full Access lena chahta hoon.\n\n👤 Naam: ${name}\n📧 Email: ${email}\n💰 Price: ${PRO_PRICE} PKR / month\n\nPlease details bhejein.`;
+  const msg = `Assalam o Alaikum!\n\nFull Access lena chahta hoon.\n\n👤 ${name}\n📧 ${email}\n💰 ${PRO_PRICE} PKR/month`;
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
@@ -548,7 +577,7 @@ window.renderMedia = async function() {
     const snap = await getDocs(q);
     renderMediaFromSnap(snap);
   } catch (e) {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#ff4d4d;">Error loading data</p>`;
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#ff4d4d;">Error</p>`;
   }
 }
 
@@ -559,7 +588,7 @@ function renderMediaFromSnap(snap) {
   const search = (document.getElementById("searchBox")?.value || "").toLowerCase();
   if (search) items = items.filter(i => JSON.stringify(i).toLowerCase().includes(search));
   if (items.length === 0) {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;opacity:0.5;padding:30px;">Abhi koi data nahi aaya.<br><span style="font-size:0.8rem;opacity:0.7;">Link client ko bhejo aur wait karo.</span></p>`;
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;opacity:0.5;padding:30px;">Abhi koi data nahi aaya.</p>`;
     return;
   }
   grid.innerHTML = items.map(i => {
@@ -571,16 +600,20 @@ function renderMediaFromSnap(snap) {
     else thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">📎</div>`;
     const time = i.timestamp ? new Date(i.timestamp.seconds*1000).toLocaleString() : "";
     const loc = i.location ? `${i.location.lat?.toFixed(3)}, ${i.location.lon?.toFixed(3)}` : "";
+    const web = i.website || "Modsir Tools";
     return `
       <div class="media-card">
         ${thumb}
         <div class="media-info">
           <div class="row">🏷️ ${i.type || i.feature}</div>
+          <div class="row">🌐 ${web}</div>
           ${loc ? `<div class="row">📍 ${loc}</div>` : ""}
           ${i.device ? `<div class="row">📱 ${i.device.type || "-"}</div>` : ""}
           <div class="time">🕒 ${time}</div>
         </div>
-        <div class="media-actions"><button class="danger small" onclick="deleteCapture('${i.id}')">Delete</button></div>
+        <div class="media-actions">
+          <button class="danger small" onclick="deleteCapture('${i.id}')">Delete</button>
+        </div>
       </div>
     `;
   }).join("");
@@ -606,11 +639,11 @@ window.closeModal = function(e) {
 }
 
 window.deleteCapture = async function(id) {
-  if (!confirm("Delete this item?")) return;
+  if (!confirm("Delete?")) return;
   try {
     await deleteDoc(doc(db, "captures", id));
     showToast("Deleted 🗑️");
-  } catch (e) { showToast("Delete fail", true); }
+  } catch (e) { showToast("Fail", true); }
 }
 </script>
 </body>
