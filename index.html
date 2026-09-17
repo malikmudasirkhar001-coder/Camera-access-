@@ -3,47 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Modsir Abbas - Full Stack Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<title>Mudasir Abbas ✦ Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Orbitron:wght@700;900&family=Bungee&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--gold:#fbbf24;--danger:#ef4444;--text:#fff;--text-dim:rgba(255,255,255,0.6);--glass:rgba(255,255,255,0.04);--glass-2:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.08);--border-2:rgba(255,255,255,0.15);}
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{scroll-behavior:smooth;}
   body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;position:relative;}
-  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.35) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.3) 0%,transparent 50%);z-index:-2;}
-  body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:40px 40px;z-index:-1;mask-image:radial-gradient(ellipse at center,#000 40%,transparent 80%);}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.35) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.3) 0%,transparent 50%);z-index:-2;animation:bgFloat 25s ease-in-out infinite;}
+  @keyframes bgFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
   .hidden{display:none !important;}
   .container{max-width:1100px;margin:0 auto;padding:20px 18px 40px;}
 
+  /* NAVBAR */
   .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.8);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-  .brand{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;text-decoration:none;color:inherit;}
-  .brand-logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800;color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.35);overflow:hidden;}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;}
+  .brand-logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:900;color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4),inset 0 2px 0 rgba(255,255,255,0.3);position:relative;overflow:hidden;}
+  .brand-logo::before{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,0.3) 50%,transparent 60%);animation:logoShine 3s infinite;}
+  @keyframes logoShine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
   .brand-text{display:flex;flex-direction:column;line-height:1.15;}
-  .brand-text small{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);}
+  .brand-text span{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.5px;}
+  .brand-text small{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);font-weight:600;}
   .nav-menu{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
-  .nav-link{padding:9px 14px;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--text-dim);font-weight:600;font-size:0.82rem;cursor:pointer;transition:0.25s;font-family:inherit;text-decoration:none;}
+  .nav-link{padding:9px 14px;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--text-dim);font-weight:600;font-size:0.82rem;cursor:pointer;transition:0.25s;font-family:inherit;text-decoration:none;position:relative;}
   .nav-link:hover{background:var(--glass);border-color:var(--border);color:#fff;}
   .nav-link.cta{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;border:none;box-shadow:0 4px 16px rgba(34,211,238,0.35);}
+  .nav-bell{position:relative;padding:9px 14px;border-radius:10px;background:transparent;border:1px solid var(--border);color:var(--text);font-size:1.1rem;cursor:pointer;font-family:inherit;}
+  .nav-bell .badge{position:absolute;top:4px;right:4px;width:8px;height:8px;background:var(--danger);border-radius:50%;box-shadow:0 0 8px var(--danger);animation:blink 1.5s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
 
-  .hero{padding:50px 20px 30px;text-align:center;}
-  .hero-avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:4rem;font-weight:800;color:#000;font-family:'Space Grotesk',sans-serif;margin:0 auto 24px;box-shadow:0 24px 70px rgba(34,211,238,0.5);animation:avatarFloat 4s ease-in-out infinite;}
-  @keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-  .hero-greeting{display:inline-block;padding:6px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.8rem;color:var(--accent);font-weight:600;margin-bottom:16px;}
-  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:2.8rem;font-weight:800;line-height:1.1;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#22d3ee 50%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  @media (max-width:640px){.hero h1{font-size:1.9rem;}.hero-avatar{width:110px;height:110px;font-size:3rem;}}
+  /* HERO */
+  .hero{padding:50px 20px 30px;text-align:center;position:relative;}
+  .hero-avatar{width:150px;height:150px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:4rem;font-weight:900;color:#000;font-family:'Orbitron',sans-serif;margin:0 auto 30px;box-shadow:0 24px 70px rgba(34,211,238,0.5),inset 0 3px 0 rgba(255,255,255,0.3);position:relative;animation:avatarFloat 4s ease-in-out infinite;}
+  @keyframes avatarFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-15px) rotate(2deg)}}
+  .hero-avatar::before{content:'';position:absolute;inset:-10px;border-radius:50%;border:2px dashed rgba(34,211,238,0.4);animation:spin 20s linear infinite;}
+  .hero-avatar::after{content:'';position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(168,85,247,0.3);animation:spin 30s linear infinite reverse;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .hero-greeting{display:inline-block;padding:8px 20px;background:linear-gradient(135deg,rgba(34,211,238,0.1),rgba(168,85,247,0.1));border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.82rem;color:var(--accent);font-weight:600;margin-bottom:20px;letter-spacing:0.05em;animation:slideUp 0.6s ease;}
+
+  /* 3D ANIMATED NAME */
+  .hero-name-3d{perspective:800px;perspective-origin:center;margin-bottom:18px;}
+  .hero h1{font-family:'Orbitron',sans-serif;font-size:3.2rem;font-weight:900;line-height:1.1;letter-spacing:1.5px;background:linear-gradient(135deg,#fff 0%,#22d3ee 30%,#a855f7 60%,#fff 100%);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientMove 4s ease infinite,float3D 6s ease-in-out infinite;transform-style:preserve-3d;text-shadow:0 1px 0 #0a1628,0 2px 0 #0a1628,0 3px 0 #0a1628,0 4px 0 #0a1628,0 5px 0 #0a1628,0 6px 0 #0a1628,0 7px 0 #0a1628,0 8px 10px rgba(0,0,0,0.6);}
+  @keyframes gradientMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  @keyframes float3D{0%,100%{transform:translateZ(0) rotateX(0) rotateY(0)}25%{transform:translateZ(20px) rotateX(3deg) rotateY(-3deg)}75%{transform:translateZ(20px) rotateX(-3deg) rotateY(3deg)}}
+  @media (max-width:640px){.hero h1{font-size:2rem;}.hero-avatar{width:110px;height:110px;font-size:3rem;}}
+
+  .hero-symbols{display:flex;justify-content:center;gap:12px;margin-bottom:14px;font-size:1.3rem;}
+  .hero-symbols span{display:inline-block;animation:symbolFloat 3s ease-in-out infinite;}
+  .hero-symbols span:nth-child(1){animation-delay:0s;color:var(--accent);}
+  .hero-symbols span:nth-child(2){animation-delay:0.3s;color:var(--accent-2);}
+  .hero-symbols span:nth-child(3){animation-delay:0.6s;color:var(--gold);}
+  .hero-symbols span:nth-child(4){animation-delay:0.9s;color:var(--accent-3);}
+  .hero-symbols span:nth-child(5){animation-delay:1.2s;color:var(--accent);}
+  @keyframes symbolFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.15)}}
+
   .hero-subtitle{font-size:1rem;color:var(--text-dim);max-width:520px;margin:0 auto 26px;line-height:1.6;}
   .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+  @keyframes slideUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
+
   button{padding:13px 24px;border-radius:12px;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
   button:active:not(:disabled){transform:scale(0.97);}
   button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4);}
+  button.primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(34,211,238,0.55);}
   button.secondary{background:var(--glass-2);color:#fff;border:1px solid var(--border-2);}
+  button.secondary:hover{background:rgba(255,255,255,0.12);}
   button.block{width:100%;}
+  button.danger{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.35);}
+  button.success{background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;}
 
   section{padding:50px 0;}
-  .section-title{font-family:'Space Grotesk',sans-serif;font-size:1.9rem;font-weight:800;margin-bottom:10px;text-align:center;}
+  .section-title{font-family:'Orbitron',sans-serif;font-size:1.7rem;font-weight:800;margin-bottom:10px;text-align:center;letter-spacing:0.5px;background:linear-gradient(135deg,#fff,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
   .section-subtitle{text-align:center;color:var(--text-dim);font-size:0.95rem;margin-bottom:32px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6;}
 
-  /* TOOLS - APP STYLE BOXES */
+  /* BONUS BANNER */
+  .bonus-banner{background:linear-gradient(135deg,rgba(251,191,36,0.15),rgba(251,191,36,0.05));border:1.5px solid rgba(251,191,36,0.5);border-radius:20px;padding:20px;margin:0 auto 30px;max-width:900px;display:flex;align-items:center;gap:16px;position:relative;overflow:hidden;}
+  .bonus-banner::before{content:'';position:absolute;top:-50%;left:-100%;width:200%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);animation:shine 4s infinite;}
+  @keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+  .bonus-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--gold),#f59e0b);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;box-shadow:0 8px 24px rgba(251,191,36,0.4);}
+  .bonus-content{flex:1;}
+  .bonus-content h4{font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--gold);margin-bottom:4px;font-weight:800;}
+  .bonus-content p{font-size:0.82rem;opacity:0.85;line-height:1.5;}
+  .bonus-btn{padding:10px 18px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-weight:700;border-radius:12px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;flex-shrink:0;}
+  @media (max-width:600px){.bonus-banner{flex-direction:column;text-align:center;}.bonus-btn{width:100%;}}
+
+  /* TOOLS BOXES */
   .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;max-width:900px;margin:0 auto;}
   @media (max-width:480px){.tools-grid{grid-template-columns:repeat(3,1fr);gap:12px;}}
   @media (max-width:360px){.tools-grid{grid-template-columns:repeat(2,1fr);}}
@@ -53,30 +98,32 @@
   .tool-box:hover::before{left:125%;}
   .tool-box-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:1.7rem;transition:transform 0.3s;}
   .tool-box:hover .tool-box-icon{transform:scale(1.1) rotate(5deg);}
-  .tool-box-title{font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:700;}
+  .tool-box-title{font-family:'Orbitron',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.3px;}
   .tool-box-desc{font-size:0.65rem;opacity:0.55;line-height:1.3;}
   .tool-box-badge{position:absolute;top:8px;right:8px;padding:2px 7px;border-radius:10px;font-size:0.55rem;font-weight:700;}
   .tool-box-badge.new{background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;}
   .tool-box-badge.pro{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
+  .tool-box-badge.qr{background:linear-gradient(135deg,var(--accent-2),#8b5cf6);color:#fff;}
 
   /* ABOUT */
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
   @media (max-width:768px){.about-grid{grid-template-columns:1fr;}}
   .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:26px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
-  .card h3{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--accent);}
+  .card h3{font-family:'Orbitron',sans-serif;font-size:1.1rem;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--accent);letter-spacing:0.5px;}
   .timeline{position:relative;padding-left:28px;}
   .timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent-2));}
   .timeline-item{position:relative;padding-bottom:20px;}
   .timeline-item:last-child{padding-bottom:0;}
   .timeline-item::before{content:'';position:absolute;left:-24px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 12px var(--accent);}
   .timeline-item h4{font-family:'Space Grotesk',sans-serif;font-size:1rem;margin-bottom:2px;font-weight:700;}
-  .timeline-item .year{font-size:0.72rem;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+  .timeline-item .year{font-size:0.72rem;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:4px;letter-spacing:0.05em;}
   .timeline-item p{font-size:0.85rem;color:var(--text-dim);line-height:1.5;}
   .skills-list{display:flex;flex-wrap:wrap;gap:8px;}
-  .skill-tag{padding:7px 14px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.8rem;font-weight:600;color:var(--accent);}
+  .skill-tag{padding:7px 14px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.8rem;font-weight:600;color:var(--accent);transition:0.2s;}
+  .skill-tag:hover{background:rgba(34,211,238,0.2);transform:translateY(-2px);}
   .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
   .stat-box{background:linear-gradient(160deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.2);border-radius:16px;padding:16px 10px;text-align:center;}
-  .stat-box h4{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;color:var(--accent);margin-bottom:4px;font-weight:800;}
+  .stat-box h4{font-family:'Orbitron',sans-serif;font-size:1.7rem;color:var(--accent);margin-bottom:4px;font-weight:800;}
   .stat-box p{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;}
 
   /* CONTACT */
@@ -90,25 +137,28 @@
   /* MODAL */
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;overflow-y:auto;}
   .modal-overlay.active{display:flex;}
-  .modal-box{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.3);border-radius:24px;padding:30px 24px;max-width:430px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);position:relative;max-height:90vh;overflow-y:auto;}
+  .modal-box{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.3);border-radius:24px;padding:30px 24px;max-width:460px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);position:relative;max-height:90vh;overflow-y:auto;animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+  @keyframes popIn{0%{transform:scale(0.85);opacity:0}100%{transform:scale(1);opacity:1}}
   .modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;border:1px solid rgba(255,255,255,0.15);cursor:pointer;}
-  .modal-box h2{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:6px;text-align:center;}
+  .modal-close:hover{background:rgba(239,68,68,0.3);}
+  .modal-box h2{font-family:'Orbitron',sans-serif;font-size:1.25rem;margin-bottom:6px;text-align:center;letter-spacing:0.5px;}
   .modal-box p.subtitle{text-align:center;color:var(--text-dim);font-size:0.82rem;margin-bottom:22px;}
-  input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid var(--border-2);background:rgba(0,0,0,0.3);color:#fff;font-size:0.92rem;outline:none;margin-bottom:12px;font-family:inherit;transition:0.2s;}
-  input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,211,238,0.15);}
-  input::placeholder{color:rgba(255,255,255,0.4);}
+  input, textarea{width:100%;padding:13px 16px;border-radius:12px;border:1px solid var(--border-2);background:rgba(0,0,0,0.3);color:#fff;font-size:0.92rem;outline:none;margin-bottom:12px;font-family:inherit;transition:0.2s;resize:vertical;}
+  input:focus, textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,211,238,0.15);}
+  input::placeholder, textarea::placeholder{color:rgba(255,255,255,0.4);}
   label{display:block;font-size:0.78rem;margin-bottom:5px;opacity:0.75;font-weight:600;}
   .modal-tabs{display:flex;gap:6px;background:rgba(0,0,0,0.4);border-radius:14px;padding:6px;margin-bottom:20px;border:1px solid var(--border);}
-  .modal-tab{flex:1;padding:10px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.85rem;cursor:pointer;font-family:inherit;}
+  .modal-tab{flex:1;padding:10px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.85rem;cursor:pointer;font-family:inherit;transition:0.25s;}
   .modal-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
-  .google-btn{background:#fff;color:#000;font-weight:600;border:1px solid rgba(0,0,0,0.1);width:100%;padding:12px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:0.9rem;}
+  .google-btn{background:#fff;color:#000;font-weight:600;border:1px solid rgba(0,0,0,0.1);width:100%;padding:12px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:0.9rem;transition:0.2s;}
   .google-btn:hover{background:#f5f5f5;}
   .divider{display:flex;align-items:center;gap:10px;margin:16px 0;}
   .divider .line{flex:1;height:1px;background:rgba(255,255,255,0.1);}
   .divider .text{font-size:0.7rem;opacity:0.5;}
-  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.85rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s;z-index:2000;pointer-events:none;}
+  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.85rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s;z-index:2000;pointer-events:none;display:flex;align-items:center;gap:10px;}
   .toast.show{opacity:1;transform:translateY(0);}
   .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);}
+  .toast.info{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
   footer{text-align:center;padding:36px 20px;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.82rem;margin-top:30px;}
   footer a{color:var(--accent);text-decoration:none;}
   footer .footer-links{display:flex;gap:16px;justify-content:center;margin-top:12px;flex-wrap:wrap;}
@@ -119,16 +169,52 @@
   .tools-detail-view{padding:30px 0;}
   .back-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--glass);border:1px solid var(--border);border-radius:10px;color:#fff;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:24px;font-family:inherit;}
   .back-btn:hover{background:var(--glass-2);}
-  .detail-title{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;margin-bottom:12px;font-weight:800;text-align:center;}
+  .detail-title{font-family:'Orbitron',sans-serif;font-size:1.6rem;margin-bottom:12px;font-weight:800;text-align:center;letter-spacing:0.5px;}
   .detail-desc{color:var(--text-dim);font-size:0.95rem;line-height:1.6;margin-bottom:30px;max-width:700px;margin-left:auto;margin-right:auto;text-align:center;}
 
-  /* TERMS MODAL */
+  /* QR MODAL */
+  .qr-preview{background:#fff;padding:16px;border-radius:16px;margin:16px auto;display:flex;justify-content:center;width:fit-content;}
+  .qr-preview canvas, .qr-preview img{border-radius:8px;}
+
+  /* MIC CONTROL */
+  .mic-visual{display:flex;justify-content:center;align-items:center;gap:4px;height:80px;margin:20px 0;}
+  .mic-bar{width:6px;background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:3px;transition:height 0.1s ease;box-shadow:0 0 12px var(--accent);}
+  .mic-timer{text-align:center;font-family:'Orbitron',monospace;font-size:2rem;color:var(--accent);margin:12px 0;font-weight:800;letter-spacing:2px;}
+  .mic-recording{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--danger),#b91c1c);display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin:0 auto;cursor:pointer;animation:pulseRec 1.2s infinite;box-shadow:0 8px 30px rgba(239,68,68,0.6);}
+  @keyframes pulseRec{0%,100%{transform:scale(1);box-shadow:0 8px 30px rgba(239,68,68,0.6)}50%{transform:scale(1.05);box-shadow:0 8px 50px rgba(239,68,68,1)}}
+  .mic-idle{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin:0 auto;cursor:pointer;box-shadow:0 8px 30px rgba(34,211,238,0.5);transition:0.25s;}
+  .mic-idle:hover{transform:scale(1.05);}
+  .mic-clips{max-height:200px;overflow-y:auto;margin-top:16px;}
+  .mic-clip{background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+  .mic-clip audio{flex:1;height:32px;}
+  .mic-clip .clip-info{font-size:0.7rem;opacity:0.6;}
+
+  /* VIDEO RECORD */
+  .video-preview{width:100%;border-radius:16px;background:#000;aspect-ratio:3/4;max-width:280px;margin:0 auto 16px;object-fit:cover;display:block;transform:scaleX(-1);}
+  .video-preview.rear{transform:scaleX(1);}
+  .video-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+
+  /* TERMS */
   .terms-content{font-size:0.82rem;line-height:1.8;color:var(--text-dim);max-height:70vh;overflow-y:auto;padding-right:8px;}
-  .terms-content h3{font-family:'Space Grotesk',sans-serif;color:var(--accent);font-size:1rem;margin:20px 0 10px;}
+  .terms-content h3{font-family:'Orbitron',sans-serif;color:var(--accent);font-size:0.95rem;margin:20px 0 10px;letter-spacing:0.3px;}
   .terms-content h3:first-child{margin-top:0;}
   .terms-content p{margin-bottom:12px;}
   .terms-content ul{margin-left:20px;margin-bottom:12px;}
   .terms-content li{margin-bottom:6px;}
+  .terms-content strong{color:var(--accent-3);}
+
+  /* NOTIFICATION PANEL */
+  .notif-panel{position:fixed;top:70px;right:16px;width:340px;max-width:calc(100vw - 32px);background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:20px;box-shadow:0 30px 80px rgba(0,0,0,0.7);z-index:999;max-height:70vh;overflow-y:auto;transform:translateY(-20px);opacity:0;pointer-events:none;transition:all 0.3s;}
+  .notif-panel.active{transform:translateY(0);opacity:1;pointer-events:auto;}
+  .notif-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+  .notif-header h3{font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--accent);letter-spacing:0.5px;}
+  .notif-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:12px;margin-bottom:10px;}
+  .notif-item.bonus{border-left-color:var(--gold);}
+  .notif-item.promo{border-left-color:var(--accent-3);}
+  .notif-item h5{font-family:'Space Grotesk',sans-serif;font-size:0.85rem;margin-bottom:4px;}
+  .notif-item p{font-size:0.75rem;opacity:0.75;line-height:1.5;}
+  .notif-item .time{font-size:0.65rem;opacity:0.5;margin-top:6px;}
+  .notif-empty{text-align:center;padding:30px 10px;opacity:0.5;font-size:0.85rem;}
 </style>
 </head>
 <body>
@@ -136,33 +222,65 @@
 <div class="navbar">
   <a href="#home" class="brand">
     <div class="brand-logo">M</div>
-    <div class="brand-text"><span>Modsir Abbas</span><small>Full Stack Dev</small></div>
+    <div class="brand-text">
+      <span>MUDASIR ✦ ABBAS</span>
+      <small>FULL STACK DEVELOPER</small>
+    </div>
   </a>
   <div class="nav-menu">
     <a href="#home" class="nav-link">Home</a>
     <a href="#about" class="nav-link">About</a>
     <button class="nav-link" onclick="showTools()">Tools</button>
     <a href="#contact" class="nav-link">Contact</a>
+    <button class="nav-bell" onclick="toggleNotif()" title="Notifications">
+      🔔<span class="badge"></span>
+    </button>
     <button class="nav-link cta" onclick="openLogin()">Login</button>
   </div>
+</div>
+
+<!-- NOTIFICATION PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header">
+    <h3>🔔 Notifications</h3>
+    <button class="modal-close" style="position:static;width:28px;height:28px;font-size:0.85rem;" onclick="toggleNotif()">✕</button>
+  </div>
+  <div id="notifList"></div>
 </div>
 
 <!-- HOME VIEW -->
 <div id="homeView">
   <section class="hero" id="home">
-    <div class="hero-avatar">MA</div>
+    <div class="hero-avatar">M</div>
     <div class="hero-greeting">👋 Welcome to my portfolio</div>
-    <h1>Modsir Abbas</h1>
-    <p class="hero-subtitle">Full-Stack Developer • Building modern web apps & professional data tools</p>
+    <div class="hero-symbols">
+      <span>✦</span><span>◈</span><span>⚡</span><span>👑</span><span>✧</span>
+    </div>
+    <div class="hero-name-3d">
+      <h1>MUDASIR ABBAS</h1>
+    </div>
+    <p class="hero-subtitle">Full-Stack Developer • Building modern web apps & professional data tools with Firebase</p>
     <div class="hero-actions">
       <button class="primary" onclick="showTools()">🚀 Explore Tools</button>
       <button class="secondary" onclick="document.getElementById('about').scrollIntoView()">📄 About Me</button>
     </div>
   </section>
 
+  <div class="container">
+    <!-- BONUS BANNER -->
+    <div class="bonus-banner">
+      <div class="bonus-icon">🎁</div>
+      <div class="bonus-content">
+        <h4>BONUS ALERT! ⚡</h4>
+        <p>Pro plan par aaj 30% discount! Sirf aaj ke liye — WhatsApp par contact karein</p>
+      </div>
+      <button class="bonus-btn" onclick="claimBonus()">CLAIM NOW</button>
+    </div>
+  </div>
+
   <section id="about">
     <div class="container">
-      <h2 class="section-title">About Me</h2>
+      <h2 class="section-title">About Me ✦</h2>
       <p class="section-subtitle">My journey — from Matric to becoming a full-stack developer</p>
       <div class="about-grid">
         <div class="card">
@@ -180,7 +298,7 @@
             <span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript</span>
             <span class="skill-tag">Firebase</span><span class="skill-tag">Firestore</span><span class="skill-tag">REST APIs</span>
             <span class="skill-tag">Responsive</span><span class="skill-tag">Node.js</span><span class="skill-tag">MongoDB</span>
-            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Git</span><span class="skill-tag">QR</span><span class="skill-tag">Media Recorder</span>
           </div>
           <div class="stats-row">
             <div class="stat-box"><h4>15+</h4><p>Projects</p></div>
@@ -194,7 +312,7 @@
 
   <section id="contact">
     <div class="container">
-      <h2 class="section-title">Get in Touch</h2>
+      <h2 class="section-title">Get in Touch ✦</h2>
       <p class="section-subtitle">Let's build something amazing together</p>
       <div class="contact-grid">
         <a href="https://wa.me/923084191378" target="_blank" class="contact-card">
@@ -214,39 +332,50 @@
 <!-- TOOLS VIEW -->
 <div id="toolsView" class="container tools-detail-view hidden">
   <button class="back-btn" onclick="closeTools()">← Back</button>
-  <h1 class="detail-title">🛠️ My Tools</h1>
-  <p class="detail-desc">Professional tools built with modern web technologies</p>
+  <h1 class="detail-title">🛠️ Professional Tools</h1>
+  <p class="detail-desc">Modern tools built with the latest web technologies — QR, Media Capture, Firebase powered</p>
 
   <div class="tools-grid">
     <a href="live-tv.html" class="tool-box">
       <div class="tool-box-icon">📺</div>
-      <div class="tool-box-title">Live TV</div>
+      <div class="tool-box-title">LIVE TV</div>
       <div class="tool-box-desc">50+ Channels</div>
       <span class="tool-box-badge new">NEW</span>
     </a>
+    <button class="tool-box" onclick="openQR()">
+      <div class="tool-box-icon">📱</div>
+      <div class="tool-box-title">QR CODE</div>
+      <div class="tool-box-desc">URL/Text to QR</div>
+      <span class="tool-box-badge qr">QR</span>
+    </button>
     <button class="tool-box" onclick="openLogin()">
       <div class="tool-box-icon">📷</div>
-      <div class="tool-box-title">Camera</div>
+      <div class="tool-box-title">CAMERA</div>
       <div class="tool-box-desc">Photo Capture</div>
     </button>
     <button class="tool-box" onclick="openLogin()">
       <div class="tool-box-icon">🎥</div>
-      <div class="tool-box-title">Video</div>
-      <div class="tool-box-desc">Recording</div>
+      <div class="tool-box-title">VIDEO</div>
+      <div class="tool-box-desc">5-10 sec clips</div>
+    </button>
+    <button class="tool-box" onclick="openLogin()">
+      <div class="tool-box-icon">🎤</div>
+      <div class="tool-box-title">MIC</div>
+      <div class="tool-box-desc">Audio clips</div>
     </button>
     <button class="tool-box" onclick="openLogin()">
       <div class="tool-box-icon">📍</div>
-      <div class="tool-box-title">Location</div>
-      <div class="tool-box-desc">GPS Tracking</div>
+      <div class="tool-box-title">LOCATION</div>
+      <div class="tool-box-desc">GPS + Map</div>
     </button>
     <button class="tool-box" onclick="openLogin()">
       <div class="tool-box-icon">📱</div>
-      <div class="tool-box-title">Device Info</div>
-      <div class="tool-box-desc">Phone Details</div>
+      <div class="tool-box-title">DEVICE</div>
+      <div class="tool-box-desc">Full Info</div>
     </button>
     <button class="tool-box" onclick="openLogin()">
       <div class="tool-box-icon">⚡</div>
-      <div class="tool-box-title">Full Access</div>
+      <div class="tool-box-title">FULL ACCESS</div>
       <div class="tool-box-desc">All Features</div>
       <span class="tool-box-badge pro">PRO</span>
     </button>
@@ -257,7 +386,7 @@
 <div class="modal-overlay" id="loginModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeLogin()">✕</button>
-    <h2 id="loginTitle">Welcome</h2>
+    <h2 id="loginTitle">Welcome ✦</h2>
     <p class="subtitle">Login karo ya naya account banao</p>
     <div class="modal-tabs">
       <button class="modal-tab active" id="tabLogin" onclick="switchAuth('login')">Login</button>
@@ -284,7 +413,7 @@
       <input type="email" id="regEmail" placeholder="your@email.com">
       <label>Password (min 6 chars)</label>
       <input type="password" id="regPass" placeholder="••••••••">
-      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:12px;font-size:0.75rem;opacity:0.8;">
+      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:12px;font-size:0.75rem;opacity:0.85;">
         <input type="checkbox" id="agreeTerms" style="width:auto;margin-top:3px;">
         <label for="agreeTerms" style="margin:0;cursor:pointer;">
           Main <button type="button" onclick="openTerms()" style="background:none;border:none;color:var(--accent);text-decoration:underline;cursor:pointer;padding:0;font-size:inherit;font-family:inherit;">Terms & Conditions</button> se agree karta hoon
@@ -300,77 +429,106 @@
   </div>
 </div>
 
+<!-- QR CODE MODAL -->
+<div class="modal-overlay" id="qrModal">
+  <div class="modal-box" style="max-width:440px;">
+    <button class="modal-close" onclick="closeQR()">✕</button>
+    <h2>📱 QR Code Generator</h2>
+    <p class="subtitle">URL, Text, ya Email se QR banao</p>
+    <label>QR Type</label>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px;">
+      <button class="secondary" style="padding:10px;font-size:0.75rem;" data-qrtype="url" onclick="setQRType('url')">🌐 URL</button>
+      <button class="secondary" style="padding:10px;font-size:0.75rem;" data-qrtype="text" onclick="setQRType('text')">📝 Text</button>
+      <button class="secondary" style="padding:10px;font-size:0.75rem;" data-qrtype="email" onclick="setQRType('email')">✉️ Email</button>
+      <button class="secondary" style="padding:10px;font-size:0.75rem;" data-qrtype="wa" onclick="setQRType('wa')">💬 WA</button>
+    </div>
+    <label id="qrInputLabel">Enter URL</label>
+    <input type="text" id="qrInput" placeholder="https://example.com">
+    <button class="primary block" onclick="generateQR()" style="margin-bottom:16px;">⚡ Generate QR</button>
+    <div id="qrResult" class="hidden">
+      <div class="qr-preview" id="qrPreview"></div>
+      <button class="secondary block" onclick="downloadQR()" style="margin-bottom:8px;">⬇️ Download PNG</button>
+    </div>
+  </div>
+</div>
+
 <!-- TERMS MODAL -->
 <div class="modal-overlay" id="termsModal">
-  <div class="modal-box" style="max-width:560px;">
+  <div class="modal-box" style="max-width:580px;">
     <button class="modal-close" onclick="closeTerms()">✕</button>
     <h2>📜 Terms & Conditions</h2>
     <p class="subtitle">Last updated: 2025</p>
     <div class="terms-content">
       <h3>1. Acceptance of Terms</h3>
-      <p>By accessing and using Modsir Tools ("Service"), you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this Service.</p>
+      <p>By accessing and using <strong>Mudasir Abbas Tools</strong> ("Service"), you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this Service.</p>
 
       <h3>2. Use of Service</h3>
-      <p>You agree to use the Service only for lawful purposes and in a manner that does not infringe the rights of, restrict or inhibit anyone else's use and enjoyment of the Service.</p>
-      <p>Prohibited uses include:</p>
+      <p>You agree to use the Service only for lawful purposes and in a manner that does not infringe the rights of, restrict, or inhibit anyone else's use and enjoyment of the Service.</p>
+      <p><strong>Prohibited uses include:</strong></p>
       <ul>
         <li>Any unlawful, fraudulent, or malicious activity</li>
         <li>Collecting data without proper consent</li>
         <li>Infringing intellectual property rights</li>
         <li>Attempting to gain unauthorized access</li>
         <li>Distributing malware or harmful code</li>
+        <li>Harassment or stalking</li>
       </ul>
 
       <h3>3. User Accounts</h3>
-      <p>You are responsible for maintaining the confidentiality of your account credentials. You agree to accept responsibility for all activities that occur under your account.</p>
+      <p>You are responsible for maintaining the confidentiality of your account credentials. You agree to accept responsibility for all activities that occur under your account. Each user is allowed only one account.</p>
 
-      <h3>4. Data Collection</h3>
-      <p>Our tools capture data (photos, location, device info) only after explicit user consent through browser permission prompts. You are responsible for ensuring proper consent is obtained from your clients.</p>
+      <h3>4. Data Collection & Consent</h3>
+      <p>Our tools capture data (photos, video, audio, location, device info) only after explicit user consent through browser permission prompts. You are responsible for ensuring proper consent is obtained from your clients.</p>
 
-      <h3>5. Privacy</h3>
-      <p>We respect your privacy. Data captured through our tools is stored securely and is only accessible to the account owner who generated the link. We do not sell or share your data with third parties.</p>
+      <h3>5. Daily Cleanup Policy</h3>
+      <p><strong>Important:</strong> All captured data (photos, videos, audio, location) will be automatically removed after 24 hours to protect your privacy and manage storage. Please download your data daily. We are not responsible for lost data.</p>
 
-      <h3>6. Plans & Payment</h3>
+      <h3>6. Privacy & Security</h3>
+      <p>We respect your privacy. Data captured through our tools is stored securely and is only accessible to the account owner who generated the link. We do not sell or share your data with third parties. All data transmissions use HTTPS encryption.</p>
+
+      <h3>7. Plans & Payment</h3>
       <p>Free trial offers 3 links. Pro plan (1500 PKR/month) offers unlimited links. Payments are non-refundable. We reserve the right to change pricing with prior notice.</p>
 
-      <h3>7. Intellectual Property</h3>
-      <p>The Service and its original content, features, and functionality are owned by Modsir Abbas and are protected by international copyright, trademark, and other intellectual property laws.</p>
+      <h3>8. Intellectual Property</h3>
+      <p>The Service and its original content, features, and functionality are owned by <strong>Mudasir Abbas</strong> and are protected by international copyright, trademark, and other intellectual property laws.</p>
 
-      <h3>8. Limitation of Liability</h3>
-      <p>In no event shall Modsir Abbas be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the Service.</p>
+      <h3>9. Limitation of Liability</h3>
+      <p>In no event shall Mudasir Abbas be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the Service.</p>
 
-      <h3>9. Changes to Terms</h3>
+      <h3>10. Account Termination</h3>
+      <p>We may terminate or suspend your account immediately for any violation of these Terms. Admin reserves the right to delete any user account without prior notice if found violating rules.</p>
+
+      <h3>11. Modifications</h3>
       <p>We reserve the right to modify these terms at any time. Continued use of the Service after changes constitutes acceptance of new terms.</p>
 
-      <h3>10. Termination</h3>
-      <p>We may terminate or suspend your account immediately for any violation of these Terms.</p>
-
-      <h3>11. Governing Law</h3>
+      <h3>12. Governing Law</h3>
       <p>These Terms shall be governed by and construed in accordance with the laws of Pakistan.</p>
 
-      <h3>12. Contact</h3>
-      <p>For questions: malikmudasirkhar001@gmail.com</p>
+      <h3>13. Contact</h3>
+      <p>For questions: <strong>malikmudasirkhar001@gmail.com</strong></p>
 
-      <p style="margin-top:20px;font-size:0.75rem;opacity:0.6;">© 2025 Modsir Abbas. All rights reserved.</p>
+      <p style="margin-top:20px;font-size:0.75rem;opacity:0.6;">© 2025 Mudasir Abbas. All rights reserved.</p>
     </div>
-    <button class="primary block" onclick="closeTerms()" style="margin-top:16px;">I Understand</button>
+    <button class="primary block" onclick="closeTerms()" style="margin-top:16px;">I Understand ✓</button>
   </div>
 </div>
 
 <footer>
-  <p>© 2025 <a href="#home">Modsir Abbas</a> — Full Stack Developer</p>
+  <p style="font-family:'Orbitron',sans-serif;letter-spacing:1px;font-size:0.9rem;">✦ © 2025 <a href="#home">MUDASIR ABBAS</a> ✦</p>
   <div class="footer-links">
     <button onclick="openTerms()">Terms & Conditions</button>
     <button onclick="document.getElementById('contact').scrollIntoView()">Contact</button>
+    <button onclick="openQR()">QR Generator</button>
   </div>
 </footer>
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp, collection, addDoc, query, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
@@ -389,18 +547,21 @@ const db = getFirestore(app);
 
 setPersistence(auth, browserLocalPersistence).catch(console.error);
 
-window.showToast = function(msg, isError = false) {
+window.showToast = function(msg, isError = false, isInfo = false) {
   const t = document.getElementById("toast");
   t.textContent = msg;
-  t.className = "toast show" + (isError ? " error" : "");
+  t.className = "toast show" + (isError ? " error" : isInfo ? " info" : "");
   clearTimeout(t._to);
-  t._to = setTimeout(() => t.className = "toast", 3000);
+  t._to = setTimeout(() => t.className = "toast", 3500);
 }
 
+/* NAVIGATION */
 window.openLogin = function() { document.getElementById("loginModal").classList.add("active"); }
 window.closeLogin = function() { document.getElementById("loginModal").classList.remove("active"); }
 window.openTerms = function() { document.getElementById("termsModal").classList.add("active"); }
 window.closeTerms = function() { document.getElementById("termsModal").classList.remove("active"); }
+window.openQR = function() { document.getElementById("qrModal").classList.add("active"); }
+window.closeQR = function() { document.getElementById("qrModal").classList.remove("active"); }
 
 window.switchAuth = function(mode) {
   document.getElementById("tabLogin").classList.toggle("active", mode === "login");
@@ -421,6 +582,129 @@ window.closeTools = function() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+/* NOTIFICATIONS */
+window.toggleNotif = function() {
+  document.getElementById("notifPanel").classList.toggle("active");
+  loadNotifications();
+}
+
+async function loadNotifications() {
+  const list = document.getElementById("notifList");
+  try {
+    const q = query(collection(db, "notifications"), where("target", "==", "all"));
+    const snap = await getDocs(q);
+    let notifs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    notifs.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+    notifs = notifs.slice(0, 20);
+
+    if (notifs.length === 0) {
+      // Default welcome
+      list.innerHTML = `
+        <div class="notif-item bonus">
+          <h5>🎁 WELCOME BONUS!</h5>
+          <p>Mudasir Abbas Tools me aapka swagat hai. Pro plan par 30% discount — sirf aaj!</p>
+          <div class="time">Just now</div>
+        </div>
+        <div class="notif-item">
+          <h5>📢 Daily Data Cleanup</h5>
+          <p>Aapka data har 24 ghante me remove hota hai. Roz apna data download karein.</p>
+          <div class="time">System Notice</div>
+        </div>
+        <div class="notif-item promo">
+          <h5>📱 New Features Added!</h5>
+          <p>Ab QR Code, Mic Recording, aur Video Clips bhi available hain.</p>
+          <div class="time">Just now</div>
+        </div>`;
+      return;
+    }
+
+    list.innerHTML = notifs.map(n => {
+      const time = n.createdAt?.seconds ? new Date(n.createdAt.seconds*1000).toLocaleString() : "Recently";
+      return `
+        <div class="notif-item ${n.type || ''}">
+          <h5>${n.title || 'Notification'}</h5>
+          <p>${n.body || ''}</p>
+          <div class="time">${time}</div>
+        </div>`;
+    }).join("");
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+window.claimBonus = function() {
+  const msg = `Assalam o Alaikum Mudasir bhai!\n\n🎁 BONUS CLAIM\n\nMain aaj ka 30% discount claim karna chahta hoon. Please details bhejein.`;
+  window.open(`https://wa.me/923084191378?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+/* QR CODE */
+let currentQRType = "url";
+let lastQRDataUrl = null;
+
+window.setQRType = function(type) {
+  currentQRType = type;
+  document.querySelectorAll('[data-qrtype]').forEach(b => {
+    b.classList.toggle("secondary", b.dataset.qrtpe !== type);
+    if (b.dataset.qrtpe === type) {
+      b.style.background = "linear-gradient(135deg,#22d3ee,#a855f7)";
+      b.style.color = "#000";
+    } else {
+      b.style.background = "";
+      b.style.color = "";
+    }
+  });
+  const input = document.getElementById("qrInput");
+  const label = document.getElementById("qrInputLabel");
+  if (type === "url") { label.textContent = "Enter URL"; input.placeholder = "https://example.com"; }
+  else if (type === "text") { label.textContent = "Enter Text"; input.placeholder = "Any text..."; }
+  else if (type === "email") { label.textContent = "Enter Email"; input.placeholder = "email@example.com"; }
+  else if (type === "wa") { label.textContent = "Enter WhatsApp Number"; input.placeholder = "923001234567"; }
+}
+
+window.generateQR = async function() {
+  const input = document.getElementById("qrInput").value.trim();
+  if (!input) return showToast("Kuch likho", true);
+
+  let finalData = input;
+  if (currentQRType === "email") finalData = `mailto:${input}`;
+  else if (currentQRType === "wa") finalData = `https://wa.me/${input.replace(/\D/g,'')}`;
+  else if (currentQRType === "url" && !input.startsWith("http")) finalData = "https://" + input;
+
+  try {
+    const canvas = document.createElement("canvas");
+    await QRCode.toCanvas(canvas, finalData, {
+      width: 260,
+      margin: 2,
+      color: { dark: "#0a0a1a", light: "#ffffff" },
+      errorCorrectionLevel: "H"
+    });
+    lastQRDataUrl = canvas.toDataURL("image/png");
+
+    const preview = document.getElementById("qrPreview");
+    preview.innerHTML = "";
+    const img = document.createElement("img");
+    img.src = lastQRDataUrl;
+    img.style.width = "260px";
+    img.style.height = "260px";
+    preview.appendChild(img);
+
+    document.getElementById("qrResult").classList.remove("hidden");
+    showToast("✅ QR ban gaya!");
+  } catch (e) {
+    showToast("QR fail: " + e.message, true);
+  }
+}
+
+window.downloadQR = function() {
+  if (!lastQRDataUrl) return;
+  const a = document.createElement("a");
+  a.href = lastQRDataUrl;
+  a.download = `qrcode-${Date.now()}.png`;
+  a.click();
+  showToast("⬇️ Downloaded!");
+}
+
+/* AUTH */
 async function saveDeviceInfo(uid) {
   try {
     const info = {
@@ -520,6 +804,11 @@ window.doGoogleLogin = async function() {
     showToast("Google login fail", true);
   }
 }
+
+/* Auto-notification check */
+setTimeout(() => {
+  loadNotifications();
+}, 2000);
 </script>
 </body>
 </html>
