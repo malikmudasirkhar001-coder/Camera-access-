@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Modsir Abbas - Portfolio & Tools</title>
+<title>Modsir Abbas - Full Stack Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--gold:#fbbf24;--danger:#ef4444;--text:#fff;--text-dim:rgba(255,255,255,0.6);--glass:rgba(255,255,255,0.04);--glass-2:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.08);--border-2:rgba(255,255,255,0.15);}
@@ -14,204 +14,258 @@
   @keyframes bgFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
   .hidden{display:none !important;}
   .container{max-width:1100px;margin:0 auto;padding:20px 18px 40px;}
-  .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-  .brand{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;}
-  .brand-logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 8px 24px rgba(34,211,238,0.35);font-weight:800;color:#000;}
-  .brand-text{display:flex;flex-direction:column;line-height:1.1;}
+
+  /* NAVBAR */
+  .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.8);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;text-decoration:none;color:inherit;}
+  .brand-logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800;color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.35);overflow:hidden;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.15;}
   .brand-text small{font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);opacity:0.9;}
-  .nav-menu{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-  .nav-link{padding:9px 16px;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--text-dim);font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.25s;font-family:inherit;text-decoration:none;}
+  .nav-menu{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  .nav-link{padding:9px 14px;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--text-dim);font-weight:600;font-size:0.82rem;cursor:pointer;transition:0.25s;font-family:inherit;text-decoration:none;}
   .nav-link:hover{background:var(--glass);border-color:var(--border);color:#fff;}
   .nav-link.cta{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;border:none;box-shadow:0 4px 16px rgba(34,211,238,0.35);}
-  .hero{padding:60px 20px 40px;text-align:center;position:relative;}
-  .hero-avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:4rem;font-weight:800;color:#000;font-family:'Space Grotesk',sans-serif;margin:0 auto 24px;box-shadow:0 24px 70px rgba(34,211,238,0.5);position:relative;animation:avatarFloat 4s ease-in-out infinite;}
+
+  /* HERO */
+  .hero{padding:50px 20px 30px;text-align:center;}
+  .hero-avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:4rem;font-weight:800;color:#000;font-family:'Space Grotesk',sans-serif;margin:0 auto 24px;box-shadow:0 24px 70px rgba(34,211,238,0.5);position:relative;animation:avatarFloat 4s ease-in-out infinite;overflow:hidden;}
   @keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-  .hero-greeting{display:inline-block;padding:6px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.82rem;color:var(--accent);font-weight:600;margin-bottom:16px;}
-  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:800;line-height:1.1;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#22d3ee 50%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  @media (max-width:640px){.hero h1{font-size:2rem;}.hero-avatar{width:110px;height:110px;font-size:3rem;}}
-  .hero-subtitle{font-size:1.1rem;color:var(--text-dim);max-width:600px;margin:0 auto 30px;line-height:1.6;}
+  .hero-greeting{display:inline-block;padding:6px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.8rem;color:var(--accent);font-weight:600;margin-bottom:16px;}
+  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:2.8rem;font-weight:800;line-height:1.1;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#22d3ee 50%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  @media (max-width:640px){.hero h1{font-size:1.9rem;}.hero-avatar{width:110px;height:110px;font-size:3rem;}}
+  .hero-subtitle{font-size:1rem;color:var(--text-dim);max-width:520px;margin:0 auto 26px;line-height:1.6;}
   .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-  button{padding:14px 26px;border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
+  button{padding:13px 24px;border-radius:12px;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
   button:active:not(:disabled){transform:scale(0.97);}
   button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4);}
   button.primary:hover{transform:translateY(-2px);}
   button.secondary{background:var(--glass-2);color:#fff;border:1px solid var(--border-2);}
   button.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;}
   button.block{width:100%;}
+
+  /* SECTIONS */
   section{padding:50px 0;}
-  .section-title{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:800;margin-bottom:12px;text-align:center;}
-  .section-subtitle{text-align:center;color:var(--text-dim);font-size:1rem;margin-bottom:36px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;}
-  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:900px;margin:0 auto;}
-  .tool-card{background:var(--glass);border:1px solid var(--border);border-radius:22px;padding:28px 24px;text-align:center;cursor:pointer;transition:0.3s;font-family:inherit;color:#fff;}
-  .tool-card:hover{background:var(--glass-2);border-color:var(--accent);transform:translateY(-6px);}
-  .tool-icon{width:70px;height:70px;margin:0 auto 18px;border-radius:20px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:2rem;}
-  .tool-card h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;margin-bottom:8px;font-weight:700;}
-  .tool-card p{font-size:0.85rem;color:var(--text-dim);line-height:1.5;}
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .section-title{font-family:'Space Grotesk',sans-serif;font-size:1.9rem;font-weight:800;margin-bottom:10px;text-align:center;}
+  .section-subtitle{text-align:center;color:var(--text-dim);font-size:0.95rem;margin-bottom:32px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6;}
+
+  /* TOOLS */
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;max-width:900px;margin:0 auto;}
+  .tool-card{background:var(--glass);border:1px solid var(--border);border-radius:22px;padding:26px 22px;text-align:center;cursor:pointer;transition:0.3s;font-family:inherit;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;}
+  .tool-card:hover{background:var(--glass-2);border-color:var(--accent);transform:translateY(-6px);box-shadow:0 20px 40px rgba(34,211,238,0.15);}
+  .tool-icon{width:70px;height:70px;margin:0 auto 16px;border-radius:20px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:2rem;}
+  .tool-card h3{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:6px;font-weight:700;}
+  .tool-card p{font-size:0.82rem;color:var(--text-dim);line-height:1.5;}
+  .tool-badge{display:inline-block;padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;font-size:0.65rem;font-weight:700;margin-top:10px;letter-spacing:0.05em;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
   @media (max-width:768px){.about-grid{grid-template-columns:1fr;}}
-  .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
-  .card h3{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:var(--accent);}
-  .timeline{position:relative;padding-left:30px;}
+  .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:26px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+  .card h3{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--accent);}
+  .timeline{position:relative;padding-left:28px;}
   .timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent-2));}
-  .timeline-item{position:relative;padding-bottom:24px;}
+  .timeline-item{position:relative;padding-bottom:20px;}
   .timeline-item:last-child{padding-bottom:0;}
-  .timeline-item::before{content:'';position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 12px var(--accent);}
-  .timeline-item h4{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin-bottom:4px;font-weight:700;}
-  .timeline-item .year{font-size:0.75rem;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
-  .timeline-item p{font-size:0.88rem;color:var(--text-dim);line-height:1.5;}
-  .skills-list{display:flex;flex-wrap:wrap;gap:10px;}
-  .skill-tag{padding:8px 16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.85rem;font-weight:600;color:var(--accent);}
-  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-top:24px;}
-  .stat-box{background:linear-gradient(160deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.2);border-radius:16px;padding:20px 16px;text-align:center;}
-  .stat-box h4{font-family:'Space Grotesk',sans-serif;font-size:2rem;color:var(--accent);margin-bottom:4px;font-weight:800;}
-  .stat-box p{font-size:0.78rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;}
+  .timeline-item::before{content:'';position:absolute;left:-24px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 12px var(--accent);}
+  .timeline-item h4{font-family:'Space Grotesk',sans-serif;font-size:1rem;margin-bottom:2px;font-weight:700;}
+  .timeline-item .year{font-size:0.72rem;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:4px;letter-spacing:0.05em;}
+  .timeline-item p{font-size:0.85rem;color:var(--text-dim);line-height:1.5;}
+  .skills-list{display:flex;flex-wrap:wrap;gap:8px;}
+  .skill-tag{padding:7px 14px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:20px;font-size:0.8rem;font-weight:600;color:var(--accent);}
+  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
+  .stat-box{background:linear-gradient(160deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.2);border-radius:16px;padding:16px 10px;text-align:center;}
+  .stat-box h4{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;color:var(--accent);margin-bottom:4px;font-weight:800;}
+  .stat-box p{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;}
+
+  /* CONTACT */
   .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:700px;margin:0 auto;}
   .contact-card{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px;text-align:center;text-decoration:none;color:#fff;transition:0.25s;display:block;}
   .contact-card:hover{background:var(--glass-2);border-color:var(--accent);transform:translateY(-4px);}
   .contact-card .cc-icon{font-size:2rem;margin-bottom:10px;}
   .contact-card h4{font-family:'Space Grotesk',sans-serif;font-size:1rem;margin-bottom:4px;}
-  .contact-card p{font-size:0.8rem;color:var(--text-dim);}
+  .contact-card p{font-size:0.78rem;color:var(--text-dim);}
+
+  /* MODAL */
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;overflow-y:auto;}
   .modal-overlay.active{display:flex;}
-  .modal-box{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.3);border-radius:24px;padding:32px 26px;max-width:440px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;}
-  @keyframes popIn{0%{transform:scale(0.85);opacity:0}100%{transform:scale(1);opacity:1}}
-  .modal-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;border:1px solid rgba(255,255,255,0.15);cursor:pointer;}
-  .modal-box h2{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;margin-bottom:6px;text-align:center;}
-  .modal-box p.subtitle{text-align:center;color:var(--text-dim);font-size:0.85rem;margin-bottom:24px;}
-  input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--border-2);background:rgba(0,0,0,0.3);color:#fff;font-size:0.95rem;outline:none;margin-bottom:14px;font-family:inherit;transition:0.2s;}
+  .modal-box{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.3);border-radius:24px;padding:30px 24px;max-width:430px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);position:relative;}
+  .modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;border:1px solid rgba(255,255,255,0.15);cursor:pointer;}
+  .modal-box h2{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:6px;text-align:center;}
+  .modal-box p.subtitle{text-align:center;color:var(--text-dim);font-size:0.82rem;margin-bottom:22px;}
+  input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid var(--border-2);background:rgba(0,0,0,0.3);color:#fff;font-size:0.92rem;outline:none;margin-bottom:12px;font-family:inherit;transition:0.2s;}
   input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,211,238,0.15);}
   input::placeholder{color:rgba(255,255,255,0.4);}
-  label{display:block;font-size:0.8rem;margin-bottom:6px;opacity:0.75;font-weight:600;}
+  label{display:block;font-size:0.78rem;margin-bottom:5px;opacity:0.75;font-weight:600;}
   .modal-tabs{display:flex;gap:6px;background:rgba(0,0,0,0.4);border-radius:14px;padding:6px;margin-bottom:20px;border:1px solid var(--border);}
-  .modal-tab{flex:1;padding:11px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.88rem;cursor:pointer;font-family:inherit;}
+  .modal-tab{flex:1;padding:10px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);font-weight:600;font-size:0.85rem;cursor:pointer;font-family:inherit;}
   .modal-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
-  .google-btn{background:#fff;color:#000;font-weight:600;border:1px solid rgba(0,0,0,0.1);width:100%;padding:13px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:0.95rem;}
-  .divider{display:flex;align-items:center;gap:10px;margin:18px 0;}
+  .google-btn{background:#fff;color:#000;font-weight:600;border:1px solid rgba(0,0,0,0.1);width:100%;padding:12px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:0.9rem;}
+  .divider{display:flex;align-items:center;gap:10px;margin:16px 0;}
   .divider .line{flex:1;height:1px;background:rgba(255,255,255,0.1);}
-  .divider .text{font-size:0.72rem;opacity:0.5;}
-  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.88rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s;z-index:2000;pointer-events:none;}
+  .divider .text{font-size:0.7rem;opacity:0.5;}
+  .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.85rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s;z-index:2000;pointer-events:none;}
   .toast.show{opacity:1;transform:translateY(0);}
   .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);}
-  footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.85rem;margin-top:40px;}
+  footer{text-align:center;padding:36px 20px;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.82rem;margin-top:30px;}
   footer a{color:var(--accent);text-decoration:none;}
-  .tools-detail{padding:30px 0;}
-  .back-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--glass);border:1px solid var(--border);border-radius:10px;color:#fff;font-weight:600;font-size:0.85rem;cursor:pointer;margin-bottom:24px;font-family:inherit;}
-  .back-btn:hover{background:var(--glass-2);}
-  .detail-title{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;margin-bottom:12px;font-weight:800;}
-  .detail-desc{color:var(--text-dim);font-size:0.95rem;line-height:1.6;margin-bottom:30px;max-width:700px;}
 </style>
 </head>
 <body>
 
 <div class="navbar">
-  <div class="brand">
+  <a href="#home" class="brand">
     <div class="brand-logo">M</div>
-    <div class="brand-text"><span>Modsir Abbas</span><small>Developer & Tools</small></div>
-  </div>
+    <div class="brand-text">
+      <span>Modsir Abbas</span>
+      <small>Full Stack Dev</small>
+    </div>
+  </a>
   <div class="nav-menu">
     <a href="#home" class="nav-link">Home</a>
     <a href="#about" class="nav-link">About</a>
     <a href="#tools" class="nav-link">Tools</a>
     <a href="#contact" class="nav-link">Contact</a>
-    <button class="nav-link cta" onclick="openLogin()">Login / Sign Up</button>
+    <button class="nav-link cta" onclick="openLogin()">Login</button>
   </div>
 </div>
 
-<div id="homeView">
-  <section class="hero" id="home">
-    <div class="hero-avatar">MA</div>
-    <div class="hero-greeting">👋 Welcome to my portfolio</div>
-    <h1>Modsir Abbas</h1>
-    <p class="hero-subtitle">Full-Stack Developer • Building modern web applications & professional data tools</p>
-    <div class="hero-actions">
-      <button class="primary" onclick="document.getElementById('tools').scrollIntoView()">🚀 Explore Tools</button>
-      <button class="secondary" onclick="document.getElementById('about').scrollIntoView()">📄 About Me</button>
-    </div>
-  </section>
+<section class="hero" id="home">
+  <div class="hero-avatar">MA</div>
+  <div class="hero-greeting">👋 Welcome to my portfolio</div>
+  <h1>Modsir Abbas</h1>
+  <p class="hero-subtitle">Full-Stack Developer • Building modern web apps & professional data tools</p>
+  <div class="hero-actions">
+    <button class="primary" onclick="document.getElementById('tools').scrollIntoView()">🚀 Explore Tools</button>
+    <button class="secondary" onclick="document.getElementById('about').scrollIntoView()">📄 About Me</button>
+  </div>
+</section>
 
-  <section id="about">
-    <div class="container">
-      <h2 class="section-title">About Me</h2>
-      <p class="section-subtitle">My journey in tech — from Matric to becoming a full-stack developer</p>
-      <div class="about-grid">
-        <div class="card">
-          <h3>🎓 Education</h3>
-          <div class="timeline">
-            <div class="timeline-item"><div class="year">Matric</div><h4>Science Stream</h4><p>Completed secondary education with focus on Science</p></div>
-            <div class="timeline-item"><div class="year">FA IT</div><h4>Intermediate in IT</h4><p>Studied Information Technology fundamentals</p></div>
-            <div class="timeline-item"><div class="year">BS IT</div><h4>Bachelor of Science in IT</h4><p>Specialized in programming, web development & databases</p></div>
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">About Me</h2>
+    <p class="section-subtitle">My journey in tech — from Matric to becoming a full-stack developer</p>
+    <div class="about-grid">
+      <div class="card">
+        <h3>🎓 Education</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="year">Matric</div>
+            <h4>Science Stream</h4>
+            <p>Completed secondary education with focus on Science</p>
           </div>
-        </div>
-        <div class="card">
-          <h3>💼 Skills & Expertise</h3>
-          <p style="opacity:0.75;font-size:0.88rem;margin-bottom:16px;line-height:1.6;">Building modern, secure & scalable web applications</p>
-          <div class="skills-list">
-            <span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">Firebase</span><span class="skill-tag">Firestore</span><span class="skill-tag">REST APIs</span>
-            <span class="skill-tag">Responsive Design</span><span class="skill-tag">React Basics</span><span class="skill-tag">Node.js</span>
-            <span class="skill-tag">MongoDB</span><span class="skill-tag">Authentication</span><span class="skill-tag">Git & GitHub</span>
+          <div class="timeline-item">
+            <div class="year">FA IT</div>
+            <h4>Intermediate in IT</h4>
+            <p>Studied Information Technology fundamentals</p>
           </div>
-          <div class="stats-row">
-            <div class="stat-box"><h4>15+</h4><p>Projects</p></div>
-            <div class="stat-box"><h4>2+</h4><p>Years</p></div>
-            <div class="stat-box"><h4>100%</h4><p>Dedication</p></div>
+          <div class="timeline-item">
+            <div class="year">BS IT</div>
+            <h4>Bachelor of Science in IT</h4>
+            <p>Specialized in programming, web development & databases</p>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section id="tools">
-    <div class="container">
-      <h2 class="section-title">My Tools & Services</h2>
-      <p class="section-subtitle">Click on any tool to explore</p>
-      <div class="tools-grid">
-        <button class="tool-card" onclick="openToolDetail('webdev')"><div class="tool-icon">💻</div><h3>Web Development</h3><p>Custom websites, landing pages & web apps</p></button>
-        <button class="tool-card" onclick="openToolDetail('camera')"><div class="tool-icon">📷</div><h3>Camera Access</h3><p>Photo capture tools with live dashboard</p></button>
-        <button class="tool-card" onclick="openToolDetail('location')"><div class="tool-icon">📍</div><h3>Location Tracking</h3><p>GPS capture & real-time tracking</p></button>
-        <button class="tool-card" onclick="openToolDetail('device')"><div class="tool-icon">📱</div><h3>Device Info</h3><p>Comprehensive device information capture</p></button>
-        <button class="tool-card" onclick="openToolDetail('video')"><div class="tool-icon">🎥</div><h3>Video Recording</h3><p>Browser-based video recording tools</p></button>
-        <button class="tool-card" onclick="openToolDetail('full')"><div class="tool-icon">⚡</div><h3>Full Access Pro</h3><p>All features unlocked in one package</p></button>
+      <div class="card">
+        <h3>💼 Skills & Expertise</h3>
+        <p style="opacity:0.75;font-size:0.85rem;margin-bottom:14px;line-height:1.6;">Building modern, secure & scalable web applications</p>
+        <div class="skills-list">
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS3</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">Firestore</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">Responsive</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">MongoDB</span>
+          <span class="skill-tag">Git</span>
+        </div>
+        <div class="stats-row">
+          <div class="stat-box"><h4>15+</h4><p>Projects</p></div>
+          <div class="stat-box"><h4>2+</h4><p>Years</p></div>
+          <div class="stat-box"><h4>100%</h4><p>Dedication</p></div>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="container">
-      <h2 class="section-title">Get in Touch</h2>
-      <p class="section-subtitle">Let's build something amazing together</p>
-      <div class="contact-grid">
-        <a href="https://wa.me/923084191378" target="_blank" class="contact-card"><div class="cc-icon">💬</div><h4>WhatsApp</h4><p>0308 419 1378</p></a>
-        <a href="mailto:malikmudasirkhar001@gmail.com" class="contact-card"><div class="cc-icon">✉️</div><h4>Email</h4><p>malikmudasirkhar001</p></a>
-        <a href="#home" class="contact-card"><div class="cc-icon">🌐</div><h4>Portfolio</h4><p>camera-access-xi</p></a>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div id="toolDetailView" class="hidden">
-  <div class="container tools-detail">
-    <button class="back-btn" onclick="closeToolDetail()">← Back to Home</button>
-    <h1 class="detail-title" id="detailTitle">Tool</h1>
-    <p class="detail-desc" id="detailDesc">Description</p>
-    <div class="card" style="text-align:center;padding:40px 20px;">
-      <div style="font-size:3rem;margin-bottom:16px;">🔐</div>
-      <h3 style="justify-content:center;margin-bottom:12px;">Login Required</h3>
-      <p style="opacity:0.7;font-size:0.9rem;margin-bottom:20px;line-height:1.6;">Is tool ko use karne ke liye login karna zaroori hai.<br>Free account me 3 links, Pro me unlimited.</p>
-      <button class="primary" onclick="openLogin()">🔓 Login / Sign Up</button>
     </div>
   </div>
-</div>
+</section>
 
+<section id="tools">
+  <div class="container">
+    <h2 class="section-title">My Tools & Services</h2>
+    <p class="section-subtitle">Click on any tool to explore</p>
+    <div class="tools-grid">
+      <a href="live-tv.html" class="tool-card">
+        <div class="tool-icon">📺</div>
+        <h3>Live TV Portal</h3>
+        <p>50+ Pakistani & international channels streaming live</p>
+        <span class="tool-badge">NEW</span>
+      </a>
+      <button class="tool-card" onclick="openLogin()">
+        <div class="tool-icon">📷</div>
+        <h3>Camera Access</h3>
+        <p>Professional photo capture with live dashboard</p>
+      </button>
+      <button class="tool-card" onclick="openLogin()">
+        <div class="tool-icon">📍</div>
+        <h3>Location Tracking</h3>
+        <p>GPS capture & real-time tracking</p>
+      </button>
+      <button class="tool-card" onclick="openLogin()">
+        <div class="tool-icon">📱</div>
+        <h3>Device Info</h3>
+        <p>Complete device information capture</p>
+      </button>
+      <button class="tool-card" onclick="openLogin()">
+        <div class="tool-icon">🎥</div>
+        <h3>Video Recording</h3>
+        <p>Browser-based video recording tool</p>
+      </button>
+      <button class="tool-card" onclick="openLogin()">
+        <div class="tool-icon">⚡</div>
+        <h3>Full Access Pro</h3>
+        <p>All features unlocked — unlimited</p>
+        <span class="tool-badge" style="background:linear-gradient(135deg,var(--gold),#f59e0b);">PRO</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="section-subtitle">Let's build something amazing together</p>
+    <div class="contact-grid">
+      <a href="https://wa.me/923084191378" target="_blank" class="contact-card">
+        <div class="cc-icon">💬</div>
+        <h4>WhatsApp</h4>
+        <p>0308 419 1378</p>
+      </a>
+      <a href="mailto:malikmudasirkhar001@gmail.com" class="contact-card">
+        <div class="cc-icon">✉️</div>
+        <h4>Email</h4>
+        <p>malikmudasirkhar001</p>
+      </a>
+      <a href="live-tv.html" class="contact-card">
+        <div class="cc-icon">📺</div>
+        <h4>Live TV</h4>
+        <p>Watch Now</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeLogin()">✕</button>
-    <h2>Welcome Back</h2>
+    <h2>Welcome</h2>
     <p class="subtitle">Login karo ya naya account banao</p>
     <div class="modal-tabs">
       <button class="modal-tab active" id="tabLogin" onclick="switchAuth('login')">Login</button>
       <button class="modal-tab" id="tabRegister" onclick="switchAuth('register')">Register</button>
     </div>
+
     <div id="loginForm">
       <label>Email</label>
       <input type="email" id="loginEmail" placeholder="your@email.com">
@@ -224,6 +278,7 @@
         Continue with Google
       </button>
     </div>
+
     <div id="registerForm" class="hidden">
       <label>Full Name</label>
       <input type="text" id="regName" placeholder="Aapka naam">
@@ -243,13 +298,14 @@
 
 <footer>
   <p>© 2025 <a href="#home">Modsir Abbas</a> — Full Stack Developer</p>
+  <p style="margin-top:6px;font-size:0.75rem;">Built with ❤️ using Firebase</p>
 </footer>
 
 <div class="toast" id="toast"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -267,12 +323,15 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+/* Auto-login: user ko yaad rakho */
+setPersistence(auth, browserLocalPersistence).catch(console.error);
+
 window.showToast = function(msg, isError = false) {
   const t = document.getElementById("toast");
   t.textContent = msg;
   t.className = "toast show" + (isError ? " error" : "");
   clearTimeout(t._to);
-  t._to = setTimeout(() => t.className = "toast", 3500);
+  t._to = setTimeout(() => t.className = "toast", 3000);
 }
 
 window.openLogin = function() { document.getElementById("loginModal").classList.add("active"); }
@@ -284,29 +343,18 @@ window.switchAuth = function(mode) {
   document.getElementById("registerForm").classList.toggle("hidden", mode !== "register");
 }
 
-const toolData = {
-  webdev: { title: "💻 Web Development", desc: "Custom-built modern websites, landing pages and full-stack web applications. Built with the latest technologies including HTML5, CSS3, JavaScript, Firebase & more." },
-  camera: { title: "📷 Camera Access Tool", desc: "Professional photo capture tool with real-time dashboard. Perfect for consent-based data collection, event photobooths, and security audits." },
-  location: { title: "📍 Location Tracking", desc: "GPS-based location capture with high accuracy. Ideal for field surveys, delivery tracking, and consent-based location monitoring." },
-  device: { title: "📱 Device Info Tool", desc: "Comprehensive device information capture including screen resolution, browser, OS, hardware details, network info and more." },
-  video: { title: "🎥 Video Recording", desc: "Browser-based video recording tool with audio. Save recordings directly to your dashboard securely." },
-  full: { title: "⚡ Full Access Pro", desc: "Unlimited access to all tools. Camera, location, video, device info — everything unlocked. Perfect for professional use." }
-};
-
-window.openToolDetail = function(key) {
-  const tool = toolData[key];
-  if (!tool) return;
-  document.getElementById("detailTitle").textContent = tool.title;
-  document.getElementById("detailDesc").textContent = tool.desc;
-  document.getElementById("homeView").classList.add("hidden");
-  document.getElementById("toolDetailView").classList.remove("hidden");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-window.closeToolDetail = function() {
-  document.getElementById("toolDetailView").classList.add("hidden");
-  document.getElementById("homeView").classList.remove("hidden");
-  document.getElementById("tools").scrollIntoView();
+async function saveDeviceInfo(uid) {
+  try {
+    const info = {
+      platform: navigator.platform || "-",
+      browser: navigator.userAgent.includes("Chrome") ? "Chrome" : navigator.userAgent.includes("Firefox") ? "Firefox" : "Browser",
+      screen: `${screen.width}x${screen.height}`,
+      language: navigator.language,
+      userAgent: navigator.userAgent.slice(0, 200),
+      timestamp: serverTimestamp()
+    };
+    await setDoc(doc(db, "users", uid), { lastDevice: info, lastLogin: serverTimestamp() }, { merge: true });
+  } catch (e) { console.error(e); }
 }
 
 window.doRegister = async function() {
@@ -315,7 +363,6 @@ window.doRegister = async function() {
   const pass = document.getElementById("regPass").value;
   if (!name || !email || !pass) return showToast("Sab fields bharo", true);
   if (pass.length < 6) return showToast("Password 6+ characters ka ho", true);
-  if (!/^\S+@\S+\.\S+$/.test(email)) return showToast("Valid email daalo", true);
   document.getElementById("regBtn").disabled = true;
   document.getElementById("regBtn").textContent = "Creating...";
   try {
@@ -324,8 +371,12 @@ window.doRegister = async function() {
     await setDoc(doc(db, "users", cred.user.uid), {
       name, email, plan: "trial", linksUsed: 0, provider: "email", createdAt: serverTimestamp()
     });
-    showToast("Account bana! Redirecting...");
-    setTimeout(() => location.href = "dashboard.html", 1200);
+    await saveDeviceInfo(cred.user.uid);
+    showToast("Account bana! 🎉");
+    setTimeout(() => {
+      if (email === ADMIN_EMAIL) location.href = "admin.html";
+      else location.href = "dashboard.html";
+    }, 1200);
   } catch (e) {
     let msg = e.message;
     if (e.code === "auth/email-already-in-use") msg = "Ye email already registered hai";
@@ -345,12 +396,12 @@ window.doLogin = async function() {
   document.getElementById("loginBtn").textContent = "Logging in...";
   try {
     const cred = await signInWithEmailAndPassword(auth, email, pass);
+    await saveDeviceInfo(cred.user.uid);
     showToast("Welcome back! 👋");
-    if (cred.user.email === ADMIN_EMAIL) {
-      setTimeout(() => location.href = "admin.html", 1200);
-    } else {
-      setTimeout(() => location.href = "dashboard.html", 1200);
-    }
+    setTimeout(() => {
+      if (email === ADMIN_EMAIL) location.href = "admin.html";
+      else location.href = "dashboard.html";
+    }, 1000);
   } catch (e) {
     showToast("Galat email ya password", true);
   } finally {
@@ -373,15 +424,15 @@ window.doGoogleLogin = async function() {
         photoURL: user.photoURL || null, createdAt: serverTimestamp()
       });
     }
+    await saveDeviceInfo(user.uid);
     showToast(`Welcome ${user.displayName || ""}! 🎉`);
-    if (user.email === ADMIN_EMAIL) {
-      setTimeout(() => location.href = "admin.html", 1200);
-    } else {
-      setTimeout(() => location.href = "dashboard.html", 1200);
-    }
+    setTimeout(() => {
+      if (user.email === ADMIN_EMAIL) location.href = "admin.html";
+      else location.href = "dashboard.html";
+    }, 1200);
   } catch (e) {
     if (e.code === "auth/popup-closed-by-user") return;
-    showToast("Google login fail: " + e.message, true);
+    showToast("Google login fail", true);
   }
 }
 </script>
