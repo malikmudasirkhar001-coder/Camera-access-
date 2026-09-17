@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -103,7 +103,7 @@
   .toast.show{opacity:1;transform:translateY(0);}
   .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);box-shadow:0 16px 40px rgba(239,68,68,0.5);}
   .toast.info{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;backdrop-filter:blur(10px);}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,0.96);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;}
   .modal.active{display:flex;}
   .modal-content{max-width:100%;max-height:90vh;border-radius:16px;overflow:hidden;}
   .modal-content img{max-width:100%;max-height:90vh;display:block;border-radius:16px;}
@@ -121,25 +121,22 @@
   .how-to-use h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;margin-bottom:10px;color:var(--accent-3);display:flex;align-items:center;gap:8px;}
   .how-to-use ol{padding-left:20px;}
   .how-to-use li{margin-bottom:6px;opacity:0.85;}
-
-  /* ====== LINK POPUP MODAL ====== */
   .link-popup{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:600;padding:20px;}
   .link-popup.active{display:flex;}
   .link-popup-inner{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.4);border-radius:24px;padding:28px 22px;max-width:440px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;}
   @keyframes popIn{0%{transform:scale(0.8);opacity:0}100%{transform:scale(1);opacity:1}}
-  .link-popup-icon{width:70px;height:70px;border-radius:20px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;box-shadow:0 16px 40px rgba(34,211,238,0.4);}
+  .link-popup-icon{width:70px;height:70px;border-radius:20px;background:linear-gradient(135deg,var(--accent-3),var(--accent));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;box-shadow:0 16px 40px rgba(34,211,238,0.4);}
   .link-popup h3{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;text-align:center;margin-bottom:6px;}
   .link-popup p{text-align:center;font-size:0.82rem;opacity:0.7;margin-bottom:20px;line-height:1.5;}
-  .link-name-box{background:rgba(0,0,0,0.4);border:1px solid rgba(34,211,238,0.3);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
-  .link-name-box .ln-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.6;font-weight:700;}
-  .link-name-box .ln-value{font-family:'Space Grotesk',monospace;font-size:1.05rem;color:var(--accent);font-weight:700;letter-spacing:0.05em;}
+  .link-name-box{background:rgba(0,0,0,0.4);border:1px solid rgba(34,211,238,0.3);border-radius:14px;padding:14px 16px;margin-bottom:14px;}
+  .link-name-box .ln-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.6;font-weight:700;margin-bottom:4px;}
+  .link-name-box .ln-value{font-family:'Space Grotesk',monospace;font-size:1.05rem;color:var(--accent);font-weight:700;letter-spacing:0.05em;word-break:break-all;}
   .link-timer{background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(251,191,36,0.05));border:1px solid rgba(251,191,36,0.35);border-radius:12px;padding:12px;margin-bottom:14px;text-align:center;}
   .link-timer .lt-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.75;font-weight:700;color:var(--gold);}
   .link-timer .lt-time{font-family:'Space Grotesk',monospace;font-size:1.3rem;color:var(--gold);font-weight:700;margin-top:2px;}
-  .link-url-box{background:rgba(0,0,0,0.5);border:1px solid rgba(34,211,238,0.25);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-family:'Space Grotesk',monospace;font-size:0.75rem;color:var(--accent);word-break:break-all;max-height:70px;overflow-y:auto;line-height:1.4;}
+  .link-url-box{background:rgba(0,0,0,0.5);border:1px solid rgba(34,211,238,0.25);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-family:'Space Grotesk',monospace;font-size:0.75rem;color:var(--accent);word-break:break-all;max-height:100px;overflow-y:auto;line-height:1.4;}
   .link-popup-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;border:1px solid rgba(255,255,255,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;}
   .link-popup-close:hover{background:rgba(239,68,68,0.3);}
-
   @media (max-width:480px){.hero h1{font-size:1.55rem;}.card{padding:18px;border-radius:18px;}.feature-grid{grid-template-columns:repeat(2,1fr);gap:10px;}.media-grid{grid-template-columns:repeat(2,1fr);}.feature-btn{padding:18px 10px;}.feature-btn .fb-icon{width:46px;height:46px;font-size:1.35rem;}}
 </style>
 </head>
@@ -216,7 +213,7 @@
     <h3>📖 Kaise Use Karein</h3>
     <ol>
       <li>Neeche se koi feature select karo (Camera, Location, etc.)</li>
-      <li>Ek link popup me khulega — 30 minute tak valid</li>
+      <li>Link popup me khulega — 30 minute tak valid</li>
       <li>Link copy karke client ko bhejo (WhatsApp/Email)</li>
       <li>Client link kholega → permission dega → data aapke paas aayega</li>
       <li>30 min baad link automatic expire ho jayega (safety ke liye)</li>
@@ -293,7 +290,6 @@
   </div>
 </div>
 
-<!-- Link Popup Modal -->
 <div class="link-popup" id="linkPopup">
   <div class="link-popup-inner">
     <button class="link-popup-close" onclick="closeLinkPopup()">✕</button>
@@ -302,10 +298,8 @@
     <p>Ye link client ko bhejo — 30 minute tak valid hai</p>
 
     <div class="link-name-box">
-      <div>
-        <div class="ln-label">Link Name</div>
-        <div class="ln-value" id="popupLinkName">abc123xy</div>
-      </div>
+      <div class="ln-label">Link Name</div>
+      <div class="ln-value" id="popupLinkName">abc123xy</div>
     </div>
 
     <div class="link-timer">
@@ -331,7 +325,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebas
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where, serverTimestamp, getDoc, setDoc, updateDoc, increment, onSnapshot, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-/* ========== CONFIG ========== */
+/* ========== FIREBASE CONFIG ========== */
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
   authDomain: "decision-b42a6.firebaseapp.com",
@@ -341,6 +335,7 @@ const firebaseConfig = {
   appId: "1:108149086619:web:63f17a58695f1d7a1e293e"
 };
 
+/* ========== SETTINGS ========== */
 const WHATSAPP_NUMBER = "923084191378";
 const PRO_PRICE = "1500";
 const FREE_TRIAL_LIMIT = 3;
@@ -381,10 +376,10 @@ window.switchAuth = function(mode) {
   document.getElementById("registerForm").classList.toggle("hidden", mode !== "register");
 }
 
-/* ========== RANDOM NAME GENERATOR ========== */
+/* ========== RANDOM NAME ========== */
 function generateRandomName() {
-  const adjectives = ["swift","smart","bold","cool","rapid","sharp","prime","flash","neon","cyber","epic","nova","pulse","prime"];
-  const nouns = ["tiger","hawk","wolf","lion","fox","panther","falcon","viper","dragon","phoenix","storm","blaze","spark","bolt"];
+  const adjectives = ["swift","smart","bold","cool","rapid","sharp","prime","flash","neon","cyber","epic","nova","pulse","magic","bright"];
+  const nouns = ["tiger","hawk","wolf","lion","fox","panther","falcon","viper","dragon","phoenix","storm","blaze","spark","bolt","comet"];
   const adj = adjectives[Math.floor(Math.random()*adjectives.length)];
   const noun = nouns[Math.floor(Math.random()*nouns.length)];
   const num = Math.floor(Math.random()*9000)+1000;
@@ -518,7 +513,6 @@ function updateNavUser(user, data) {
   document.getElementById("dashName").textContent = user.displayName || "User";
   document.getElementById("dashEmail").textContent = user.email;
   document.getElementById("dashAvatar").innerHTML = photoURL ? `<img src="${photoURL}">` : initials;
-
   const plan = data?.plan || "trial";
   const planClass = plan === "pro" ? "pro" : "trial";
   const planLabel = plan === "pro" ? "👑 PRO" : "FREE TRIAL";
@@ -561,7 +555,7 @@ function updateFeatureButtons() {
   document.querySelectorAll("#featureGrid .feature-btn").forEach(btn => { btn.disabled = isTrialExhausted; });
 }
 
-/* ========== GENERATE LINK - NEW VERSION ========== */
+/* ========== GENERATE LINK ========== */
 window.generateLink = async function(feature, btnEl) {
   if (!currentUser || !userData) return showToast("Login karo pehle", true);
   if (userData.plan === "trial" && (userData.linksUsed || 0) >= FREE_TRIAL_LIMIT) {
@@ -570,7 +564,6 @@ window.generateLink = async function(feature, btnEl) {
     return;
   }
 
-  // Show spinner in button
   if (btnEl) {
     btnEl.disabled = true;
     const sp = document.createElement("div");
@@ -601,7 +594,6 @@ window.generateLink = async function(feature, btnEl) {
 
     currentPopupLink = { url, linkId, feature, expiresAt };
 
-    // Open popup
     openLinkPopup(linkId, feature, url, expiresAt);
 
     renderPlanCard();
@@ -618,14 +610,12 @@ window.generateLink = async function(feature, btnEl) {
   }
 }
 
-/* ========== LINK POPUP ========== */
 function openLinkPopup(linkId, feature, url, expiresAt) {
   document.getElementById("popupTitle").textContent = `${feature.toUpperCase()} Link Ready!`;
   document.getElementById("popupLinkName").textContent = linkId;
   document.getElementById("popupUrl").textContent = url;
   document.getElementById("linkPopup").classList.add("active");
 
-  // Start countdown
   if (popupTimerInterval) clearInterval(popupTimerInterval);
   updatePopupTimer(expiresAt);
   popupTimerInterval = setInterval(() => updatePopupTimer(expiresAt), 1000);
@@ -653,18 +643,30 @@ window.closeLinkPopup = function() {
 
 window.copyPopupLink = function() {
   if (!currentPopupLink) return;
-  navigator.clipboard.writeText(currentPopupLink.url).then(() => {
-    showToast("✅ Link copy ho gaya!");
-  }).catch(() => {
-    // Fallback
-    const ta = document.createElement("textarea");
-    ta.value = currentPopupLink.url;
-    document.body.appendChild(ta);
-    ta.select();
+  const url = currentPopupLink.url;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => {
+      showToast("✅ Link copy ho gaya!");
+    }).catch(() => fallbackCopy(url));
+  } else {
+    fallbackCopy(url);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.left = "-9999px";
+  document.body.appendChild(ta);
+  ta.select();
+  try {
     document.execCommand("copy");
-    document.body.removeChild(ta);
     showToast("✅ Link copy ho gaya!");
-  });
+  } catch (e) {
+    showToast("Copy fail — manually select karo", true);
+  }
+  document.body.removeChild(ta);
 }
 
 window.shareWhatsApp = function() {
@@ -673,7 +675,6 @@ window.shareWhatsApp = function() {
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
-/* ========== UPGRADE ========== */
 window.openUpgrade = function() { showView("upgradeView"); }
 window.closeUpgrade = function() { showView("dashboardView"); }
 window.openWhatsApp = function() {
@@ -735,6 +736,7 @@ function renderMediaFromSnap(snap) {
     if (i.photo) thumb = `<img src="${i.photo}" onclick="viewMedia('${i.id}')" loading="lazy">`;
     else if (i.type === "location") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(34,211,238,0.1);">📍</div>`;
     else if (i.type === "device") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(168,85,247,0.1);">📱</div>`;
+    else if (i.type === "video") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(239,68,68,0.1);">🎥</div>`;
     else thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">📎</div>`;
     const time = i.timestamp ? new Date(i.timestamp.seconds*1000).toLocaleString() : "";
     const loc = i.location ? `${i.location.lat?.toFixed(3)}, ${i.location.lon?.toFixed(3)}` : "";
@@ -761,7 +763,13 @@ window.viewMedia = async function(id) {
     if (!snap.exists()) return;
     const data = snap.data();
     const content = document.getElementById("modalContent");
-    content.innerHTML = data.photo ? `<img src="${data.photo}">` : `<pre style="color:#fff;padding:20px;max-width:90vw;overflow:auto;font-size:0.8rem;">${JSON.stringify(data, null, 2)}</pre>`;
+    if (data.photo) {
+      content.innerHTML = `<img src="${data.photo}">`;
+    } else if (data.video) {
+      content.innerHTML = `<video src="${data.video}" controls autoplay playsinline style="max-width:100%;max-height:90vh;border-radius:16px;"></video>`;
+    } else {
+      content.innerHTML = `<pre style="color:#fff;padding:20px;max-width:90vw;overflow:auto;font-size:0.8rem;">${JSON.stringify(data, null, 2)}</pre>`;
+    }
     document.getElementById("modal").classList.add("active");
   } catch (e) { console.error(e); }
 }
